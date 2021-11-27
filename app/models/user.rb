@@ -21,7 +21,7 @@ class User < ApplicationRecord
            through: :sent_friend_requests,
            source: :receiver
   # those who sent a user friend requests are friends once status is 'accepted'
-  has_many :received_friends, \
+  has_many :received_friends,
            through: :received_friend_requests,
            source: :sender
 
