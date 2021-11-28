@@ -13,7 +13,7 @@ class User < ApplicationRecord
   has_many :sent_pending_requests, -> { friendship_pending },
            class_name: 'Friendship',
            foreign_key: 'sender_id'
-  has_many :received_pending_requests, -> {friendship_pending },
+  has_many :received_pending_requests, -> { friendship_pending },
            class_name: 'Friendship',
            foreign_key: 'receiver_id'
 
