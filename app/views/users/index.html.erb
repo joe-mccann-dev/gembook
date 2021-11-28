@@ -2,7 +2,10 @@
 <% @users.each do |user| %>
 <ul>
   <li>
-    <p> <%= user.first_name %> <%= user.last_name %> </p> 
+    <p> <%= user.first_name %> <%= user.last_name %> </p>
+    <%= button_to "Add Friend",
+        @friendship,
+        params: { receiver_id: user.id }%>
   </li>
 </ul>
 <% end %>
