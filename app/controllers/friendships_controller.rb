@@ -14,6 +14,16 @@ class FriendshipsController < ApplicationController
     redirect_to root_url
   end
 
+  def update
+    @friendship = Friendship.where(sender_id: params[:friendship][:sender_id], receiver_id: current_user.id).first
+    if @friendship.update(friendship_params)
+      flash[:info] = 'Friendship accepted!'
+    else
+      flash[:warning] = 'Failed to accept friendship'
+    end
+    redirect_to notifications_path
+  end
+
   private
 
   def friendship_params
@@ -23,6 +33,6 @@ class FriendshipsController < ApplicationController
   def send_notification(sender, receiver)
     sender.sent_notifications.create(receiver: receiver,
                                      object_type: 'Friendship',
-                                     description: "friend request")
+                                     description: 'friend request')
   end
 end
