@@ -8,6 +8,12 @@ class User < ApplicationRecord
   has_many :likes
   has_many :liked_posts, through: :likes, source: :posts
   has_one :profile
+  has_many :sent_notifications,
+           class_name: 'Notification',
+           foreign_key: 'sender_id'
+  has_many :received_notifications,
+           class_name: 'Notification',
+           foreign_key: 'receiver_id'
 
   # PENDING FRIEND REQUESTS
   has_many :sent_pending_requests, -> { friendship_pending },
