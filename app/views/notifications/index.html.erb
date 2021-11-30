@@ -2,15 +2,23 @@
 <% @notifications.unread.each do |notification| %>
   <% case notification.object_type
        when 'Friendship' %>
-         <p>New <%= notification.description %> from <%= full_name(notification.sender) %></p>
-          <%= button_to "Accept",
-          friendship_path(Friendship.find_by(sender: notification.sender, receiver: notification.receiver)),
-          method: :put,
-          params: { friendship: { status: 'accepted', sender_id: notification.sender } } %>
-          <%= button_to "Decline",
-          friendship_path(Friendship.find_by(sender: notification.sender, receiver: notification.receiver)),
-          method: :put,
-          params: { friendship: { status: 'declined', sender_id: notification.sender } }
-          %>
+         <p style="display:inline-block; margin-right: 12px">New <%= notification.description %> from <%= full_name(notification.sender) %>
+          <span>
+            <%= button_to "Accept",
+            friendship_path(Friendship.find_by(sender: notification.sender, receiver: notification.receiver)),
+            method: :put,
+            params: { friendship: { status: 'accepted', sender_id: notification.sender } },
+            form: { style: 'display:inline-block;' } %>
+
+            <%= button_to "Decline",
+            friendship_path(Friendship.find_by(sender: notification.sender, receiver: notification.receiver)),
+            method: :put,
+            params: { friendship: { status: 'declined', sender_id: notification.sender } },
+            form: { style: ' display:inline-block; ' }
+            %>
+          </span>
+         </p>
+
+
   <% end %>
 <% end %>

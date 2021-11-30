@@ -21,11 +21,11 @@ class FriendshipsController < ApplicationController
     @friendship = Friendship.find_by(sender_id: params[:friendship][:sender_id], receiver_id: current_user.id)
     if @friendship.update(friendship_params)
       update_notification('Friendship', params[:friendship][:sender_id])
-      if @friendship.accepted?
-        flash[:info] = 'Friendship accepted!'
-      else
-        flash[:info] = 'Friendship declined.'
-      end
+      flash[:info] = if @friendship.accepted?
+                       'Friendship accepted!'
+                     else
+                       'Friendship declined.'
+                     end
     else
       flash[:warning] = 'Failed to accept friendship'
     end
