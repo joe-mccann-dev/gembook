@@ -11,14 +11,12 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
     <nav>
     <% if user_signed_in? %>
       <span>logged in as <%= current_user.first_name %></span>
       <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
       <% if current_user.received_notifications.unread.any? %>
-        <%= link_to "#{current_user.received_notifications.unread.count } New Notifications", notifications_path %>
+        <%= link_to "#{current_user.received_notifications.unread.count } unread notifications", notifications_path %>
       <% else %>
         <%= link_to "Notifications", notifications_path %>
       <% end %>

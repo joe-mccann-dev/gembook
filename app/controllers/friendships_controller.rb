@@ -2,12 +2,15 @@ class FriendshipsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @sender = current_user
-    @receiver = User.find(params[:receiver_id])
-    @friendship = @sender.sent_pending_requests.build(receiver: @receiver)
+    sender = current_user
+    receiver = User.find(params[:receiver_id])
+    @friendship = sender.sent_pending_requests.build(receiver: receiver)
     if @friendship.save
-      send_notification(@sender, @receiver)
-      flash[:success] = "Friend request sent to #{@receiver.first_name}"
+      send_notification({ sender: sender,
+                          receiver: receiver,
+                          object_type: 'Friendship',
+                          description: 'friend request' })
+      flash[:success] = "Friend request sent to #{receiver.first_name}"
     else
       flash[:warning] = 'Failed to send friend request. Please try again'
     end
@@ -15,9 +18,14 @@ class FriendshipsController < ApplicationController
   end
 
   def update
-    @friendship = Friendship.where(sender_id: params[:friendship][:sender_id], receiver_id: current_user.id).first
+    @friendship = Friendship.find_by(sender_id: params[:friendship][:sender_id], receiver_id: current_user.id)
     if @friendship.update(friendship_params)
-      flash[:info] = 'Friendship accepted!'
+      update_notification('Friendship', params[:friendship][:sender_id])
+      if @friendship.accepted?
+        flash[:info] = 'Friendship accepted!'
+      else
+        flash[:info] = 'Friendship declined.'
+      end
     else
       flash[:warning] = 'Failed to accept friendship'
     end
@@ -30,9 +38,7 @@ class FriendshipsController < ApplicationController
     params.require(:friendship).permit(:sender_id, :receiver_id, :status)
   end
 
-  def send_notification(sender, receiver)
-    sender.sent_notifications.create(receiver: receiver,
-                                     object_type: 'Friendship',
-                                     description: 'friend request')
+  def update_notification(object_type, sender_id)
+    mark_notification_as_read({ object_type: object_type, sender_id: sender_id })
   end
 end

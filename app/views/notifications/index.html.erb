@@ -4,8 +4,13 @@
        when 'Friendship' %>
          <p>New <%= notification.description %> from <%= full_name(notification.sender) %></p>
           <%= button_to "Accept",
-          friendship_path(Friendship.where(sender: notification.sender, receiver: notification.receiver).first),
+          friendship_path(Friendship.find_by(sender: notification.sender, receiver: notification.receiver)),
           method: :put,
           params: { friendship: { status: 'accepted', sender_id: notification.sender } } %>
+          <%= button_to "Decline",
+          friendship_path(Friendship.find_by(sender: notification.sender, receiver: notification.receiver)),
+          method: :put,
+          params: { friendship: { status: 'declined', sender_id: notification.sender } }
+          %>
   <% end %>
 <% end %>

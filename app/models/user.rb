@@ -81,4 +81,12 @@ class User < ApplicationRecord
   def friend_requests
     pending_requests + accepted_requests + declined_requests
   end
+
+  protected
+
+  def mark_notification_as_read(params = {})
+    received_notifications.find_by(object_type: params[:object_type],
+                                   sender_id: params[:sender_id])
+                          .update(read: true)
+  end
 end
