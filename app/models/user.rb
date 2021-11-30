@@ -36,17 +36,28 @@ class User < ApplicationRecord
            foreign_key: 'receiver_id'
 
   # FRIENDS
+  has_many :pending_requested_friends,
+           through: :sent_pending_requests,
+           source: :receiver
+
+  has_many :pending_received_friends,
+           through: :received_pending_requests,
+           source: :sender
   # the receivers of a user's friend requests are friends once status is 'accepted'
-  has_many :requested_friends,
+  has_many :accepted_requested_friends,
            through: :sent_accepted_requests,
            source: :receiver
   # those who sent a user friend requests are friends once status is 'accepted'
-  has_many :received_friends,
+  has_many :accepted_received_friends,
            through: :received_accepted_requests,
            source: :sender
 
   def friends
-    requested_friends + received_friends
+    accepted_requested_friends + accepted_received_friends
+  end
+
+  def pending_friends
+    pending_requested_friends + pending_received_friends
   end
 
   def pending_requests
