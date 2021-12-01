@@ -2,22 +2,32 @@
 <% @notifications.unread.each do |notification| %>
   <% case notification.object_type
        when 'Friendship' %>
-         <p style="display:inline-block; margin-right: 12px">New <%= notification.description %> from <%= full_name(notification.sender) %>
-          <span>
-            <%= button_to "Accept",
-            friendship_path(Friendship.find_by(sender: notification.sender, receiver: notification.receiver)),
-            method: :put,
-            params: {  notification: { time_sent: notification.time_sent }, friendship: { status: 'accepted', sender_id: notification.sender.id } },
-            form: { style: 'display:inline-block;' } %>
+         <% if notification.description == 'new friend request' %>
+          <p style="display:inline-block; margin-right: 12px"><%= notification.description %> from <%= full_name(notification.sender) %>
+            <span>
+              <!-- update Friendship object and allow notification to be marked as read from within Friendship controller -->
+              <%= button_to "Accept",
+              friendship_path(Friendship.find_by(sender: notification.sender, receiver: notification.receiver)),
+              method: :put,
+              params: {  notification: { time_sent: notification.time_sent }, friendship: { status: 'accepted', sender_id: notification.sender.id } },
+              form: { style: 'display:inline-block;' } %>
 
-            <%= button_to "Decline",
-            friendship_path(Friendship.find_by(sender: notification.sender, receiver: notification.receiver)),
-            method: :put,
-            params: { notification: { time_sent: notification.time_sent }, friendship: { status: 'declined', sender_id: notification.sender.id } },
-            form: { style: ' display:inline-block; ' }
-            %>
-          </span>
-         </p>
+              <%= button_to "Decline",
+              friendship_path(Friendship.find_by(sender: notification.sender, receiver: notification.receiver)),
+              method: :put,
+              params: { notification: { time_sent: notification.time_sent }, friendship: { status: 'declined', sender_id: notification.sender.id } },
+              form: { style: ' display:inline-block; ' }
+              %>
+            </span>
+          </p>
+         <% else %>
+           <p><%= full_name(notification.sender) %> accepted your friend request </p>
+           <!-- mark Notification as read -->
+           <%= button_to "Dismiss",
+           notification,
+           method: :put,
+           params: { notification: { notification_id: notification.id, read: true } } %>
+         <% end %>
 
 
   <% end %>

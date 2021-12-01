@@ -18,7 +18,7 @@ users.reject { |u| u == joe }.each_with_index do |user, index|
   friendship.save
   notification = joe.sent_notifications.build(receiver: user,
                                               object_type: 'Friendship',
-                                              description: 'friend request',
+                                              description: 'new friend request',
                                               time_sent: (Time.zone.now + index).to_s)
   notification.save
 end
