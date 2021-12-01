@@ -1,35 +1,35 @@
 class FriendshipsController < ApplicationController
-  before_action :authenticate_user!
   include NotificationsManager
 
+  before_action :authenticate_user!
+  before_action :set_receiver, only: [:create]
+  before_action :set_update_params, only: [:update]
+  after_action -> { send_friend_request_notification(@receiver.id, 'new friend request') },
+               only: [:create]
+  after_action -> { send_friend_request_notification(@sender_id, 'accepted your friend request') },
+               only: [:update],
+               if: proc { @friendship.accepted? }
+  after_action -> { mark_notification_read('Friendship', @sender_id, @time_sent) }, only: [:update]
+
   def create
-    receiver = User.find(params[:receiver_id])
-    @friendship = current_user.sent_pending_requests.build(receiver: receiver)
-    @notification =
-      if @friendship.save
-        # notify receiver current_user sent them a friend request
-        send_friend_request_notification(receiver.id, 'new friend request')
-        flash[:success] = "Friend request sent to #{receiver.first_name}"
-      else
-        flash[:warning] = 'Failed to send friend request. Please try again'
-      end
+    @friendship = current_user.sent_pending_requests.build(receiver: @receiver)
+    if @friendship.save
+      flash[:success] = "Friend request sent to #{@receiver.first_name}"
+    else
+      flash[:warning] = 'Failed to send friend request. Please try again'
+    end
     redirect_to root_url
   end
 
   def update
-    sender_id = params[:friendship][:sender_id]
-    @friendship = Friendship.find_by(sender_id: sender_id, receiver_id: current_user.id)
     if @friendship.update(friendship_params)
-      update_notification('Friendship', sender_id, params[:notification][:time_sent])
-      if @friendship.accepted?
-        flash[:info] = 'Friendship accepted!'
-        # notify sender that receiver has accepted the request
-        send_friend_request_notification(sender_id, 'accepted your friend request')
-      else
-        flash[:info] = 'Friendship declined.'
-      end
+      flash[:info] = if @friendship.accepted?
+                       'Friendship accepted!'
+                     else
+                       'Friendship declined.'
+                     end
     else
-      flash[:warning] = 'Failed to accept friendship'
+      flash[:warning] = 'Failed to accept or decline friendship'
     end
     redirect_to notifications_path
   end
@@ -38,6 +38,20 @@ class FriendshipsController < ApplicationController
 
   def friendship_params
     params.require(:friendship).permit(:sender_id, :receiver_id, :status)
+  end
+
+  def set_receiver
+    @receiver = User.find(params[:receiver_id])
+  end
+
+  def set_update_params
+    @sender_id = params[:friendship][:sender_id]
+    @time_sent = params[:notification][:time_sent]
+    @friendship = Friendship.find_by(sender_id: @sender_id, receiver_id: current_user.id)
+  end
+
+  def mark_notification_read(object_type, sender_id, time_sent)
+    update_notification(object_type, sender_id, time_sent)
   end
 
   def send_friend_request_notification(user_id, description)
