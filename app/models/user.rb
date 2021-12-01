@@ -81,4 +81,8 @@ class User < ApplicationRecord
   def friend_requests
     pending_requests + accepted_requests + declined_requests
   end
+
+  def notifications
+    sent_notifications + received_notifications
+  end
 end
