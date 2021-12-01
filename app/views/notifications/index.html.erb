@@ -7,13 +7,13 @@
             <%= button_to "Accept",
             friendship_path(Friendship.find_by(sender: notification.sender, receiver: notification.receiver)),
             method: :put,
-            params: { friendship: { status: 'accepted', sender_id: notification.sender } },
+            params: {  notification: { time_sent: notification.time_sent }, friendship: { status: 'accepted', sender_id: notification.sender.id } },
             form: { style: 'display:inline-block;' } %>
 
             <%= button_to "Decline",
             friendship_path(Friendship.find_by(sender: notification.sender, receiver: notification.receiver)),
             method: :put,
-            params: { friendship: { status: 'declined', sender_id: notification.sender } },
+            params: { notification: { time_sent: notification.time_sent }, friendship: { status: 'declined', sender_id: notification.sender.id } },
             form: { style: ' display:inline-block; ' }
             %>
           </span>

@@ -6,10 +6,11 @@ class FriendshipsController < ApplicationController
     receiver = User.find(params[:receiver_id])
     @friendship = sender.sent_pending_requests.build(receiver: receiver)
     if @friendship.save
-      send_notification({ sender: sender,
-                          receiver: receiver,
+      send_notification({ sender_id: sender.id,
+                          receiver_id: receiver.id,
                           object_type: 'Friendship',
-                          description: 'friend request' })
+                          description: 'friend request',
+                          time_sent: Time.zone.now.to_s })
       flash[:success] = "Friend request sent to #{receiver.first_name}"
     else
       flash[:warning] = 'Failed to send friend request. Please try again'
@@ -20,7 +21,7 @@ class FriendshipsController < ApplicationController
   def update
     @friendship = Friendship.find_by(sender_id: params[:friendship][:sender_id], receiver_id: current_user.id)
     if @friendship.update(friendship_params)
-      update_notification('Friendship', params[:friendship][:sender_id])
+      update_notification('Friendship', params[:friendship][:sender_id], params[:notification][:time_sent])
       flash[:info] = if @friendship.accepted?
                        'Friendship accepted!'
                      else
@@ -38,7 +39,7 @@ class FriendshipsController < ApplicationController
     params.require(:friendship).permit(:sender_id, :receiver_id, :status)
   end
 
-  def update_notification(object_type, sender_id)
-    mark_notification_as_read({ object_type: object_type, sender_id: sender_id })
+  def update_notification(object_type, sender_id, time_sent)
+    mark_notification_as_read({ object_type: object_type, sender_id: sender_id, time_sent: time_sent })
   end
 end

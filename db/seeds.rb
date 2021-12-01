@@ -13,11 +13,12 @@ ziggy = User.create(first_name: 'Ziggy', last_name: 'Stardust', email: 'ziggy@st
 
 users = [joe, john, jane, bob, ziggy]
 
-users.each do |user|
+users.reject { |u| u == joe }.each_with_index do |user, index|
   friendship = joe.sent_pending_requests.build(sender: joe, receiver: user)
   friendship.save
   notification = joe.sent_notifications.build(receiver: user,
                                               object_type: 'Friendship',
-                                              description: 'friend request')
+                                              description: 'friend request',
+                                              time_sent: (Time.zone.now + index).to_s)
   notification.save
 end
