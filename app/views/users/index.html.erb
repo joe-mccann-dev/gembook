@@ -8,9 +8,10 @@
     <% elsif current_user.pending_friends.include?(user) %>
       <span><em>friendship pending</em><span>
     <% else %>
-      <%= button_to "Add Friend",
+      <%= button_to 'Add Friend',
           @friendship,
-          params: { receiver_id: user.id } %>
+          params: { receiver_id: user.id },
+          class: 'button add-friend' %>
     <% end %>
   </li>
 </ul>
