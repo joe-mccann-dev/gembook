@@ -23,13 +23,14 @@
               </div>
             </li>
           <% else %>
-            <li>
+            <li id="accepted-notification">
               <%= full_name(notification.sender) %> accepted your friend request 
               <!-- mark Notification as read -->
               <%= button_to "Dismiss",
               notification,
               method: :put,
-              params: { notification: { notification_id: notification.id, read: true } } %>
+              params: { notification: { notification_id: notification.id, read: true } },
+              class: "button dismiss-notification" %>
             </li>
           <% end %>
 
