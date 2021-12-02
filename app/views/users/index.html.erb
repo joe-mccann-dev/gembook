@@ -1,18 +1,19 @@
 <h1>Users#index</h1>
-<% @users.reject { |u| u == current_user }.each do |user| %>
 <ul>
-  <li>
-    <p> <%= user.first_name %> <%= user.last_name %> </p>
-    <% if current_user.friends.include?(user) %>
-      <span>(<em>friends</em>)</span>
-    <% elsif current_user.pending_friends.include?(user) %>
-      <span><em>friendship pending</em><span>
-    <% else %>
-      <%= button_to 'Add Friend',
-          @friendship,
-          params: { receiver_id: user.id },
-          class: 'button add-friend' %>
-    <% end %>
-  </li>
+  <% @users.reject { |u| u == current_user }.each do |user| %>
+    <li>
+      <p> <%= user.first_name %> <%= user.last_name %> 
+      <% if current_user.friends.include?(user) %>
+        <span>(<em>friends</em>)</span>
+      <% elsif current_user.pending_friends.include?(user) %>
+        <span><em>friendship pending</em><span>
+      <% else %>
+        <%= button_to 'Add Friend',
+            @friendship,
+            params: { receiver_id: user.id },
+            class: 'button add-friend' %>
+      <% end %>
+      </p>
+    </li>
+  <% end %>
 </ul>
-<% end %>

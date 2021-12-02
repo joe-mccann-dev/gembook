@@ -13,7 +13,7 @@ ziggy = User.create(first_name: 'Ziggy', last_name: 'Stardust', email: 'ziggy@st
 
 users = [joe, john, jane, bob, ziggy]
 
-users.reject { |u| u == joe }.each_with_index do |user, index|
+users.reject { |u| u == joe || u == john }.each_with_index do |user, index|
   friendship = joe.sent_pending_requests.build(sender: joe, receiver: user)
   friendship.save
   notification = joe.sent_notifications.build(receiver: user,
