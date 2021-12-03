@@ -1,0 +1,11 @@
+<h1>Timeline Posts for <%= full_name(current_user) %> </h1>
+<ul>
+  <% @posts.each do |post| %>
+    <li>
+      <div>
+        <p><%= full_name(post.user) %></p>
+        <p><%= post.content %></p>
+      </div>
+    </li>
+  <% end %>
+</ul>
