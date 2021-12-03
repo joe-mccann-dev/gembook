@@ -75,4 +75,12 @@ RSpec.describe User, type: :model do
       expect(User.first.accepted_received_friends).to include(future_friend)
     end
   end
+
+  context 'posts' do
+    it 'has_many posts' do
+      post = User.first.posts.build(content: 'hey this is my first post')
+      post.save
+      expect(User.first.posts).to_not be_empty
+    end
+  end
 end

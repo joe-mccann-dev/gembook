@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :users, only: [:index, :show]
+  resources :users, only: [:index, :show] do
+    resources :posts, only: [:index]
+  end
   resources :notifications, only: [:index, :update]
   resources :friendships, only: [:create, :update]
   root to: 'users#index'
