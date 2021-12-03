@@ -13,13 +13,16 @@
   <body>
     <nav>
     <% if user_signed_in? %>
-      <span>logged in as <%= current_user.first_name %></span>
-      <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+      <%= link_to "Home", root_url %>
+      <%= link_to "Users", users_path %>
+      <%= link_to "My Profile", user_path(current_user) %>
       <% if current_user.received_notifications.unread.any? %>
         <%= link_to "#{current_user.received_notifications.unread.count } unread notifications", notifications_path %>
       <% else %>
         <%= link_to "Notifications", notifications_path %>
       <% end %>
+      <span>logged in as <%= current_user.first_name %></span>
+      <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
     <% else %>
       <%= link_to "Sign in", new_user_session_path if !current_page?(action: 'new' )%> 
     <% end %>
