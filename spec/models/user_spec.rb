@@ -83,4 +83,14 @@ RSpec.describe User, type: :model do
       expect(User.first.posts).to_not be_empty
     end
   end
+
+  context 'likes' do
+    it 'has_many likes' do
+      post = User.first.posts.build(content: 'another post')
+      post.save
+      post_liker = User.second
+      like = post.likes.create(user: post_liker)
+      expect(post_liker.likes).to_not be_empty
+    end
+  end
 end

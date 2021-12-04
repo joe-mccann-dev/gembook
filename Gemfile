@@ -57,6 +57,7 @@ group :test do
   gem 'webdrivers'
   gem 'guard'
   gem 'guard-rspec', require: false
+  gem "launchy"
 end
 
 group :test, :development do

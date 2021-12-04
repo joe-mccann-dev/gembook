@@ -11,7 +11,8 @@
         <%= button_to 'Add Friend',
             @friendship,
             params: { receiver_id: user.id },
-            class: 'button add-friend' %>
+            class: 'button add-friend',
+            id: "friend-#{user.id}" %>
       <% end %>
       </p>
     </li>
