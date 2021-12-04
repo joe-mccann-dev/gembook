@@ -89,8 +89,13 @@ RSpec.describe User, type: :model do
       post = User.first.posts.build(content: 'another post')
       post.save
       post_liker = User.second
-      like = post.likes.create(user: post_liker)
-      expect(post_liker.likes).to_not be_empty
+      post.likes.create(user: post_liker)
+      expect(post_liker.likes.count).to eq(1)
+
+      other_post = User.first.posts.build(content: 'yet another post')
+      other_post.save
+      other_post.likes.create(user: post_liker)
+      expect(post_liker.likes.count).to eq(2)
     end
   end
 end
