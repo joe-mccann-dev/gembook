@@ -55,8 +55,7 @@ class FriendshipsController < ApplicationController
   end
 
   def send_friend_request_notification(user_id, description)
-    send_notification({ sender_id: current_user.id,
-                        receiver_id: user_id,
+    send_notification({ receiver_id: user_id,
                         object_type: 'Friendship',
                         description: description,
                         time_sent: Time.zone.now.to_s })
