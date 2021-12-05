@@ -5,6 +5,31 @@
       <div>
         <p><%= full_name(post.user) %></p>
         <p><%= post.content %></p>
+        <div class="post-likes">
+          <% unless current_user.liked_posts.include?(post) %>
+            <%= form_with(model: Like.new, url: post_likes_path(post) ) do |f| %>
+              <%= f.hidden_field :post_id, value: post.id %>
+
+              <%= f.submit "Like" %>
+            <% end %>
+          <% end %>
+          <% like_count = post.likers.count %>
+          <% first_liker = post.likers.first %>
+          <% second_liker = post.likers.second %>
+          <% if like_count == 2 %>
+            <p>
+              <%= link_to full_name(first_liker), user_path(first_liker) %> and <%= second_liker %> like this
+            </p>
+          <% elsif like_count >= 2 %>
+            <p>
+              <%= link_to full_name(first_liker), user_path(first_liker) %> and <%= like_count - 1 %> <%= link_to "others", post_path(post) %> like this
+            </p>
+          <% else %>
+            <p>
+              <%= first_liker %> likes this
+            <p>
+          <% end %>
+        </div>
       </div>
     </li>
   <% end %>

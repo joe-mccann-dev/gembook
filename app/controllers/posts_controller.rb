@@ -22,6 +22,10 @@ class PostsController < ApplicationController
     redirect_to user_path(params[:post][:user_id])
   end
 
+  def show
+    @post = Post.find(params[:id])
+  end
+
   private
 
   # in case users try to submit a post as someone else via the command line
@@ -32,4 +36,6 @@ class PostsController < ApplicationController
       flash[:warning] = 'Unallowed!'
     end
   end
+
+
 end

@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments
   has_many :likes
-  has_many :liked_posts, through: :likes, source: :posts
+  has_many :liked_posts, through: :likes, source: :post
   has_one :profile
   has_many :sent_notifications,
            class_name: 'Notification',
