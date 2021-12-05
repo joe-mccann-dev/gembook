@@ -16,6 +16,14 @@ RSpec.describe Post, type: :model do
     expect(post.likes).to_not be_empty
   end
 
+  it 'has_many likers' do
+    post_liker_one = user
+    post_liker_two = other_user
+    post.likes.create(user: post_liker_one)
+    post.likes.create(user: post_liker_two)
+    expect(post.likers.count).to eq(2)
+  end
+
   it 'allows multiple users to like the same post' do
     post_liker = other_user
     post.likes.create(user: post_liker)
