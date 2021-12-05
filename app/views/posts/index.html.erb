@@ -10,7 +10,7 @@
             <%= form_with(model: Like.new, url: post_likes_path(post) ) do |f| %>
               <%= f.hidden_field :post_id, value: post.id %>
 
-              <%= f.submit "Like" %>
+              <%= f.submit "Like", id: "post-#{post.id}-like" %>
             <% end %>
           <% end %>
           <% if post.likes.any? %>
@@ -20,15 +20,15 @@
               <% second_liker = post.likers.second %>
               <% if like_count == 2 %>
                 <p>
-                  <%= link_to full_name(first_liker), user_path(first_liker) %> and <%= link_to full_name(second_liker), user_path(second_liker) %> like this
+                  <%= link_to full_name(first_liker), user_path(first_liker) %> and <%= link_to full_name(second_liker), user_path(second_liker) %> like this.
                 </p>
-              <% elsif like_count >= 2 %>
+              <% elsif like_count > 2 %>
                 <p>
-                  <%= link_to full_name(first_liker), user_path(first_liker) %> and <%= link_to "#{like_count - 1} others", post_path(post) %> like this
+                  <%= link_to full_name(first_liker), user_path(first_liker) %> and <%= link_to "#{like_count - 1} others", post_path(post) %> like this.
                 </p>
               <% else %>
                 <p>
-                  <%= link_to full_name(first_liker), user_path(first_liker) %> likes this
+                  <%= link_to full_name(first_liker), user_path(first_liker) %> likes this.
                 <p>
               <% end %>
             </div>
