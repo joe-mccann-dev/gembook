@@ -2,15 +2,14 @@ class LikesController < ApplicationController
   include NotificationsManager
 
   before_action :authenticate_user!
-  before_action :set_liked_post, only: [:create]
-  after_action -> { send_like_notification(@liked_post.user.id) },
+  before_action :set_liked_object, only: [:create]
+  after_action -> { send_like_notification(@liked_object) },
                only: [:create]
 
   def create
-    @liked_post = Post.find(params[:post_id])
-    @like = current_user.likes.build(post: @liked_post)
+    @like = current_user.likes.build(post: @liked_object)
     if @like.save
-      flash[:info] = "You liked #{@liked_post.user.first_name}'s post"
+      flash[:info] = "You liked #{@liked_object.user.first_name}'s post"
     else
       flash[:warning] = 'Failed to like post'
     end
@@ -19,14 +18,18 @@ class LikesController < ApplicationController
 
   private
 
-  def send_like_notification(user_id)
-    send_notification({ receiver_id: user_id,
+  def send_like_notification(post)
+    return if post.user == current_user
+
+    send_notification({ receiver_id: post.user.id,
                         object_type: 'Like',
                         description: 'liked your post',
-                        time_sent: Time.zone.now.to_s })
+                        time_sent: Time.zone.now.to_s,
+                        object_url: post_path(post) })
   end
 
-  def set_liked_post
-    @liked_post = Post.find(params[:post_id])
+  # TODO update to handle other likeable objects
+  def set_liked_object
+    @liked_object = Post.find(params[:post_id])
   end
 end

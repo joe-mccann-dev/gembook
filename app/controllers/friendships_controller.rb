@@ -54,10 +54,12 @@ class FriendshipsController < ApplicationController
     update_notification(object_type, sender_id, time_sent)
   end
 
+  # TODO make object_url more relevant to friendship
   def send_friend_request_notification(user_id, description)
     send_notification({ receiver_id: user_id,
                         object_type: 'Friendship',
                         description: description,
-                        time_sent: Time.zone.now.to_s })
+                        time_sent: Time.zone.now.to_s,
+                        object_url: users_path })
   end
 end
