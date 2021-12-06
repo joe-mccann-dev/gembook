@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_06_073427) do
+ActiveRecord::Schema.define(version: 2021_12_06_080358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,10 @@ ActiveRecord::Schema.define(version: 2021_12_06_073427) do
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "comment_id", null: false
+    t.index ["comment_id"], name: "index_likes_on_comment_id"
     t.index ["post_id"], name: "index_likes_on_post_id"
+    t.index ["user_id", "comment_id"], name: "index_likes_on_user_id_and_comment_id", unique: true
     t.index ["user_id", "post_id"], name: "index_likes_on_user_id_and_post_id", unique: true
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
@@ -82,4 +85,5 @@ ActiveRecord::Schema.define(version: 2021_12_06_073427) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "likes", "comments"
 end
