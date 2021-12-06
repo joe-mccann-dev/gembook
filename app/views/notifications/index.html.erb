@@ -36,7 +36,7 @@
         <% when 'Like' %>
           <li class="liked-post">
             <span><%= full_name(notification.sender) %></span>
-            <span><%= link_to notification.description, notification.object_url %></span>
+            <span><%= link_to notification.description, notification.object_url %>.</span>
           </li>
             <%= button_to "Dismiss",
             notification,
