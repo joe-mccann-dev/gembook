@@ -28,6 +28,10 @@ class PostsController < ApplicationController
 
   private
 
+  def post_params
+    params.require(:post).permit(:content)
+  end
+
   # in case users try to submit a post as someone else via the command line
   def prevent_unauthorized_posting(user_id)
     @user = User.find(user_id)
@@ -36,6 +40,4 @@ class PostsController < ApplicationController
       flash[:warning] = 'Unallowed!'
     end
   end
-
-
 end
