@@ -31,6 +31,10 @@ class LikesController < ApplicationController
 
   # TODO update to handle other likeable objects
   def set_liked_object
-    @liked_object = Post.find(params[:post_id])
+    @liked_object = if params[:post_id].present?
+                      Post.find(params[:post_id])
+                    else
+                      Comment.find(params[:comment_id])
+                    end
   end
 end
