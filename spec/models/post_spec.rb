@@ -5,6 +5,7 @@ RSpec.describe Post, type: :model do
   let!(:user) { User.create(first_name: 'john', last_name: 'smith', email: 'john@smith.com', password: 'foobar') }
   let!(:other_user) { User.create(first_name: 'other', last_name: 'user', email: 'other@user.com', password: 'foobar') }
   let!(:post) { user.posts.create(content: 'this is a post') }
+  let!(:comment) { post.comments.create(content: 'this is a comment on a post', user: other_user) }
 
   it 'belongs to the user author of a post' do
     expect(post.user).to eq(user)
@@ -29,5 +30,10 @@ RSpec.describe Post, type: :model do
     post.likes.create(user: post_liker)
     post.likes.create(user: user)
     expect(post.likes.count).to eq(2)
+  end
+
+  it 'has many comments as the commentable association' do
+    expect(post.comments).to include(comment)
+    expect(comment.commentable).to eq(post)
   end
 end
