@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2021_12_06_080358) do
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "comment_id", null: false
+    t.bigint "comment_id"
     t.index ["comment_id"], name: "index_likes_on_comment_id"
     t.index ["post_id"], name: "index_likes_on_post_id"
     t.index ["user_id", "comment_id"], name: "index_likes_on_user_id_and_comment_id", unique: true
