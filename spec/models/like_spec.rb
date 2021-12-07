@@ -7,7 +7,7 @@ RSpec.describe Like, type: :model do
   let!(:like) { post.likes.create(user: post_liker) }
 
   it 'belongs to a post' do
-    expect(like.post).to eq(post)
+    expect(like.likeable).to eq(post)
   end
 
   it 'belongs to a user' do

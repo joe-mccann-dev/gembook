@@ -7,7 +7,8 @@ class LikesController < ApplicationController
                only: [:create]
 
   def create
-    @like = current_user.likes.build(post: @liked_object)
+    # @like = current_user.likes.build(post: @liked_object)
+    @like = @liked_object.likes.build(user: current_user)
     if @like.save
       flash[:info] = "You liked #{@liked_object.user.first_name}'s post"
     else

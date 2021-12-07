@@ -10,20 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_06_080358) do
+ActiveRecord::Schema.define(version: 2021_12_07_042234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "comments", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "post_id"
-    t.text "content"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["post_id"], name: "index_comments_on_post_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
-  end
 
   create_table "friendships", force: :cascade do |t|
     t.integer "status", default: 0
@@ -37,15 +27,13 @@ ActiveRecord::Schema.define(version: 2021_12_06_080358) do
   end
 
   create_table "likes", force: :cascade do |t|
-    t.bigint "post_id"
+    t.string "likeable_type"
+    t.bigint "likeable_id"
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "comment_id"
-    t.index ["comment_id"], name: "index_likes_on_comment_id"
-    t.index ["post_id"], name: "index_likes_on_post_id"
-    t.index ["user_id", "comment_id"], name: "index_likes_on_user_id_and_comment_id", unique: true
-    t.index ["user_id", "post_id"], name: "index_likes_on_user_id_and_post_id", unique: true
+    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
+    t.index ["user_id", "likeable_type", "likeable_id"], name: "index_likes_on_user_id_and_likeable_type_and_likeable_id", unique: true
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
@@ -85,5 +73,4 @@ ActiveRecord::Schema.define(version: 2021_12_06_080358) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "likes", "comments"
 end
