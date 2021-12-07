@@ -3,7 +3,13 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show]
   resources :posts, only: [:index, :create, :show] do
     resources :likes, only: [:create]
+    resources :comments
   end
+
+  resources :comments do
+    resources :comments
+  end
+  
   resources :notifications, only: [:index, :update]
   resources :friendships, only: [:create, :update]
   root to: 'posts#index'
