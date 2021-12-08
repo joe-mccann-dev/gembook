@@ -2,7 +2,7 @@
 <ul>
   <% @posts.each do |post| %>
     <li>
-      <div>
+      <div style="border: solid 2px black">
         <p><%= full_name(post.user) %></p>
         <p><%= post.content %></p>
         <div class="post-likes">
