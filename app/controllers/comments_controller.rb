@@ -11,7 +11,9 @@ class CommentsController < ApplicationController
     redirect_to root_url
   end
 
-  def show; end
+  def show
+    @comment = Comment.find(params[:id])
+  end
 
 
   private

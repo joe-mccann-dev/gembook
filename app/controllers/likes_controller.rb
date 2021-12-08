@@ -10,7 +10,7 @@ class LikesController < ApplicationController
     # @like = current_user.likes.build(post: @liked_object)
     @like = @liked_object.likes.build(user: current_user)
     if @like.save
-      flash[:info] = "You liked #{@liked_object.user.first_name}'s post"
+      flash[:info] = "You liked #{@liked_object.user.first_name}'s #{@liked_object.class.to_s.downcase}"
     else
       flash[:warning] = 'Failed to like post'
     end

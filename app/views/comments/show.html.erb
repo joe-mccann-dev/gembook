@@ -1,0 +1,14 @@
+<div>
+  <p>Liked by:</p>
+  <ul>
+    <% @comment.likers.each do |user| %>
+      <li><%= link_to full_name(user), user_path(user) %></li>
+    <% end %>
+  </ul>
+</div>
+<div>
+  <h2>Original Comment</h2>
+  <p>
+    <%= @comment.content %>
+  </p>
+</div>

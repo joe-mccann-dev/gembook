@@ -7,13 +7,10 @@
         <p><%= post.content %></p>
         <div class="post-likes">
           <% unless current_user.liked_posts.include?(post) %>
-            <%= form_with(model: Like.new, url: post_likes_path(post) ) do |f| %>
-              <%= f.hidden_field :post_id, value: post.id %>
-              <%= f.submit "Like", id: "post-#{post.id}-like" %>
-            <% end %>
+            <%= render partial: 'likes/like_button', locals: { object: post, path: post_likes_path(post) } %>
           <% end %>
           <% if post.likes.any? %>
-            <%= render partial: 'likes/like_count.html.erb', locals: { object: post, path: post_path(post) } %>
+            <%= render partial: 'likes/like_count', locals: { object: post, path: post_path(post) } %>
           <% end %>
           <%= form_with(model: Comment.new, url: post_comments_path(post)) do |f| %>
             <%= f.text_area :content %>

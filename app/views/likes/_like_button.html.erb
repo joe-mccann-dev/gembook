@@ -1,0 +1,4 @@
+<%= form_with(model: Like.new, url: path ) do |f| %>
+  <%= f.hidden_field "#{object.to_s.downcase}_id".to_sym, value: object.id %>
+  <%= f.submit "Like", id: "object-#{object.id}-like" %>
+<% end %>
