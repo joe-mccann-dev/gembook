@@ -13,6 +13,7 @@
               <%= f.submit "Like", id: "post-#{post.id}-like" %>
             <% end %>
           <% end %>
+          <p><strong>Likes</strong></p>
           <% if post.likes.any? %>
             <div class="post-likers">
               <% like_count = post.likers.count %>
@@ -32,7 +33,12 @@
                 <p>
               <% end %>
             </div>
+            <div class="post-comments">
+              <%= render partial: "/comment/comment", collection: post.comments %>
+            </div>
           <% end %>
+          
+
         </div>
       </div>
     </li>

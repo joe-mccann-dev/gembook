@@ -1,0 +1,17 @@
+<div class="comment-form">
+  <li>
+    <div>
+      <p><%= full_name(comment.user) %></p>
+      <p><%= comment.content %></p>
+    </div>
+  </li>
+
+  <%= form_with(model: [comment, Comment.new]) do |f| %>
+    <%= f.text_area :content %>
+    <%= f.submit "Create Comment" %>
+  <% end %>
+
+  <ul>
+    <%= render partial: 'comment/comment', collection: comment.comments %>
+  </ul>
+</div>
