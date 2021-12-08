@@ -10,7 +10,7 @@ class LikesController < ApplicationController
     # @like = current_user.likes.build(post: @liked_object)
     @like = @liked_object.likes.build(user: current_user)
     if @like.save
-      flash[:info] = "You liked #{@liked_object.user.first_name}'s #{@liked_object.class.to_s.downcase}"
+      flash[:info] = "You liked #{@liked_object.user.first_name}'s #{object_to_s(@liked_object)}"
     else
       flash[:warning] = 'Failed to like post'
     end
@@ -19,14 +19,14 @@ class LikesController < ApplicationController
 
   private
 
-  def send_like_notification(post)
-    return if post.user == current_user
+  def send_like_notification(liked_object)
+    return if liked_object.user == current_user
 
-    send_notification({ receiver_id: post.user.id,
+    send_notification({ receiver_id: liked_object.user.id,
                         object_type: 'Like',
-                        description: 'liked your post',
+                        description: "liked your #{object_to_s(liked_object)}",
                         time_sent: Time.zone.now.to_s,
-                        object_url: post_path(post) })
+                        object_url: determine_path(liked_object) })
   end
 
   # TODO update to handle other likeable objects
@@ -36,5 +36,17 @@ class LikesController < ApplicationController
                     else
                       Comment.find(params[:comment_id])
                     end
+  end
+
+  def determine_path(liked_object)
+    likeables = {
+      'Post' => post_path(liked_object),
+      'Comment' => comment_path(liked_object)
+    }
+    likeables[liked_object.class.to_s]
+  end
+
+  def object_to_s(object)
+    object.class.to_s.downcase
   end
 end

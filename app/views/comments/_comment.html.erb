@@ -1,21 +1,23 @@
 <div class="comment-form">
-  <li>
-    <div>
-      <p><%= full_name(comment.user) %></p>
-      <p><%= comment.content %></p>
-      <% unless current_user.liked_comments.include?(comment) %>
-        <%= render partial: 'likes/like_button', locals: { object: comment, path: comment_likes_path(comment) } %>
+  <ul>
+    <li>
+      <div>
+        <p><%= full_name(comment.user) %></p>
+        <p><%= comment.content %></p>
+        <% unless current_user.liked_comments.include?(comment) %>
+          <%= render partial: 'likes/like_button', locals: { object: comment, path: comment_likes_path(comment) } %>
+        <% end %>
+        <% if comment.likes.any? %>
+          <%= render partial: 'likes/like_count', locals: { object: comment, path: comment_path(comment) } %>
+        <% end %>
+      </div>
+      <%= form_with(model: [comment, Comment.new]) do |f| %>
+        <%= f.text_area :content %>
+        <br>
+        <%= f.submit "Reply" %>
       <% end %>
-      <% if comment.likes.any? %>
-        <%= render partial: 'likes/like_count', locals: { object: comment, path: comment_path(comment) } %>
-      <% end %>
-    </div>
-  </li>
-  <%= form_with(model: [comment, Comment.new]) do |f| %>
-    <%= f.text_area :content %>
-    <br>
-    <%= f.submit "Reply" %>
-  <% end %>
+    </li>
+  </ul>
   <ul>
     <%= render partial: 'comments/comment', collection: comment.comments %>
   </ul>
