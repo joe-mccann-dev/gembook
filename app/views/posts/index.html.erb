@@ -2,18 +2,16 @@
 <ul>
   <% @posts.each do |post| %>
     <li>
-      <div style="border: solid 2px black">
+      <div>
         <p><%= full_name(post.user) %></p>
         <p><%= post.content %></p>
         <div class="post-likes">
           <% unless current_user.liked_posts.include?(post) %>
             <%= form_with(model: Like.new, url: post_likes_path(post) ) do |f| %>
               <%= f.hidden_field :post_id, value: post.id %>
-
               <%= f.submit "Like", id: "post-#{post.id}-like" %>
             <% end %>
           <% end %>
-          <p><strong>Likes</strong></p>
           <% if post.likes.any? %>
             <div class="post-likers">
               <% like_count = post.likers.count %>
@@ -30,15 +28,18 @@
               <% else %>
                 <p>
                   <%= link_to full_name(first_liker), user_path(first_liker) %> likes this.
-                <p>
+                </p>
               <% end %>
             </div>
-            <div class="post-comments">
-              <%= render partial: "/comment/comment", collection: post.comments %>
-            </div>
           <% end %>
-          
-
+          <%= form_with(model: Comment.new, url: post_comments_path(post)) do |f| %>
+            <%= f.text_area :content %>
+            <br>
+            <%= f.submit "Comment" %>
+          <% end %>
+          <div class="post-comments">
+            <%= render partial: "/comments/comment", collection: post.comments  %>
+          </div>
         </div>
       </div>
     </li>

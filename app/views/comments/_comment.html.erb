@@ -5,13 +5,12 @@
       <p><%= comment.content %></p>
     </div>
   </li>
-
   <%= form_with(model: [comment, Comment.new]) do |f| %>
     <%= f.text_area :content %>
-    <%= f.submit "Create Comment" %>
+    <br>
+    <%= f.submit "Reply" %>
   <% end %>
-
   <ul>
-    <%= render partial: 'comment/comment', collection: comment.comments %>
+    <%= render partial: 'comments/comment', collection: comment.comments %>
   </ul>
 </div>
