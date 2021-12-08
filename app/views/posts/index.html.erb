@@ -13,24 +13,7 @@
             <% end %>
           <% end %>
           <% if post.likes.any? %>
-            <div class="post-likers">
-              <% like_count = post.likers.count %>
-              <% first_liker = post.likers.first %>
-              <% second_liker = post.likers.second %>
-              <% if like_count == 2 %>
-                <p>
-                  <%= link_to full_name(first_liker), user_path(first_liker) %> and <%= link_to full_name(second_liker), user_path(second_liker) %> like this.
-                </p>
-              <% elsif like_count > 2 %>
-                <p>
-                  <%= link_to full_name(first_liker), user_path(first_liker) %> and <%= link_to "#{like_count - 1} others", post_path(post) %> like this.
-                </p>
-              <% else %>
-                <p>
-                  <%= link_to full_name(first_liker), user_path(first_liker) %> likes this.
-                </p>
-              <% end %>
-            </div>
+            <%= render partial: 'likes/like_count.html.erb', locals: { object: post, path: post_path(post) } %>
           <% end %>
           <%= form_with(model: Comment.new, url: post_comments_path(post)) do |f| %>
             <%= f.text_area :content %>
