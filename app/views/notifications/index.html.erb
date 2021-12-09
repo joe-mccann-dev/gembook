@@ -27,11 +27,7 @@
             <li class="notification accepted-request">
               <%= link_to full_name(notification.sender), notification.sender %> accepted your friend request.
               <!-- mark Notification as read -->
-              <%= button_to "Dismiss",
-              notification,
-              method: :put,
-              params: { notification: { notification_id: notification.id, read: true } },
-              class: "button dismiss-notification" %>
+              <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
             </li>
           <% end %>
         <% when 'Like' %>
@@ -39,30 +35,18 @@
             <span><%= full_name(notification.sender) %></span>
             <span><%= link_to notification.description, notification.object_url %>.</span>
           </li>
-            <%= button_to "Dismiss",
-            notification,
-            method: :put,
-            params: { notification: { notification_id: notification.id, read: true } },
-            class: "button dismiss-notification" %>
+          <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
         <% when 'Comment' %>
           <% if notification.description == 'commented on your post' %>
             <li class="notification commented-post">
               <%= link_to full_name(notification.sender), notification.sender %> <%= link_to notification.description, notification.object_url %>.
             </li>
-            <%= button_to "Dismiss",
-            notification,
-            method: :put,
-            params: { notification: { notification_id: notification.id, read: true } },
-            class: "button dismiss-notification" %>
+            <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
           <% else %>
             <li class="notification commented-comment">
               <%= link_to full_name(notification.sender), notification.sender %> <%= link_to notification.description, notification.object_url %>.
             </li>
-            <%= button_to "Dismiss",
-            notification,
-            method: :put,
-            params: { notification: { notification_id: notification.id, read: true } },
-            class: "button dismiss-notification" %>
+            <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
           <% end %>
     <% end %>
   <% end %>
