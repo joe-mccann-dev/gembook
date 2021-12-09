@@ -3,40 +3,18 @@
   <% @notifications.unread.each do |notification| %>
     <% case notification.object_type
         when 'Friendship' %>
-          <% if notification.description == 'new friend request' %>
-            <li class="notification friend-request">
-              <%= notification.description %> from <%= link_to full_name(notification.sender), notification.sender %>
-              <div>
-                <!-- update Friendship object and allow notification to be marked as read from within Friendship controller -->
-                <%= render partial: 'friendship_accept', locals: { notification: notification } %>
-                <%= render partial: 'friendship_decline', locals: { notification: notification } %>
-              </div>
-            </li>
-          <% else %>
-            <li class="notification accepted-request">
-              <%= link_to full_name(notification.sender), notification.sender %> accepted your friend request.
-              <!-- mark Notification as read -->
-              <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
-            </li>
-          <% end %>
-        <% when 'Like' %>
-          <li class="notification liked-post">
+          <%= render partial: 'friendship_notifications', locals: { notification: notification } %>
+     <% when 'Like' %>
+          <li class="notification liked-object">
             <span><%= full_name(notification.sender) %></span>
             <span><%= link_to notification.description, notification.object_url %>.</span>
           </li>
           <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
-        <% when 'Comment' %>
-          <% if notification.description == 'commented on your post' %>
-            <li class="notification commented-post">
-              <%= link_to full_name(notification.sender), notification.sender %> <%= link_to notification.description, notification.object_url %>.
-            </li>
-            <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
-          <% else %>
-            <li class="notification commented-comment">
-              <%= link_to full_name(notification.sender), notification.sender %> <%= link_to notification.description, notification.object_url %>.
-            </li>
-            <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
-          <% end %>
+     <% when 'Comment' %>
+          <li class="notification commented-object">
+            <%= link_to full_name(notification.sender), notification.sender %> <%= link_to notification.description, notification.object_url %>.
+          </li>
+          <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
     <% end %>
   <% end %>
 <ul>
