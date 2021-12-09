@@ -1,6 +1,6 @@
 <div class="comment-form">
   <ul>
-    <li>
+    <li id="comment-<%= comment.id %>">
       <div>
         <p><%= full_name(comment.user) %></p>
         <p><%= comment.content %></p>
@@ -12,7 +12,7 @@
         <% end %>
       </div>
       <%= form_with(model: [comment, Comment.new]) do |f| %>
-        <%= f.text_area :content %>
+        <%= f.text_area :content, id: "post-#{comment.commentable_id}-comment-#{comment.id}-reply" %>
         <br>
         <%= f.submit "Reply" %>
       <% end %>

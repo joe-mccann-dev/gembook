@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   include NotificationsManager
-  
+
   before_action :set_commented_object, only: [:create]
   before_action :set_comment, only: [:show]
   before_action -> { verify_object_viewable(@comment) }, only: [:show]
@@ -14,6 +14,7 @@ class CommentsController < ApplicationController
     else
       flash[:warning] = "Failed to create comment"
     end
+    # redirect_to "/##{@commented_object.class.to_s.downcase}-#{@commented_object.id}"
     redirect_to root_url
   end
 
@@ -45,9 +46,17 @@ class CommentsController < ApplicationController
 
     send_notification({ receiver_id: commented_object.user.id,
                         object_type: 'Comment',
-                        description: "commented on your #{object_to_s(commented_object)}",
+                        description: notification_description(commented_object),
                         time_sent: Time.zone.now.to_s,
                         object_url: determine_path(commented_object) })
   end
 
+  def notification_description(commented_object)
+    class_string = object_to_s(commented_object)
+    descriptions = {
+      'Comment' => "replied to your #{class_string}",
+      'Post' => "commented on your #{class_string}"
+    }
+    descriptions[commented_object.class.to_s]
+  end
 end

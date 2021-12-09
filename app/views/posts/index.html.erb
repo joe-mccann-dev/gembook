@@ -1,7 +1,7 @@
 <h1>Timeline Posts for <%= full_name(current_user) %> </h1>
 <ul>
   <% @posts.each do |post| %>
-    <li>
+    <li id="post-<%= post.id %>">
       <div>
         <p><%= full_name(post.user) %></p>
         <p><%= post.content %></p>
@@ -13,7 +13,8 @@
             <%= render partial: 'likes/like_count', locals: { object: post, path: post_path(post) } %>
           <% end %>
           <%= form_with(model: Comment.new, url: post_comments_path(post)) do |f| %>
-            <%= f.text_area :content %>
+            <%= f.hidden_field :post_id, value: post.id %>
+            <%= f.text_area :content, id: "post-#{post.id}-comment" %>
             <br>
             <%= f.submit "Comment" %>
           <% end %>
