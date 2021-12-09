@@ -37,16 +37,4 @@ class LikesController < ApplicationController
                       Comment.find(params[:comment_id])
                     end
   end
-
-  def determine_path(liked_object)
-    likeables = {
-      'Post' => post_path(liked_object),
-      'Comment' => comment_path(liked_object)
-    }
-    likeables[liked_object.class.to_s]
-  end
-
-  def object_to_s(object)
-    object.class.to_s.downcase
-  end
 end

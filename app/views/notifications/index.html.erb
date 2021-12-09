@@ -4,7 +4,8 @@
     <% case notification.object_type
         when 'Friendship' %>
           <% if notification.description == 'new friend request' %>
-            <li><%= notification.description %> from <%= link_to full_name(notification.sender), notification.sender %>
+            <li class="notification friend-request">
+              <%= notification.description %> from <%= link_to full_name(notification.sender), notification.sender %>
               <div>
                 <!-- update Friendship object and allow notification to be marked as read from within Friendship controller -->
                 <%= button_to "Accept",
@@ -23,7 +24,7 @@
               </div>
             </li>
           <% else %>
-            <li class="accepted-notification">
+            <li class="notification accepted-request">
               <%= link_to full_name(notification.sender), notification.sender %> accepted your friend request.
               <!-- mark Notification as read -->
               <%= button_to "Dismiss",
@@ -34,7 +35,7 @@
             </li>
           <% end %>
         <% when 'Like' %>
-          <li class="liked-post">
+          <li class="notification liked-post">
             <span><%= full_name(notification.sender) %></span>
             <span><%= link_to notification.description, notification.object_url %>.</span>
           </li>
@@ -43,8 +44,17 @@
             method: :put,
             params: { notification: { notification_id: notification.id, read: true } },
             class: "button dismiss-notification" %>
-        
-
+        <% when 'Comment' %>
+          <% if notification.description == 'commented on your post' %>
+            <li class="notification commented-post">
+              <%= link_to full_name(notification.sender), notification.sender %><%= notification.description %>
+            </li>
+            <%= button_to "Dismiss",
+            notification,
+            method: :put,
+            params: { notification: { notification_id: notification.id, read: true } },
+            class: "button dismiss-notification" %>
+          <% end %>
     <% end %>
   <% end %>
 <ul>
