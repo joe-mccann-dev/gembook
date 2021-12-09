@@ -8,19 +8,8 @@
               <%= notification.description %> from <%= link_to full_name(notification.sender), notification.sender %>
               <div>
                 <!-- update Friendship object and allow notification to be marked as read from within Friendship controller -->
-                <%= button_to "Accept",
-                friendship_path(Friendship.find_by(sender: notification.sender, receiver: notification.receiver)),
-                method: :put,
-                params: {  notification: { time_sent: notification.time_sent }, friendship: { status: 'accepted', sender_id: notification.sender.id } },
-                class: "button accept-request" 
-                %>
-
-                <%= button_to "Decline",
-                friendship_path(Friendship.find_by(sender: notification.sender, receiver: notification.receiver)),
-                method: :put,
-                params: { notification: { time_sent: notification.time_sent }, friendship: { status: 'declined', sender_id: notification.sender.id } },
-                class: "button decline-request"
-                %>
+                <%= render partial: 'friendship_accept', locals: { notification: notification } %>
+                <%= render partial: 'friendship_decline', locals: { notification: notification } %>
               </div>
             </li>
           <% else %>
