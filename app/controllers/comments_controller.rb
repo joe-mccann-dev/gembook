@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_commented_object, only: [:create]
+  before_action :set_comment, only: [:show]
+  before_action -> { verify_object_viewable(@comment) }, only: [:show]
 
   def create
     @comment = @commented_object.comments.build(comment_params.merge(user: current_user))
@@ -28,5 +30,9 @@ class CommentsController < ApplicationController
                         else
                           Comment.find(params[:comment_id])
                         end
+  end
+
+  def set_comment
+    @comment = Comment.find(params[:id])
   end
 end

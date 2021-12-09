@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_post, only: [:show]
+  before_action -> { verify_object_viewable(@post) }, only: [:show]
   before_action -> { prevent_unauthorized_posting(params[:post][:user_id]) }, only: [:create]
 
   def index
@@ -39,5 +41,9 @@ class PostsController < ApplicationController
       redirect_to user_path(user_id)
       flash[:warning] = 'Unallowed!'
     end
+  end
+
+  def set_post
+    @post = Post.find(params[:id])
   end
 end
