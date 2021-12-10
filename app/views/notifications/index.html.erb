@@ -1,20 +1,6 @@
 <h1>Notifications for <%= current_user.first_name %></h1>
 <ul>
   <% @notifications.unread.each do |notification| %>
-    <% case notification.object_type
-        when 'Friendship' %>
-          <%= render partial: 'friendship_notifications', locals: { notification: notification } %>
-     <% when 'Like' %>
-          <li class="notification liked-object">
-            <span><%= full_name(notification.sender) %></span>
-            <span><%= link_to notification.description, notification.object_url %>.</span>
-          </li>
-          <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
-     <% when 'Comment' %>
-          <li class="notification commented-object">
-            <%= link_to full_name(notification.sender), notification.sender %> <%= link_to notification.description, notification.object_url %>.
-          </li>
-          <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
-    <% end %>
+    <%= show_notification(notification) %>
   <% end %>
 <ul>

@@ -37,7 +37,8 @@ RSpec.describe "DismissNotifications", type: :system do
       name = "#{request_accepter.first_name} #{request_accepter.last_name}"
       expect(page).to have_content("#{name} accepted your friend request")
 
-      find('.dismiss-notification').click
+      notification = notified_user.received_notifications.first
+      find("#dismiss-notification-#{notification.id}").click
       expect(page).to_not have_css('.dismiss-notification')
     end
   end
