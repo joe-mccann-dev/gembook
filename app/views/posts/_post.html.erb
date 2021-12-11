@@ -1,0 +1,23 @@
+<li>
+  <div>
+    <p><%= full_name(post.user) %></p>
+    <p><%= post.content %></p>
+    <div class="post-likes">
+      <% unless current_user.liked_posts.include?(post) %>
+        <%= render partial: 'likes/like_button', locals: { object: post, path: post_likes_path(post) } %>
+      <% end %>
+      <% if post.likes.any? %>
+        <%= render partial: 'likes/like_count', locals: { object: post, path: post_path(post) } %>
+      <% end %>
+      <%= form_with(model: Comment.new, url: post_comments_path(post)) do |f| %>
+        <%= f.hidden_field :post_id, value: post.id %>
+        <%= f.text_area :content, id: "post-#{post.id}-comment" %>
+        <br>
+        <%= f.submit "Comment" %>
+      <% end %>
+      <div class="post-comments">
+        <%= render partial: "/comments/comment", collection: post.comments  %>
+      </div>
+    </div>
+  </div>
+</li>

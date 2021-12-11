@@ -14,6 +14,9 @@ RSpec.describe User, type: :model do
   let!(:post_comment) { post.comments.create(content: 'great first post', user: other_user) }
   let!(:other_post_comment) { other_post.comments.create(content: 'I agree that is yet another post', user: user) }
 
+  let!(:profile) { user.create_profile(nickname: 'Joe smoe', bio: 'I enjoy candlelit dinners and long walks on the beach', current_city: 'New York', hometown: 'Springfield') }
+
+
   context 'notifications' do
     it 'has_many sent notifications' do
       expect(user.sent_notifications).to_not be_empty
@@ -115,6 +118,10 @@ RSpec.describe User, type: :model do
       post_comment.likes.create(user: user)
       other_post_comment.likes.create(user: user)
       expect(user.liked_comments.count).to eq(2)
+    end
+
+    it 'has one profile' do
+      expect(user.profile).to eq(profile)
     end
   end
 end

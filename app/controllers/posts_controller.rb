@@ -21,7 +21,8 @@ class PostsController < ApplicationController
     else
       flash[:warning] = 'Failed to create post. Please try again.'
     end
-    redirect_to user_path(params[:post][:user_id])
+    # redirect_to user_path(params[:post][:user_id])
+    redirect_to request.referrer
   end
 
   def show

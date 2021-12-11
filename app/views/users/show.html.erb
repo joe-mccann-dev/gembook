@@ -1,13 +1,44 @@
-<h1>Users#show</h1>
-<p><%= @user.first_name %> <%= @user.last_name %></p>
-<% if current_user == @user %>
-  <div class="form new-post">
-    <%= form_with(model: @post) do |f| %>
+<h1><%= full_name(@user) %></h1>
+<div class="profile-info">
+  <p>Profile</p>
+  <%= render partial: 'profiles/profile', object: @profile || Profile.new %>
+  <% if user_is_current_user?(@user) %>
+    <p>
+      <% if !@profile.present? %>
+        <em>You haven't created a profile yet.</em>
+        <%= link_to "Create Profile", new_user_profile_path(@user) %>
+      <% else %>
+        <%= link_to "Edit Profile", edit_user_profile_path(@user) %>
+      <% end %>
+    </p>
+    <p>
+      <strong>Your Posts</strong>
+    </p>
+    <p>
+      <strong>Write a new post</strong>
+    </p>
+    <div class="form new-post">
+      <%= form_with(model: @post) do |f| %>
         <%= f.hidden_field :user_id, value: @user.id %>
-
         <%= f.text_area :content %>
         <%= f.submit "Create Post" %>
-    <% end %>
-  </div>
-<% end %>
-
+      <% end %>
+    </div>
+    <p>
+      <ul>
+        <%= render partial: 'posts/post', collection: @posts %>
+      </ul>
+    </p>
+  <% end %>
+  <% if current_user.friends.include?(@user) %>
+    <strong>Posts by <%= full_name(@user) %></strong>
+    <p>
+      <ul>
+        <%= render partial: 'posts/post', collection: @posts %>
+      </ul>
+      <%= content_tag(:em, "There doesn't seem to be anything here.") if @posts.empty? %>
+    </p>
+  <% else %>
+    <%= render 'send_or_accept_request'%>
+  <% end %>
+</div>

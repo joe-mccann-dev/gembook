@@ -12,11 +12,5 @@ RSpec.describe "ViewProfiles", type: :system do
     before do
       login_as(user, scope: :user)
     end
-
-    it 'redirects to root if other user is not a friend' do
-      visit user_path(other_user)
-      expect(page).to have_content("You must be friends to view this user's profile.")
-      expect(current_path).to eq(root_path)
-    end
   end
 end
