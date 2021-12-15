@@ -9,7 +9,7 @@ class ProfilesController < ApplicationController
   def create
     @profile = current_user.build_profile(profile_params)
     if @profile.save
-      flash[:success] = "You've successfully created your profile!"
+      flash[:success] = "You've successfully created your profile."
       redirect_to user_path(current_user)
     else
       render :new

@@ -4,6 +4,6 @@ module UsersHelper
   end
 
   def friendable?(user)
-    user_is_current_user?(user) || current_user.pending_friends.include?(user)
+    !user_is_current_user?(user) || !current_user.pending_friends.include?(user)
   end
 end

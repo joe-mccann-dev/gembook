@@ -3,5 +3,5 @@
 
 <%= form_with(model: @profile, url: user_profile_path(current_user)) do |f| %>
   <%= render partial: 'profile_form_fields', locals: { f: f } %>
-  <%= f.submit "Create New Profile" %>
+  <%= f.submit "Create Profile" %>
 <% end %>

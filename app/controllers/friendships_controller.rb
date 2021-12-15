@@ -18,7 +18,7 @@ class FriendshipsController < ApplicationController
     else
       flash[:warning] = 'Failed to send friend request. Please try again'
     end
-    redirect_to root_url
+    redirect_to request.referrer
   end
 
   def update

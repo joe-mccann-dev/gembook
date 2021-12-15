@@ -1,6 +1,6 @@
     
 <p>
-  <% unless friendable?(@user) %>
+  <% if friendable?(@user) %>
     <%= link_to "Send #{@user.first_name} a friend request", 
                     friendships_path(sender_id: current_user.id, receiver_id: @user.id),
                     method: :post,
