@@ -8,4 +8,8 @@ RSpec.describe Profile, type: :model do
   it 'belongs to a user' do
     expect(profile.user).to eq(user)
   end
+
+  it { is_expected.to validate_content_type_of(:profile_picture).allowing('image/png', 'image/jpg', 'image/jpeg') }
+  it { is_expected.to validate_size_of(:profile_picture).less_than(10.megabytes) }
+
 end

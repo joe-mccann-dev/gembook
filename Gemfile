@@ -23,7 +23,9 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.2'
+gem "aws-sdk-s3", require: false
+gem 'active_storage_validations'
 
 gem 'devise'
 gem 'rexml', '~> 3.2.4'

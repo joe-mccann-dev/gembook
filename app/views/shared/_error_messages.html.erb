@@ -1,0 +1,7 @@
+<% if object.errors.any? %>
+  <ul>
+    <% object.errors.full_messages.each do |message| %>
+      <li class="has-text-danger-dark is-size-5-desktop is-size-6-mobile">- <%= message %></li>
+    <% end %>
+  </ul>
+<% end %>

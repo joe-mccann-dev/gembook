@@ -1,4 +1,12 @@
-  
+<% if profile.profile_picture.present? %>
+  <p class="profile_picture">
+    <%= link_to image_tag(profile
+                  .profile_picture
+                  .representation(resize_to_fit: [250, 250], convert: "png"), alt: 'a user profile picture'),
+                url_for(profile.profile_picture),
+                id: "profile-#{profile.id}-picture" %>
+  </p>
+<% end %>
 <p class="bio">Bio:
   <%= profile.bio %>
 </p>

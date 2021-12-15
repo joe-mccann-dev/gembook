@@ -1,8 +1,8 @@
 require 'rails_helper'
 include UsersHelper
-include NotificationsManager
 
 RSpec.describe "ViewProfiles", type: :system do
+
   before do
     driven_by(:rack_test)
   end
@@ -10,7 +10,7 @@ RSpec.describe "ViewProfiles", type: :system do
   let!(:user) { User.create(first_name: 'foo', last_name: 'bar', email: 'foo@bar.com', password: 'foobar') }
   let!(:other_user) { User.create(first_name: 'other', last_name: 'user', email: 'other@user.com', password: 'foobar') }
 
-  context 'a user wants to view their profile' do
+  context 'users viewing profiles' do
     before do
       login_as(user, scope: :user)
       visit user_path(user)
@@ -26,7 +26,7 @@ RSpec.describe "ViewProfiles", type: :system do
     end
 
     context 'they already have a profile' do
-      it "allows them to click 'Edit Profile' and edit their profile" do
+      it "allows them edit their profile after creating one" do
         expect(current_path).to eq(user_path(user))
         expect(page).to have_content("You haven't created a profile yet.")
         click_link 'Create Profile'
@@ -35,6 +35,9 @@ RSpec.describe "ViewProfiles", type: :system do
         fill_in 'Nickname', with: 'Fooey'
         fill_in 'Current City', with: 'Bartown'
         fill_in 'Hometown', with: 'Footown'
+        image_1_file_path = "#{Rails.root}/spec/files/image_1.jpg"
+        attach_file(image_1_file_path)
+        find("#profile_profile_picture").click
         click_on 'Create Profile'
         expect(page).to have_content("You've successfully created your profile.")
         expect(page.current_path).to eq(user_path(user))
@@ -45,11 +48,30 @@ RSpec.describe "ViewProfiles", type: :system do
         fill_in 'Bio', with: 'Updated Bio'
         fill_in 'Nickname', with: 'Updated Nickname'
         fill_in 'Current City', with: 'Updated Current City'
-
+        image_2_file_path = "#{Rails.root}/spec/files/image_2.png"
+        attach_file(image_2_file_path)
+        find("#profile_profile_picture").click
         click_on 'Edit Profile'
         expect(page.current_path).to eq(user_path(user))
-
         expect(page).to have_content("You've successfully edited your profile.")
+      end
+
+      it 'profile picture is a resized image that is a link to full sized image' do
+        click_link 'Create Profile'
+        expect(current_path).to eq(new_user_profile_path(user))
+        image_1_file_path = "#{Rails.root}/spec/files/image_1.jpg"
+        attach_file(image_1_file_path)
+        find("#profile_profile_picture").click
+        click_on 'Create Profile'
+        expect(page).to have_css("#profile-#{user.profile.id}-picture")
+        click_link "profile-#{user.profile.id}-picture"
+        
+        # path helpers did not work due to the way active storage creates links in test environment
+        desired_end_of_url = "image_1.jpg"
+        end_length = desired_end_of_url.length
+        url_length = current_url.length
+        end_of_url = "#{current_url[-end_length..url_length]}"
+        expect(end_of_url).to eq(desired_end_of_url)
       end
     end
   end
