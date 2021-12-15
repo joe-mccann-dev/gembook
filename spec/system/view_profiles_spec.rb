@@ -148,6 +148,37 @@ RSpec.describe "ViewProfiles", type: :system do
       end
     end
 
-    context ""
+    context "they have already sent viewed user a friend request" do
+      before do
+        login_as(user, scope: :user)
+        visit users_path
+
+        click_on "Add Friend"
+      end
+
+      it 'does not show send a friend request link' do
+        link = "Send #{other_user.first_name} a friend request"
+        visit user_path(other_user)
+        expect(page).to_not have_link(link)
+      end
+    end
+
+    context 'they have already accepted a request from the profile page' do
+      before do
+        login_as(user, scope: :user)
+        visit users_path
+
+        click_on 'Add Friend'
+        logout(user, scope: :user)
+        login_as(other_user, scope: :user)
+        visit user_path(user)
+      end
+
+      it 'does not show accept request' do
+        link = 'Accept request'
+        click_link link
+        expect(page).to_not have_link(link)
+      end
+    end
   end
 end

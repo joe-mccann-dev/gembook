@@ -31,7 +31,7 @@ class FriendshipsController < ApplicationController
     else
       flash[:warning] = 'Failed to accept or decline friendship'
     end
-    redirect_to notifications_path
+    redirect_to request.referrer
   end
 
   private
