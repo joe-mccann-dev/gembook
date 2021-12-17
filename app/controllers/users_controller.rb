@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   def show
     @profile = @user.profile
     @post = Post.new
-    @posts = @user.posts.order(created_at: :desc)
+    @posts = @user.posts.includes([:comments, :likes]).order(created_at: :desc)
     return unless current_user.pending_received_friends.any?
 
     @notification = Notification.find_by(sender_id: @user.id, 
