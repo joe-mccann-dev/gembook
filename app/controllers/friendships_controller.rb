@@ -34,6 +34,16 @@ class FriendshipsController < ApplicationController
     redirect_to request.referrer
   end
 
+  def destroy
+    @friendship = Friendship.find(params[:id])
+    if @friendship.destroy
+      flash[:success] = "You are no longer friends with #{params[:friend_name]}."
+    else
+      flash[:info] = "Failed to unfriend #{params[:friend_name]}."
+    end
+    redirect_to request.referrer
+  end
+
   private
 
   def friendship_params
@@ -45,8 +55,8 @@ class FriendshipsController < ApplicationController
   end
 
   def set_update_params
-    @sender_id = params[:friendship][:sender_id]
     @time_sent = params[:notification][:time_sent]
+    @sender_id = params[:friendship][:sender_id]
     @friendship = Friendship.find_by(sender_id: @sender_id, receiver_id: current_user.id)
   end
 

@@ -1,5 +1,7 @@
 <%= button_to "Decline",
-                friendship_path(Friendship.find_by(sender: notification.sender, receiver: notification.receiver)),
+                friendship_path(@friendships[notification.sender.id]),
                 method: :put,
-                params: { notification: { time_sent: notification.time_sent }, friendship: { status: 'declined', sender_id: notification.sender.id } },
-                class: "button decline-request" %>
+                params: { notification: { time_sent: notification.time_sent },
+                                          friendship: { status: 'declined', sender_id: notification.sender.id } },
+                class: "button decline-request",
+                id: "decline-sender-#{notification.sender.id}-request" %>

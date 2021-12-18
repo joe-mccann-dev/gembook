@@ -13,3 +13,12 @@
  *= require_tree .
  *= require_self
  */
+
+.button_to,
+.button_to div {
+  display: inline;
+}
+
+li {
+  margin: 12px 0;
+}

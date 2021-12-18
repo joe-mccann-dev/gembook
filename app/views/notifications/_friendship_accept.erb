@@ -1,5 +1,7 @@
 <%= button_to "Accept",
-              friendship_path(Friendship.find_by(sender: notification.sender, receiver: notification.receiver)),
+              friendship_path(@friendships[notification.sender.id]),
               method: :put,
-              params: {  notification: { time_sent: notification.time_sent }, friendship: { status: 'accepted', sender_id: notification.sender.id } },
-              class: "button accept-request" %>
+              params: {  notification: { time_sent: notification.time_sent },
+                         friendship: { status: 'accepted', sender_id: notification.sender.id } },
+              class: "button accept-request",
+              id: "accept-sender-#{notification.sender.id}-request" %>

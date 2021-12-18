@@ -1,0 +1,10 @@
+<li>
+  <%= link_to full_name(friend), user_path(friend) %>
+  <%= button_to "Unfriend",
+              @friendships[friend.id],
+              params: { friend_name: "#{friend.first_name}" },
+              method: :delete,
+              class: "unfriend",
+              id: "unfriend-#{friend.id}",
+              data: { confirm: "You will no longer be friends with #{friend.first_name}. Continue?" } %>
+</li>

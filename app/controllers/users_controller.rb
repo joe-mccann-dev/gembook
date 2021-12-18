@@ -2,8 +2,10 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show]
 
   def index
-    @friendship = Friendship.new
+    @friendship = current_user.sent_pending_requests.build
     @users = User.all
+    @friends = current_user.friends
+    @friendships = current_user.friendships_via_friend_id
   end
 
   def show
