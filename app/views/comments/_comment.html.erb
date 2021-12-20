@@ -4,12 +4,10 @@
       <div>
         <p><%= full_name(comment.user) %></p>
         <p><%= comment.content %></p>
-        <% unless current_user.liked_comments.include?(comment) %>
-          <%= render partial: 'likes/like_button', locals: { object: comment, path: comment_likes_path(comment) } %>
-        <% end %>
         <% if comment.likes.any? %>
-          <%= render partial: 'likes/like_count', locals: { object: comment, path: comment_path(comment) } %>
+          <%= render partial: 'likes/like_count', locals: { likeable: comment, path: comment_path(comment) } %>
         <% end %>
+        <%= render partial: 'likes/like_button', locals: { likeable: comment, path: comment_likes_path(comment) } %>
       </div>
       <%= form_with(model: [comment, Comment.new]) do |f| %>
         <%= f.text_area :content, id: "post-#{comment.commentable_id}-comment-#{comment.id}-reply" %>

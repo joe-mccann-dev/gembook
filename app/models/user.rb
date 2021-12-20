@@ -101,6 +101,10 @@ class User < ApplicationRecord
     friendships_via_sender_id.merge(friendships_via_receiver_id)
   end
 
+  def find_like(likeable)
+    likes.find_by(likeable_id: likeable.id)
+  end
+
   private
 
   def friendships_via_sender_id

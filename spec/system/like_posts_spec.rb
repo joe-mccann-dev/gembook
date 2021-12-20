@@ -47,10 +47,10 @@ RSpec.describe "LikePosts", type: :system do
       expect(post.likers.count).to eq(2)
     end
 
-    it 'does not show the like button after liking' do
+    it 'shows unlike version of like button after liking' do
       expect(page).to have_css("#post-#{post.id}-like")
       find("#post-#{post.id}-like").click
-      expect(page).to_not have_css("#post-#{post.id}-like")
+      expect(page).to have_css("#post-#{post.id}-unlike")
     end
 
     it 'shows who liked the post after clicking like' do
@@ -68,7 +68,7 @@ RSpec.describe "LikePosts", type: :system do
       visit root_url
 
       find("#post-#{post.id}-like").click
-      expect(page).to have_content("#{full_name(user)} and #{full_name(liker)} like this.")
+      expect(page).to have_content("#{full_name(liker)} and #{full_name(user)} like this.")
     end
 
     it 'shows first liker and how many others have liked a post if like count is greater than 2' do
@@ -80,14 +80,14 @@ RSpec.describe "LikePosts", type: :system do
       visit root_url
 
       find("#post-#{post.id}-like").click
-      expect(page).to have_content("#{full_name(user)} and #{full_name(liker)} like this.")
+      expect(page).to have_content("#{full_name(liker)} and #{full_name(user)} like this.")
 
       logout(user)
       login_as(another_user)
       visit root_url
 
       find("#post-#{post.id}-like").click
-      expect(page).to have_content("#{full_name(user)} and 2 others like this.")
+      expect(page).to have_content("#{full_name(liker)} and 2 others like this.")
     end
   end
 end

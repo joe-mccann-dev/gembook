@@ -1,4 +1,13 @@
-<%= form_with(model: Like.new, url: path ) do |f| %>
-  <%= f.hidden_field "#{object.to_s.downcase}_id".to_sym, value: object.id %>
-  <%= f.submit "Like", id: "#{object_to_s(object)}-#{object.id}-like" %>
+<% if likeable.likers.include?(current_user) %>
+  <%= button_to "Like",
+                public_send("#{object_to_s(likeable)}_like_path", likeable, current_user.find_like(likeable)),
+                method: :delete,
+                remote: true,
+                class: 'liked',
+                id: "#{object_to_s(likeable)}-#{likeable.id}-unlike" %>
+<% else %>
+  <%= button_to "Like",
+                path,
+                remote: true,
+                id: "#{object_to_s(likeable)}-#{likeable.id}-like" %>
 <% end %>

@@ -7,13 +7,13 @@ Rails.application.routes.draw do
     resource :profile
   end
   resources :posts, only: [:index, :create, :show] do
-    resources :likes, only: [:create]
+    resources :likes, only: [:create, :destroy]
     resources :comments
   end
 
   resources :comments do
     resources :comments
-    resources :likes, only: [:create]
+    resources :likes, only: [:create, :destroy]
   end
   
   resources :notifications, only: [:index, :update]

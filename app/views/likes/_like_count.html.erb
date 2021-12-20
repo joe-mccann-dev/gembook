@@ -1,17 +1,17 @@
 <div class="like-stats">
-  <% if object.likes.count == 2 %>
+  <% if likeable.likes.count == 2 %>
     <p>
-      <%= link_to full_name(object.likers.first), user_path(object.likers.first) %>
-      and <%= link_to full_name(object.likers.second), user_path(object.likers.second) %> like this.
+      <%= link_to full_name(likeable.likers.first), user_path(likeable.likers.first) %>
+      and <%= link_to full_name(likeable.likers.second), user_path(likeable.likers.second) %> like this.
     </p>
-  <% elsif object.likes.count > 2 %>
+  <% elsif likeable.likes.count > 2 %>
     <p>
-      <%= link_to full_name(object.likers.first), user_path(object.likers.first) %>
-      and <%= link_to "#{object.likes.count - 1} others", path %> like this.
+      <%= link_to full_name(likeable.likers.first), user_path(likeable.likers.first) %>
+      and <%= link_to "#{likeable.likes.count - 1} others", path %> like this.
     </p>
   <% else %>
     <p>
-      <%= link_to full_name(object.likers.first), user_path(object.likers.first) %> likes this.
+      <%= link_to full_name(likeable.likers.first), user_path(likeable.likers.first) %> likes this.
     </p>
   <% end %>
 </div>
