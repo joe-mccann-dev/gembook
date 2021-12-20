@@ -1,6 +1,6 @@
 class Profile < ApplicationRecord
   belongs_to :user
-  has_one_attached :profile_picture
+  has_one_attached :profile_picture, dependent: :destroy
 
   validates :profile_picture, attached: true,
                               content_type: %w[image/png image/jpg image/jpeg],
