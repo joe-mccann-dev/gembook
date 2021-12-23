@@ -97,12 +97,10 @@ class User < ApplicationRecord
 
   def requests_via_sender_id
     requests = received_pending_requests
-    result = {}
     sender_ids = requests.pluck(:sender_id)
-    sender_ids.each do |id|
-      result[id] = requests.find_by(sender_id: id)
+    sender_ids.to_h do |id|
+      [id, requests.find_by(sender_id: id)]
     end
-    result
   end
 
   def friendships_via_friend_id
@@ -117,21 +115,17 @@ class User < ApplicationRecord
 
   def friendships_via_sender_id
     friendships = accepted_requests
-    senders_result = {}
-    ids = friendships.pluck(:sender_id)
-    ids.each do |id|
-      senders_result[id] = friendships.find { |f| f.sender_id == id }
+    sender_ids = friendships.pluck(:sender_id)
+    sender_ids.to_h do |id|
+      [id, friendships.find { |f| f.sender_id == id }]
     end
-    senders_result
   end
 
   def friendships_via_receiver_id
     friendships = accepted_requests
-    receivers_result = {}
-    ids = friendships.pluck(:receiver_id)
-    ids.each do |id|
-      receivers_result[id] = friendships.find { |f| f.receiver_id == id }
+    receiver_ids = friendships.pluck(:receiver_id)
+    receiver_ids.to_h do |id|
+      [id, friendships.find { |f| f.receiver_id == id }]
     end
-    receivers_result
   end
 end

@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     @profile = @user.profile
     @post = Post.new
     @posts = @user.posts.includes([:comments, :likes]).order(created_at: :desc)
+    @friendship = current_user.requests_via_sender_id[@user.id]
     return unless current_user.pending_received_friends.any?
 
     @notification = Notification.find_by(sender_id: @user.id, 

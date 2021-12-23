@@ -7,7 +7,7 @@ class NotificationsController < ApplicationController
   end
 
   def update
-    @notification = Notification.find(params[:notification][:notification_id])
+    @notification = Notification.find(params[:id])
     if @notification.update(notification_params)
       flash[:info] = 'Notification dismissed'
     else

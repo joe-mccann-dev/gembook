@@ -9,7 +9,7 @@ class FriendshipsController < ApplicationController
   after_action -> { send_friend_request_notification(@sender_id, 'accepted your friend request') },
                only: [:update],
                if: proc { @friendship.accepted? }
-  after_action -> { mark_notification_read('Friendship', @sender_id, @time_sent) }, only: [:update]
+  after_action -> { mark_notification_read('Friendship', @sender_id) }, only: [:update]
 
   def create
     @friendship = current_user.sent_pending_requests.build(receiver: @receiver)
@@ -55,16 +55,15 @@ class FriendshipsController < ApplicationController
   end
 
   def set_update_params
-    @time_sent = params[:notification][:time_sent]
-    @sender_id = params[:friendship][:sender_id]
-    @friendship = Friendship.find_by(sender_id: @sender_id, receiver_id: current_user.id)
+    @friendship = Friendship.find(params[:id])
+    @sender_id = @friendship.sender.id
   end
 
-  def mark_notification_read(object_type, sender_id, time_sent)
-    update_notification(object_type, sender_id, time_sent)
+  def mark_notification_read(object_type, sender_id)
+    update_notification({ object_type: object_type, sender_id: sender_id })
   end
 
-  # TODO make object_url more relevant to friendship
+  # TODO: make object_url more relevant to friendship
   def send_friend_request_notification(user_id, description)
     send_notification({ receiver_id: user_id,
                         object_type: 'Friendship',

@@ -15,9 +15,8 @@
   <% if current_user.pending_received_friends.include?(@user) %>
     <em><%= @user.first_name %> sent you a friend request. Once you accept you'll be able to see their posts.</em>
     <%= link_to "Accept request", 
-                    friendship_path(friendship: { status: 'accepted', 
-                                                  sender_id: @notification.sender.id }, 
-                                    notification: { time_sent: @notification.time_sent } ),
+                    friendship_path(@friendship, friendship: { status: 'accepted' },
+                                                 notification: { time_sent: @notification.time_sent} ),
                     method: :put,
                     data: { confirm: "Accept friend request from #{@user.first_name}?"} %>
   <% end %>

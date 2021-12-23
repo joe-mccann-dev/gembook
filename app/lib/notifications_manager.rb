@@ -9,10 +9,9 @@ module NotificationsManager
                                             object_url: args[:object_url])
   end
 
-  def update_notification(object_type, sender_id, time_sent)
-    current_user.received_notifications.find_by(object_type: object_type,
-                                                sender_id: sender_id,
-                                                time_sent: time_sent)
+  def update_notification(args = {})
+    current_user.received_notifications.find_by(object_type: args[:object_type],
+                                                sender_id: args[:sender_id])
                 .update(read: true)
   end
 end
