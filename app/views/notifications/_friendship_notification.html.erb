@@ -6,6 +6,7 @@
     <div>
       <%= render partial: 'friendship_accept', locals: { notification: notification } %>
       <%= render partial: 'friendship_decline', locals: { notification: notification } %>
+      <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
     </div>
   </li>
 <% else %>

@@ -40,4 +40,27 @@ RSpec.describe "DismissNotifications", type: :system do
       expect(page).to_not have_css('.dismiss-notification')
     end
   end
+
+  context 'a user sends a request' do
+    before do
+      login_as(friend_requester, scope: :user)
+      visit users_path
+      
+      find("#friend-#{user.id}").click
+    end
+
+    it 'allows receiver of request to dismiss the request' do
+      logout(friend_requester)
+      login_as(user, scope: :user)
+      visit notifications_path
+
+      expect(page).to have_button("Accept")
+      expect(page).to have_button("Decline")
+      expect(page).to have_button("Dismiss")
+
+      expect(user.received_notifications.unread).to_not be_empty
+      click_on "Dismiss"
+      expect(user.received_notifications.unread).to be_empty
+    end
+  end
 end
