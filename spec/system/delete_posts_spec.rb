@@ -12,14 +12,14 @@ RSpec.describe "DeletePosts", type: :system do
       login_as(user, scope: :user)
     end
 
-    it 'allows them to delete it from the Users#index page' do
+    it 'allows them to delete it from the Posts#index page' do
       visit user_path(user)
 
       post_content = 'This is my first post. Might delete later'
 
       fill_in 'post_content', with: post_content
       
-      click_on 'Create Post'
+      click_on 'Post'
       visit posts_path
       expect(page).to have_content(post_content)
       expect(page).to have_link('delete post')
@@ -33,7 +33,7 @@ RSpec.describe "DeletePosts", type: :system do
       post_content = 'This is a post from my profile page.'
 
       fill_in 'post_content', with: post_content
-      click_on 'Create Post'
+      click_on 'Post'
       
       expect(page).to have_content(post_content)
       expect(page).to have_link('delete post')

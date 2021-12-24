@@ -1,14 +1,1 @@
-<div>
-  <p>Liked by:</p>
-  <ul>
-    <% @post.likers.each do |user| %>
-      <li><%= link_to full_name(user), user_path(user) %></li>
-    <% end %>
-  </ul>
-</div>
-<div>
-  <h2>Original Post</h2>
-  <p>
-    <%= @post.content %>
-  </p>
-</div>
+<%= render partial: 'post', locals: { post: @post } %>

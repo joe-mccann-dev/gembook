@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   def show
     @profile = @user.profile
-    @post = Post.new
+    @post = current_user.posts.build
     @posts = @user.posts.includes([:comments, :likes]).order(created_at: :desc)
     @friendship = current_user.requests_via_sender_id[@user.id]
     return unless current_user.pending_received_friends.any?

@@ -86,7 +86,7 @@ RSpec.describe "ViewProfiles", type: :system do
       expect(page.current_path).to eq(user_path(user))
       post = 'A new post by Foo'
       fill_in 'post_content', with: post
-      click_on 'Create Post'
+      click_on 'Post'
       expect(page).to have_content('Post created successfully.')
       expect(page.current_path).to eq(user_path(user))
       expect(page).to have_content(post)

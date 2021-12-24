@@ -1,0 +1,9 @@
+    
+<div class="form new-post">
+  <%= form_with(model: @post) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.text_area :content %>
+    <%= f.submit "Post" %>
+  <% end %>
+</div>

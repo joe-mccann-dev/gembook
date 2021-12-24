@@ -17,13 +17,7 @@
     <p>
       <strong>Write a new post</strong>
     </p>
-    <div class="form new-post">
-      <%= form_with(model: @post) do |f| %>
-        <%= f.hidden_field :user_id, value: @user.id %>
-        <%= f.text_area :content %>
-        <%= f.submit "Create Post" %>
-      <% end %>
-    </div>
+    <%= render partial: 'posts/post_form' %>
     <p>
       <ul>
         <%= render partial: 'posts/post', collection: @posts %>
