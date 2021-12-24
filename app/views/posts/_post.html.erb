@@ -2,6 +2,9 @@
   <div>
     <p><%= full_name(post.user) %></p>
     <p><%= post.content %></p>
+    <% if user_is_current_user?(post.user) %>
+      <%= link_to 'delete post', post_path(post), method: :delete, data: { confirm: 'Are you sure you want to delete this post?'}%>
+    <% end %>
     <div class="post-likes">
       <% if post.likes.any? %>
         <%= render partial: 'likes/like_count', locals: { likeable: post, path: post_path(post) } %>
