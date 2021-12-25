@@ -7,7 +7,7 @@
       <%= link_to 'edit post', edit_post_path(post)  %>
     <% end %>
     <div class="post-likes">
-      <% if post.likes.any? %>
+      <% if post.likes.any? && !current_page?(post_path(post)) %>
         <%= render partial: 'likes/like_count', locals: { likeable: post, path: post_path(post) } %>
       <% end %>
       <%= render partial: 'likes/like_button', locals: { likeable: post, path: post_likes_path(post) } %>

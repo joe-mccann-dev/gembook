@@ -15,7 +15,7 @@ class LikesController < ApplicationController
   def destroy
     @like = Like.find(params[:id])
     @like.destroy
-    redirect_to root_url
+    redirect_to request.referrer
   end
 
   private
