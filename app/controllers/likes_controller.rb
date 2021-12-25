@@ -2,7 +2,7 @@ class LikesController < ApplicationController
   include NotificationsManager
 
   before_action :authenticate_user!
-  before_action :set_liked_object, only: [:create]
+  before_action :set_liked_object, only: [:create, :destroy]
   after_action -> { send_like_notification(@liked_object) },
                only: [:create]
 
