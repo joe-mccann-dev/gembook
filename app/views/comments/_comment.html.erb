@@ -1,7 +1,7 @@
 <div class="comment-form">
   <ul>
     <li id="comment-<%= comment.id %>">
-      <div>
+      <div id="likeable-<%= comment.id %>">
         <p><%= full_name(comment.user) %></p>
         <p><%= comment.content %></p>
         <% if comment.likes.any? %>

@@ -9,13 +9,13 @@ class LikesController < ApplicationController
   def create
     @like = @liked_object.likes.build(user: current_user)
     @like.save
-    redirect_to request.referrer
+    redirect_to "#{request.referrer}#likeable-#{@liked_object.id}"
   end
 
   def destroy
     @like = Like.find(params[:id])
     @like.destroy
-    redirect_to request.referrer
+    redirect_to "#{request.referrer}#likeable-#{@liked_object.id}"
   end
 
   private

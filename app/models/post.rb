@@ -5,4 +5,8 @@ class Post < ApplicationRecord
   has_many :likers, through: :likes, source: :user
 
   validates_presence_of :content
+
+  def edited?
+    created_at != updated_at
+  end
 end
