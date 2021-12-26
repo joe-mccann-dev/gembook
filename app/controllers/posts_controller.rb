@@ -45,7 +45,7 @@ class PostsController < ApplicationController
     else
       flash[:warning] = "Failed to remove post."
     end
-    redirect_to request.referrer
+    redirect_to root_url
   end
 
   def show; end

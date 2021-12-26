@@ -40,5 +40,41 @@ RSpec.describe "DeletePosts", type: :system do
 
       expect { click_link 'delete post' }.to change { user.posts.count }.from(1).to(0)
     end
+
+    it 'allows the to delete it after editing' do
+      visit user_path(user)
+      
+      post_content = 'This is a post I will edit and then immediately delete'
+
+      fill_in 'post_content', with: post_content
+      click_on 'Post'
+
+      expect(page).to have_link('edit post')
+
+      click_link 'edit post'
+
+      edited_content = 'This is an edited post that will be deleted immediately.'
+      fill_in 'post_content', with: edited_content
+
+      click_on 'Post'
+
+      expect(page).to have_content(edited_content)
+      expect(page).to have_content('delete post')
+
+      click_link 'delete post'
+      expect(page).to have_content('Post successfully removed.')
+    end
+
+    it 'redirects to the root_url' do
+      visit user_path(user)
+
+      post_content = 'This is a post from my profile page.'
+
+      fill_in 'post_content', with: post_content
+      click_on 'Post'
+
+      click_link 'delete post'
+      expect(page.current_path).to eq("/")
+    end
   end
 end

@@ -36,4 +36,9 @@ RSpec.describe Post, type: :model do
     expect(post.comments).to include(comment)
     expect(comment.commentable).to eq(post)
   end
+
+  it 'validates the presence of content' do
+    empty_post = user.posts.build(content: '')
+    expect(empty_post).to_not be_valid
+  end
 end

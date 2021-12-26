@@ -1,4 +1,4 @@
-<li style="border: solid 1px black; border-radius: 12px; max-width: 800px; padding: 24px; margin: 24px 0; list-style: none;">
+<li>
   <div id="likeable-<%= post.id %>">
     <p><%= full_name(post.user) %></p>
     <p style="border: solid 1px black; border-radius: 12px; max-width: 500px; padding: 24px;">
@@ -23,12 +23,10 @@
         <%= render partial: 'likes/like_count', locals: { likeable: post, path: post_path(post) } %>
       <% end %>
       <%= render partial: 'likes/like_button', locals: { likeable: post, path: post_likes_path(post) } %>
-      <%= form_with(model: Comment.new, url: post_comments_path(post)) do |f| %>
-        <%= f.hidden_field :post_id, value: post.id %>
-        <%= f.text_area :content, id: "post-#{post.id}-comment" %>
-        <br>
-        <%= f.submit "Comment" %>
-      <% end %>
+      <%= render partial: 'comments/comment_form',
+                          locals: { object: Comment.new,
+                                    path: post_comments_path(post),
+                                    id: "post-#{post.id}-comment"} %>
       <div class="post-comments">
         <%= render partial: "/comments/comment", collection: post.comments  %>
       </div>

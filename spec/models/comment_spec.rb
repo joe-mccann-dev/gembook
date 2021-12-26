@@ -23,4 +23,9 @@ RSpec.describe Comment, type: :model do
   it 'can access a parent comment via polymorphic commentable association' do
     expect(comment_reply.commentable).to eq(comment)
   end
+
+  it 'validates the presence of content' do
+    empty_comment = post.comments.build(user: user, content: '')
+    expect(empty_comment).to_not be_valid
+  end
 end

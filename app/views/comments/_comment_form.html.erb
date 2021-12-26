@@ -1,0 +1,11 @@
+<%= form_with(model: object, url: path) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.text_area :content, id: id %>
+  <br>
+  <% if path.match?(/^comments\/\d\/comments/)%>
+    <%= f.submit "Reply" %>
+  <% else %>
+    <%= f.submit "Comment" %>
+  <% end %>
+<% end %>

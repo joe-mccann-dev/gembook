@@ -1,0 +1,8 @@
+<p>Edit Comment</p>
+<p><%= @comment.content %></p>
+<%= render partial: 'comments/comment_form',
+                     locals: { object: @comment,
+                               path: public_send("#{object_to_s(@comment.commentable)}_comment_path",
+                                                 @comment.commentable),
+                               id: "#{object_to_s(@comment.commentable)}-#{@comment.commentable.id}-comment"
+                                                 } %>
