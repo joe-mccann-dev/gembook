@@ -1,14 +1,7 @@
-<div>
-  <p>Liked by:</p>
-  <ul>
-    <% @comment.likers.each do |user| %>
-      <li><%= link_to full_name(user), user_path(user) %></li>
-    <% end %>
-  </ul>
-</div>
-<div>
-  <h2>Original Comment</h2>
-  <p>
-    <%= @comment.content %>
-  </p>
+<div style="border: solid 1px black; border-radius: 12px; max-width: 800px; padding: 24px; margin: 24px 0; list-style: none;">
+  <%= render partial: 'comment', locals: { comment: @comment } %>
+  <% if @comment.likers.any? %>
+    <p>This comment is liked by<p>
+    <%= render partial: 'liker', collection: @comment.likers %>
+  <% end %>
 </div>
