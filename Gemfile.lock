@@ -114,6 +114,8 @@ GEM
     diff-lcs (1.4.4)
     erubi (1.10.0)
     ffi (1.15.4)
+    figaro (1.2.0)
+      thor (>= 0.14.0, < 2)
     formatador (0.3.0)
     globalid (0.6.0)
       activesupport (>= 5.0)
@@ -305,6 +307,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   devise
+  figaro
   guard
   guard-rspec
   image_processing (~> 1.2)

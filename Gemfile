@@ -28,6 +28,7 @@ gem "aws-sdk-s3", require: false
 gem 'active_storage_validations'
 
 gem 'devise'
+gem 'figaro'
 gem 'rexml', '~> 3.2.4'
 
 
