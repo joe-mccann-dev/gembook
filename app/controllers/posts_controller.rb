@@ -9,7 +9,7 @@ class PostsController < ApplicationController
   end
 
   def timeline_posts
-    Post.includes([:user, :comments, :likes, :likers])
+    Post.includes([:user, :likes, :likers, comments: [:likes, :likers]])
         .where(user_id: [current_user.id, current_user.friends.map(&:id)].flatten)
         .order(created_at: :desc)
   end

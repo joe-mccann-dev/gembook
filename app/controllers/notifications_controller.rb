@@ -2,7 +2,7 @@ class NotificationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @notifications = current_user.received_notifications.includes(%i[sender receiver])
+    @notifications = current_user.received_notifications.includes([:sender])
     @friendships = current_user.requests_via_sender_id
   end
 
