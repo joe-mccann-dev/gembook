@@ -1,8 +1,9 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post, except: [:new, :create, :index]
+  before_action :build_post, only: [:create]
+  before_action :check_post_ownership, only: [:create, :update, :destroy]
   before_action -> { verify_object_viewable(@post) }, only: [:show]
-  before_action :check_post_ownership, except: [:show, :index]
 
   def index
     @posts = timeline_posts
@@ -62,12 +63,12 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
+  def build_post
+    @post = current_user.posts.build(post_params)
+  end
+
   def check_post_ownership
-    user_id = if params[:post]
-                params[:post][:user_id].to_i
-              else
-                @post.user.id
-              end
+    user_id = @post.user_id
     redirect_to root_url, alert: 'Not allowed!' unless user_id == current_user.id
   end
 end

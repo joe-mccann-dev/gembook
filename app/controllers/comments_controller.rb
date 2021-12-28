@@ -2,10 +2,10 @@ class CommentsController < ApplicationController
   include NotificationsManager
 
   before_action :set_commented_object, only: [:create]
-  before_action :set_comment, only: [:show]
   before_action :set_comment, except: [:new, :create]
+  before_action :build_comment, only: [:create]
+  before_action :check_comment_ownership, only: [:create, :update, :destroy]
   before_action -> { verify_object_viewable(@comment) }, only: [:show]
-  # before_action :check_comment_ownership, except: [:show]
   after_action -> { send_comment_notification(@commented_object) },
                only: [:create]
 
@@ -16,7 +16,6 @@ class CommentsController < ApplicationController
     else
       flash[:warning] = "Failed to create comment"
     end
-    # redirect_to "/##{@commented_object.class.to_s.downcase}-#{@commented_object.id}"
     redirect_to request.referrer
   end
 
@@ -64,6 +63,15 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
   end
 
+  def build_comment
+    @comment = @commented_object.comments.build(comment_params.merge(user: current_user))
+  end
+
+  def check_comment_ownership
+    user_id = @comment.user_id
+    redirect_to root_url, alert: 'Not allowed!' unless user_id == current_user.id
+  end
+
   def send_comment_notification(commented_object)
     return if commented_object.user == current_user
 
@@ -81,14 +89,5 @@ class CommentsController < ApplicationController
       'Post' => "commented on your #{class_string}"
     }
     descriptions[commented_object.class.to_s]
-  end
-
-  def check_comment_ownership
-    user_id = if params[:comment]
-                params[:comment][:user_id].to_i
-              else
-                @comment.user.id
-              end
-    redirect_to root_url, alert: 'Not allowed!' unless user_id == current_user.id
   end
 end
