@@ -83,6 +83,10 @@ class User < ApplicationRecord
     end
   end
 
+  def current_password_required?
+    provider.blank?
+  end
+
   def friends
     accepted_requested_friends + accepted_received_friends
   end
