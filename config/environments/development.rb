@@ -12,7 +12,7 @@ Rails.application.configure do
   end
 
   # ngrok host. needs to be changed if ngrok tunnel address changes.
-  config.hosts << "7b7f-73-119-170-171.ngrok.io"
+  config.hosts << "0e30-73-119-170-171.ngrok.io"
 
   # Settings specified here will take precedence over those in config/application.rb.
 
