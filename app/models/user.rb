@@ -86,18 +86,6 @@ class User < ApplicationRecord
     end
   end
 
-  class << self
-    private
-
-    def attach_image_and_save_profile(auth, user)
-      profile = user.build_profile
-      image_file = Down.download(auth.info.image)
-      filename = File.basename(image_file.path)
-      profile.profile_picture.attach(io: image_file, filename: filename)
-      profile.save
-    end
-  end
-
   def friends
     accepted_requested_friends + accepted_received_friends
   end
