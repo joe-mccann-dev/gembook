@@ -1,8 +1,11 @@
+require 'down'
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: %i[github]
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -66,6 +69,34 @@ class User < ApplicationRecord
   has_many :accepted_received_friends,
            through: :received_accepted_requests,
            source: :sender
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+      user.first_name = auth.info.name.split(' ').first
+      # A Github user without a name will send github username as 'name'. 
+      # Set as emtpy string if user.last_name returns nil
+      user.last_name = auth.info.name.split(' ').second || ''
+      attach_image_and_save_profile(auth, user)
+      # user.image = auth.info.image # assuming the user model has an image
+      # If you are using confirmable and the provider(s) you use validate emails,
+      # uncomment the line below to skip the confirmation emails.
+      # user.skip_confirmation!
+    end
+  end
+
+  class << self
+    private
+
+    def attach_image_and_save_profile(auth, user)
+      profile = user.build_profile
+      image_file = Down.download(auth.info.image)
+      filename = File.basename(image_file.path)
+      profile.profile_picture.attach(io: image_file, filename: filename)
+      profile.save
+    end
+  end
 
   def friends
     accepted_requested_friends + accepted_received_friends

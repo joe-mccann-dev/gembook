@@ -29,6 +29,9 @@ gem 'active_storage_validations'
 
 gem 'devise'
 gem 'figaro'
+gem 'omniauth-github'
+gem 'omniauth-rails_csrf_protection'
+gem "down", "~> 5.0"
 gem 'rexml', '~> 3.2.4'
 
 
