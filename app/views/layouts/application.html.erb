@@ -21,9 +21,10 @@
       <% else %>
         <%= link_to "Notifications", notifications_path %>
       <% end %>
-      <span>logged in as <%= current_user.first_name %></span>
+      <span>logged in as </span><%= link_to full_name(current_user), edit_user_registration_path %>
       <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
     <% else %>
+      <%= link_to "Sign in with Github", user_github_omniauth_authorize_path, method: :post %>
       <%= link_to "Sign in", new_user_session_path if !current_page?(action: 'new' )%> 
     <% end %>
     </nav>

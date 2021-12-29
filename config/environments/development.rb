@@ -11,6 +11,9 @@ Rails.application.configure do
     Bullet.add_footer    = true
   end
 
+  # ngrok host. needs to be changed if ngrok tunnel address changes.
+  config.hosts << "7b7f-73-119-170-171.ngrok.io"
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded any time
