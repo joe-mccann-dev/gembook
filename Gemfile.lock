@@ -84,6 +84,10 @@ GEM
     aws-sigv4 (1.4.0)
       aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.16)
+    better_errors (2.9.1)
+      coderay (>= 1.0.0)
+      erubi (>= 1.0.0)
+      rack (>= 0.9.0)
     bindex (0.8.1)
     bootsnap (1.9.3)
       msgpack (~> 1.0)
@@ -350,6 +354,7 @@ PLATFORMS
 DEPENDENCIES
   active_storage_validations
   aws-sdk-s3
+  better_errors
   bootsnap (>= 1.4.4)
   bullet
   byebug
