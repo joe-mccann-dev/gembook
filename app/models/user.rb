@@ -1,5 +1,3 @@
-require 'down'
-
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -78,7 +76,6 @@ class User < ApplicationRecord
       # A Github user without a name will send github username as 'name'. 
       # Set as emtpy string if user.last_name returns nil
       user.last_name = auth.info.name.split(' ').second || ''
-      attach_image_and_save_profile(auth, user)
       # user.image = auth.info.image # assuming the user model has an image
       # If you are using confirmable and the provider(s) you use validate emails,
       # uncomment the line below to skip the confirmation emails.
