@@ -37,8 +37,30 @@ RSpec.describe Post, type: :model do
     expect(comment.commentable).to eq(post)
   end
 
-  it 'validates the presence of content' do
-    empty_post = user.posts.build(content: '')
-    expect(empty_post).to_not be_valid
+  describe 'Validations' do
+
+    context 'a post without an image' do
+      it 'validates the presence of content' do
+        empty_post = user.posts.build(content: '')
+        expect(empty_post).to_not be_valid
+      end
+    end
+
+    context 'a post without content' do
+      it 'validates an image is attached to the post object' do
+        post_without_content = user.posts.build(content: '')
+        image_file_path = "#{Rails.root}/spec/files/image_1.jpg"
+        filename = File.basename(image_file_path)
+        post_without_content.image.attach(io: File.open(image_file_path), filename: filename)
+        expect(post_without_content).to be_valid
+      end
+    end
+
+    context 'a post without an image' do
+      it 'validates content is present' do
+        post_without_image = user.posts.build(content: 'hey')
+        expect(post_without_image).to be_valid
+      end
+    end
   end
 end
