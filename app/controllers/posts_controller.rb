@@ -10,7 +10,7 @@ class PostsController < ApplicationController
   end
 
   def timeline_posts
-    Post.includes([:user, :likes, :likers, comments: [:likes, :likers]])
+    Post.with_attached_image.includes([:image_attachment, :user, :likes, :likers, comments: [:likes, :likers]])
         .where(user_id: [current_user.id, current_user.friends.map(&:id)].flatten)
         .order(created_at: :desc)
   end
@@ -55,7 +55,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:content)
+    params.require(:post).permit(:content, :image)
   end
 
   def set_post

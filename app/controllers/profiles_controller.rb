@@ -1,7 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
   before_action :correct_user, only: [:edit, :update]
-  # before_action -> { ensure_file_is_image(params[:profile][:profile_picture]) }, only: [:create, :update]
 
   def new
     @profile = Profile.new
@@ -43,12 +42,4 @@ class ProfilesController < ApplicationController
     @user = User.find(params[:user_id])
     redirect_to root_url unless @user == current_user
   end
-
-  # def ensure_file_is_image(file)
-  #   result = %w[image/jpeg image/gif image/tiff image/png].include?(MimeMagic.by_magic(file).type)
-  #   unless result
-  #     flash[:warning] = "Profile Picture must be an image file"
-  #     redirect_to request.referrer
-  #   end
-  # end
 end
