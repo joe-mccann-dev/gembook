@@ -54,6 +54,7 @@ group :development do
   gem 'spring'
   gem 'bullet'
   gem "better_errors"
+  gem "letter_opener"
 end
 
 group :test do

@@ -11,10 +11,11 @@ Rails.application.configure do
     Bullet.add_footer    = true
   end
 
-  # ngrok host. needs to be changed if ngrok tunnel address changes.
-  config.hosts << "3e31-73-119-170-171.ngrok.io"
-
   # Settings specified here will take precedence over those in config/application.rb.
+
+  # send emails in development
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
 
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
