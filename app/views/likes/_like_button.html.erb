@@ -3,11 +3,11 @@
                 public_send("#{object_to_s(likeable)}_like_path", likeable, current_user.find_like(likeable)),
                 method: :delete,
                 remote: true,
-                class: 'liked',
                 id: "#{object_to_s(likeable)}-#{likeable.id}-unlike" %>
 <% else %>
   <%= button_to "Like",
                 path,
                 remote: true,
+                class: 'liked',
                 id: "#{object_to_s(likeable)}-#{likeable.id}-like" %>
 <% end %>

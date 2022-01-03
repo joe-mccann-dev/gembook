@@ -24,6 +24,6 @@ li {
 }
 
 .liked {
-  color: white;
-  background-color: blue;
+  color: blue;
+  background-color: gray!important;
 }
