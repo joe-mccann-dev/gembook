@@ -1,5 +1,10 @@
 class RegistrationsController < Devise::RegistrationsController
 
+  def create
+    super
+    UserMailer.welcome_email(resource).deliver if resource.valid?
+  end
+
   protected
 
   def update_resource(resource, params)
