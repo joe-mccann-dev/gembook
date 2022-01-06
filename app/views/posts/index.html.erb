@@ -1,4 +1,4 @@
-<h1>Timeline Posts for <%= full_name(current_user) %> </h1>
+<h1>Timeline Posts for <%= current_user.full_name %> </h1>
 <ul>
   <%= render partial: 'posts/post', collection: @posts %>
 </ul>

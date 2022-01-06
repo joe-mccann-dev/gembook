@@ -1,6 +1,6 @@
           
 <li class="notification <%= notification.object_type %>">
-  <span><%= full_name(notification.sender) %></span>
+  <span><%= notification.sender.full_name %></span>
   <span><%= link_to notification.description, notification.object_url %>.</span>
 </li>
 

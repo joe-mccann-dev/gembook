@@ -36,7 +36,7 @@ RSpec.describe 'LikeNotifications', type: :system do
       login_as(user, scope: :user)
       visit notifications_path
 
-      expect(page).to have_content("#{full_name(other_user)} liked your post.")
+      expect(page).to have_content("#{other_user.full_name} liked your post.")
     end
 
     it 'allows the user to click on a link to the original post' do
@@ -46,7 +46,7 @@ RSpec.describe 'LikeNotifications', type: :system do
       login_as(user, scope: :user)
       visit notifications_path
 
-      expect(page).to have_content("#{full_name(other_user)} liked your post.")
+      expect(page).to have_content("#{other_user.full_name} liked your post.")
       expect(page).to have_link('liked your post')
       click_link('liked your post')
       expect(current_path).to eq(post_path(post))
@@ -75,7 +75,7 @@ RSpec.describe 'LikeNotifications', type: :system do
       login_as(other_user, scope: :user)
       visit notifications_path
 
-      expect(page).to have_content("#{full_name(user)} liked your comment.")
+      expect(page).to have_content("#{user.full_name} liked your comment.")
     end
 
     it 'allows the user to click on a link to the original comment' do
@@ -85,7 +85,7 @@ RSpec.describe 'LikeNotifications', type: :system do
       login_as(other_user, scope: :user)
       visit notifications_path
 
-      expect(page).to have_content("#{full_name(user)} liked your comment.")
+      expect(page).to have_content("#{user.full_name} liked your comment.")
       expect(page).to have_link('liked your comment')
       click_link('liked your comment')
       expect(current_path).to eq(comment_path(comment))

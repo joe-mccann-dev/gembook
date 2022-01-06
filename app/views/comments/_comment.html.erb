@@ -2,7 +2,7 @@
   <ul>
     <li id="comment-<%= comment.id %>">
       <div id="likeable-<%= comment.id %>">
-        <p><%= full_name(comment.user) %></p>
+        <p><%= comment.user.full_name %></p>
         <p><%= comment.content %></p>
         <% if user_is_current_user?(comment.user) %>
           <div>

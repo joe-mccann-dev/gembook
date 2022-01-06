@@ -1,6 +1,6 @@
 <li>
   <div id="likeable-<%= post.id %>">
-    <p><%= full_name(post.user) %></p>
+    <p><%= post.user.full_name %></p>
     <% if post.content.present? %>
       <p style="border: solid 1px black; border-radius: 12px; max-width: 500px; padding: 24px;">
         <%= post.content %>

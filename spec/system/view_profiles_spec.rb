@@ -107,14 +107,14 @@ RSpec.describe "ViewProfiles", type: :system do
       post = user.posts.create(content: 'hey this is a post by Foo')
       login_as(other_user, scope: :user)
       visit user_path(user)
-      expect(page).to have_content("Posts by #{full_name(user)}")
+      expect(page).to have_content("Posts by #{user.full_name}")
       expect(page).to have_content(post.content)
     end
 
     it "shows them a message if there are no posts by their friend" do
       login_as(other_user, scope: :user)
       visit user_path(user)
-      expect(page).to have_content("Posts by #{full_name(user)}")
+      expect(page).to have_content("Posts by #{user.full_name}")
       message = "There doesn't seem to be anything here."
       expect(page).to have_content(message)
     end

@@ -22,7 +22,7 @@
       <% else %>
         <%= link_to "Notifications", notifications_path %>
       <% end %>
-      <span>logged in as </span><%= link_to full_name(current_user), edit_user_registration_path %>
+      <span>logged in as </span><%= link_to current_user.full_name, edit_user_registration_path %>
       <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
     <% else %>
       <%= link_to "Sign in with Github", user_github_omniauth_authorize_path, method: :post %>

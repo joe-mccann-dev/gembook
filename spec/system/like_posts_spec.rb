@@ -55,39 +55,39 @@ RSpec.describe "LikePosts", type: :system do
 
     it 'shows who liked the post after clicking like' do
       find("#post-#{post.id}-like").click
-      liker_name = full_name(post.likers.first)
+      liker_name = post.likers.first.full_name
       expect(page).to have_content("#{liker_name} likes this.")
     end
 
     it 'shows full names of two users if two users like a post' do
       find("#post-#{post.id}-like").click
-      expect(page).to have_content("#{full_name(liker)} likes this.")
+      expect(page).to have_content("#{liker.full_name} likes this.")
 
       logout(liker)
       login_as(user, scope: :user)
       visit root_url
 
       find("#post-#{post.id}-like").click
-      expect(page).to have_content("#{full_name(liker)} and #{full_name(user)} like this.")
+      expect(page).to have_content("#{liker.full_name} and #{user.full_name} like this.")
     end
 
     it 'shows first liker and how many others have liked a post if like count is greater than 2' do
       find("#post-#{post.id}-like").click
-      expect(page).to have_content("#{full_name(liker)} likes this.")
+      expect(page).to have_content("#{liker.full_name} likes this.")
 
       logout(liker)
       login_as(user, scope: :user)
       visit root_url
 
       find("#post-#{post.id}-like").click
-      expect(page).to have_content("#{full_name(liker)} and #{full_name(user)} like this.")
+      expect(page).to have_content("#{liker.full_name} and #{user.full_name} like this.")
 
       logout(user)
       login_as(another_user)
       visit root_url
 
       find("#post-#{post.id}-like").click
-      expect(page).to have_content("#{full_name(liker)} and 2 others like this.")
+      expect(page).to have_content("#{liker.full_name} and 2 others like this.")
     end
   end
 end

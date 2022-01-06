@@ -1,5 +1,5 @@
 <li>
-  <%= link_to full_name(friend), user_path(friend) %>
+  <%= link_to friend.full_name, user_path(friend) %>
   <%= button_to "Unfriend",
               @friendships[friend.id],
               params: { friend_name: "#{friend.first_name}" },

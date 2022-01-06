@@ -1,7 +1,7 @@
 <% if notification.description == 'new friend request' %>
   <li class="notification friend-request">
     <span>
-      <%= notification.description %> from <%= link_to full_name(notification.sender), notification.sender %>
+      <%= notification.description %> from <%= link_to notification.sender.full_name, notification.sender %>
     </span>
     <div>
       <%= render partial: 'friendship_accept', locals: { notification: notification } %>
@@ -11,7 +11,7 @@
   </li>
 <% else %>
   <li class="notification accepted-request">
-    <%= link_to full_name(notification.sender), notification.sender %>
+    <%= link_to notification.sender.full_name, notification.sender %>
     <%= notification.description %>
     <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
   </li>

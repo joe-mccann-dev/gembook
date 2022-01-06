@@ -37,16 +37,16 @@ RSpec.describe "ViewLikers", type: :system do
     end
 
     it 'shows the first user who liked it and the number of other users who liked the post' do
-      expect(page).to have_content("#{full_name(user)} and 2 others like this.")
+      expect(page).to have_content("#{user.full_name} and 2 others like this.")
     end
 
     it 'allows the user to see who else has liked the post' do
       click_link("2 others")
       visit post_path(post)
 
-      expect(page).to have_content("#{full_name(user)}")
-      expect(page).to have_content("#{full_name(liker)}")
-      expect(page).to have_content("#{full_name(another_user)}")
+      expect(page).to have_content("#{user.full_name}")
+      expect(page).to have_content("#{liker.full_name}")
+      expect(page).to have_content("#{another_user.full_name}")
     end
   end
 end
