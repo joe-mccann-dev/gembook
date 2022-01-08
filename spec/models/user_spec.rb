@@ -7,6 +7,7 @@ RSpec.describe User, type: :model do
 
   let!(:user) { User.first }
   let!(:other_user) { User.second }
+  let!(:another_user) { User.third }
 
   let!(:post) { user.posts.create(content: 'hey this is my first post') }
   let!(:other_post) { other_user.posts.create(content: 'yet another post') }
@@ -122,6 +123,75 @@ RSpec.describe User, type: :model do
 
     it 'has one profile' do
       expect(user.profile).to eq(profile)
+    end
+  end
+
+  describe '#full_name' do
+    it 'returns the first and last name of the user' do
+      user = User.create(first_name: 'Foo', last_name: 'Bar', email: 'foo@bar.com', password: 'foobar')
+      expect(user.full_name).to eq('Foo Bar')
+    end
+  end
+
+  describe '#current_password_required?' do
+    context 'a user signed up thru the application' do
+      it 'returns true' do
+        user = User.create(first_name: 'Foo', last_name: 'Bar', email: 'foo@bar.com', password: 'foobar')
+        expect(user.current_password_required?).to eq(true) 
+      end
+    end
+
+    context 'a user created an account via OAuth' do
+      it 'returns false' do
+        user = User.create(provider: 'github', first_name: 'bob', last_name: 'barker', email: 'bob@barker.com', password: 'foobar')
+        expect(user.current_password_required?).to eq(false)
+      end
+    end
+  end
+
+  describe '#requests_via_sender_id' do
+    context 'multiple users have sent a user a friend request' do
+      context 'the requests are pending' do
+        let(:receiver) { User.create(first_name: 'New', last_name: 'User', email: 'new@user.com', password: 'foobar') }
+        let(:sender_one) { User.create(first_name: 'Joe', last_name: 'Smoe', email: 'joe@smoe.com', password: 'foobar') }
+        let(:sender_two) { User.create(first_name: 'George', last_name: 'Washington', email: 'george@washington.com', password: 'foobar') }
+        it 'returns a hash of Friendship objects mapped to the sender_id (friendship requester)' do
+          sender_one.sent_pending_requests.create(receiver: receiver)
+          sender_two.sent_pending_requests.create(receiver: receiver)
+          first_request = receiver.received_pending_requests.first
+          second_request = receiver.received_pending_requests.second
+          result = { sender_one.id => first_request, sender_two.id => second_request }
+          expect(receiver.requests_via_sender_id).to eq(result)
+        end
+      end
+    end
+  end
+
+  describe '#friendships_via_friend_id' do
+    context 'A user wants to know who they are friends with' do
+      let(:user) { User.create(first_name: 'Joe', last_name: 'DiMaggio', email: 'joe@yankees.com', password: 'foobar') }
+      let(:friend_one) { User.create(first_name: 'Mike', email: 'Tyson', email: 'mike@tyson.com', password: 'foobar') }
+      let(:friend_two) { User.create(first_name: 'Connor', last_name: 'McGreggor', email: 'connor@toughguy.com', password: 'foobar') }
+
+      let(:sent_friendship) { user.sent_accepted_requests.create(receiver: friend_one, status: 'accepted') }
+      let(:received_friendship) { friend_two.sent_accepted_requests.create(receiver: user, status: 'accepted') }
+
+      it 'returns a merged hash of their accepted sent and accepted received requests' do
+        result = { friend_one.id => sent_friendship, friend_two.id => received_friendship }
+        expect(user.friendships_via_friend_id).to eq(result)
+      end
+    end
+  end
+
+  describe '#find_like' do
+    context 'a user wants to unlike a likeable object' do
+      let(:user) { User.create(first_name: 'Joe', last_name: 'Smoe', email: 'joe@smoe.com', password: 'foobar') }
+      let(:post) { Post.create(user: user, content: 'hey this is a post') }
+      it 'accepts a likeable object and returns the Like object associated with that user and likeable object' do
+        user.liked_posts << post
+        like = user.likes.first
+        expect(user.find_like(post)).to eq(like)
+      end
     end
   end
 end

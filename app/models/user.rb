@@ -128,7 +128,7 @@ class User < ApplicationRecord
   end
 
   def friendships_via_friend_id
-    friendships_via_sender_id.merge(friendships_via_receiver_id)
+    friendships_via_sender_id.merge(friendships_via_receiver_id).except(id)
   end
 
   def find_like(likeable)
