@@ -69,17 +69,33 @@ class User < ApplicationRecord
            source: :sender
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0, 20]
-      user.first_name = auth.info.name.split(' ').first
-      # A Github user without a name will send github username as 'name'. 
-      # Set as emtpy string if user.last_name returns nil
-      user.last_name = auth.info.name.split(' ').second || ''
-      # user.image = auth.info.image # assuming the user model has an image
-      # If you are using confirmable and the provider(s) you use validate emails,
-      # uncomment the line below to skip the confirmation emails.
-      # user.skip_confirmation!
+    registered_user = find_by(email: auth.info.email)
+    if registered_user
+      assign_provider_and_uid(auth, registered_user)
+    else
+      find_or_create_user(auth)
+    end
+  end
+
+  class << self
+    private
+
+    def assign_provider_and_uid(auth, user)
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user
+    end
+
+    def find_or_create_user(auth)
+      where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+        user.email = auth.info.email
+        user.password = Devise.friendly_token[0, 20]
+        user.first_name = auth.info.name.split.first
+        # A Github user without a name will send github username as 'name'.
+        # Set as emtpy string if user.last_name returns nil
+        user.last_name = auth.info.name.split.second || ''
+        # user.skip_confirmation!
+      end
     end
   end
 
