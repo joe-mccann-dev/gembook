@@ -69,33 +69,15 @@ class User < ApplicationRecord
            source: :sender
 
   def self.from_omniauth(auth)
-    registered_user = find_by(email: auth.info.email)
-    if registered_user
-      assign_provider_and_uid(auth, registered_user)
-    else
-      find_or_create_user(auth)
-    end
-  end
-
-  class << self
-    private
-
-    def assign_provider_and_uid(auth, user)
-      user.provider = auth.provider
-      user.uid = auth.uid
-      user
-    end
-
-    def find_or_create_user(auth)
-      where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-        user.email = auth.info.email
-        user.password = Devise.friendly_token[0, 20]
-        user.first_name = auth.info.name.split.first
-        # A Github user without a name will send github username as 'name'.
-        # Set as emtpy string if user.last_name returns nil
-        user.last_name = auth.info.name.split.second || ''
-        # user.skip_confirmation!
-      end
+    # registered_user = find_by(email: auth.info.email)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+      user.first_name = auth.info.name.split.first
+      # A Github user without a name will send github username as 'name'.
+      # Set as emtpy string if user.last_name returns nil
+      user.last_name = auth.info.name.split.second || ''
+      # user.skip_confirmation!
     end
   end
 

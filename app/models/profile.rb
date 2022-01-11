@@ -8,8 +8,6 @@ class Profile < ApplicationRecord
                               unless: proc { |profile| profile.profile_picture.blank? }
 
   def self.attach_and_save_auth_image(auth, user)
-    return if user.profile.profile_picture.attached?
-
     image_file = Down.download(auth.info.image)
     filename = File.basename(image_file.path)
     profile = user.build_profile
