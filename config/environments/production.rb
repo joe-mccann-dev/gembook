@@ -7,7 +7,7 @@ Rails.application.configure do
   config.force_ssl = true
 
     # default host for production
-  host = 'fathomless-citadel-41420.herokuapp.com'
+  host = 'gembook.net'
   config.action_mailer.default_url_options = { host: host }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
