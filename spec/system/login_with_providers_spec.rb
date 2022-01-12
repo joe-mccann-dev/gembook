@@ -28,7 +28,7 @@ RSpec.describe "LoginWithProviders", type: :system do
             OmniAuth.config.add_mock(:github, {info: { email: existing_user.email, name: existing_user.full_name } })
             click_link 'Sign in with GitHub'
             expect(page).to have_content('Account email is already registered with this site.')
-            expect(page.current_path).to eq(new_user_session_path)
+            expect(page.current_path).to eq(new_user_registration_path)
           end
         end
       end

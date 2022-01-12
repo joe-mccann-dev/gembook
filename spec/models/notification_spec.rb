@@ -6,7 +6,7 @@ RSpec.describe Notification, type: :model do
   end
 
   let(:sender) { User.first }
-  let(:receiver) { User.create(first_name: 'friendship', last_name: 'receiver', email: 'foo@bar.com', password: 'foobar') }
+  let(:receiver) { User.create(first_name: 'friendship', last_name: 'receiver', email: 'foo@example.com', password: 'foobar') }
 
   it 'belongs to the receiver of the notification' do
     notification = sender.sent_notifications.create(receiver_id: receiver.id, object_type: 'Friendship', description: 'new friend request', time_sent: Time.zone.now)
