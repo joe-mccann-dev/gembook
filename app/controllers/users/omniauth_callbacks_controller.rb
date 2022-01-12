@@ -4,9 +4,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def github
     auth = request.env["omniauth.auth"]
-    registered_user = User.find_by(email: auth.info.email)
-    return flash_and_redirect if registered_user
-
     @user = User.from_omniauth(auth)
     if @user.persisted?
       Profile.attach_and_save_auth_image(auth, @user)
@@ -14,6 +11,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       set_flash_message(:notice, :success, kind: "Github") if is_navigational_format?
     else
       session["devise.github_data"] = request.env["omniauth.auth"].except(:extra) # Removing extra as it can overflow some session stores
+      flash[:warning] = "Account email is already registered with this site." if User.find_by(email: auth.info.email)
       redirect_to new_user_registration_url
     end
   end
