@@ -1,6 +1,6 @@
 <% if likeable.likers.include?(current_user) %>
   <%= button_to "Like",
-                public_send("#{object_to_s(likeable)}_like_path", likeable, current_user.find_like(likeable)),
+                polymorphic_path([likeable, current_user.find_like(likeable)]),
                 method: :delete,
                 remote: true,
                 id: "#{object_to_s(likeable)}-#{likeable.id}-unlike" %>

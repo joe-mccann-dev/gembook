@@ -1,6 +1,6 @@
-<p>Edit Comment</p>
+<p>New Comment</p>
 <p><%= @comment.content %></p>
 <%= render partial: 'comments/comment_form',
-                     locals: { commentable: @comment,
+                     locals: { commentable: @commented_object,
                                id: "#{object_to_s(@comment.commentable)}-#{@comment.commentable.id}-comment"
                                                  } %>

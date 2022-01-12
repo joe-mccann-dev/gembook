@@ -34,8 +34,7 @@
       <% end %>
       <%= render partial: 'likes/like_button', locals: { likeable: post, path: post_likes_path(post) } %>
       <%= render partial: 'comments/comment_form',
-                          locals: { object: Comment.new,
-                                    path: post_comments_path(post),
+                          locals: { commentable: post,
                                     id: "post-#{post.id}-comment"} %>
       <div class="post-comments">
         <%= render partial: "/comments/comment", collection: post.comments  %>

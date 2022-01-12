@@ -7,6 +7,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = timeline_posts
+    @comment = current_user.comments.build
   end
 
   def timeline_posts
@@ -48,7 +49,9 @@ class PostsController < ApplicationController
     redirect_to root_url
   end
 
-  def show; end
+  def show
+    @comment = Comment.new
+  end
 
   def edit; end
 

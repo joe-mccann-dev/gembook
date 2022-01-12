@@ -46,7 +46,7 @@ RSpec.describe "DeleteComments", type: :system do
       click_on 'Comment'
 
       expect(page).to have_content(comment_content)
-      expect(page.current_path).to eq(user_path(user))
+      expect(page.current_path).to eq(post_path(post))
       expect(page).to have_link('delete comment')
 
       expect { click_link 'delete comment' }.to change { user.comments.count }.from(1).to(0)

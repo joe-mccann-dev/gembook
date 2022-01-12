@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   include NotificationsManager
 
-  before_action :set_commented_object, only: [:create]
+  before_action :set_commented_object, only: [:new, :create]
   before_action :set_comment, except: [:new, :create]
   before_action :build_comment, only: [:create]
   before_action :check_comment_ownership, only: [:create, :update, :destroy]
@@ -10,13 +10,17 @@ class CommentsController < ApplicationController
                only: [:create]
 
   def create
-    @comment = @commented_object.comments.build(comment_params.merge(user: current_user))
     if @comment.save
       flash[:info] = "Successfully created comment"
+      redirect_to polymorphic_path(@comment.commentable)
     else
       flash[:warning] = "Failed to create comment"
+      render :new
     end
-    redirect_to request.referrer
+  end
+
+  def new
+    @comment = @commented_object.comments.build
   end
 
   def show; end
@@ -24,10 +28,9 @@ class CommentsController < ApplicationController
   def edit; end
 
   def update
-    commentable = @comment.commentable
     if @comment.update(comment_params)
       flash[:info] = 'Comment successfully edited.'
-      redirect_to public_send("#{object_to_s(commentable)}_path", commentable)
+      redirect_to polymorphic_path(@comment.commentable)
     else
       render :edit
       flash[:warning] = 'Failed to update comment.'
@@ -35,13 +38,12 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    commentable = @comment.commentable
     if @comment.destroy
       flash[:info] = 'Comment successfully removed.'
     else
       flash[:warning] = "Failed to remove comment."
     end
-    redirect_to public_send("#{object_to_s(commentable)}_path", commentable)
+    redirect_to polymorphic_path(@comment.commentable)
   end
 
 
