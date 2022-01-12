@@ -19,11 +19,4 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def failure
     redirect_to root_path
   end
-
-  private
-
-  def flash_and_redirect
-    flash[:warning] = "Account email is already registered with this site."
-    redirect_to new_user_session_path
-  end
 end

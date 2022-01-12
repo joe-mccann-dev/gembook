@@ -52,14 +52,14 @@ RSpec.describe User, type: :model do
     end
 
     it 'has_many sent declined friend requests' do
-      friendless_user = User.create(first_name: 'friendless', last_name: 'user', email: 'foo@bar.com', password: 'foobar')
+      friendless_user = User.create(first_name: 'friendless', last_name: 'user', email: 'foo@example.com', password: 'foobar')
       to_be_declined = user.sent_pending_requests.create(sender: user, receiver: friendless_user)
       to_be_declined.declined!
       expect(user.sent_declined_requests).to include(to_be_declined)
     end
 
     it 'has_many received declined friend requests' do
-      declined_requester = User.create(first_name: 'declined', last_name: 'requester', email: 'foo@bar.com', password: 'foobar')
+      declined_requester = User.create(first_name: 'declined', last_name: 'requester', email: 'foo@example.com', password: 'foobar')
       to_be_declined = declined_requester.sent_pending_requests.create(sender: declined_requester, receiver: user)
       to_be_declined.declined!
       expect(user.received_declined_requests).to include(to_be_declined)
@@ -76,14 +76,14 @@ RSpec.describe User, type: :model do
     end
 
     it 'has_many accepted requested friends' do
-      future_friend = User.create(first_name: 'future', last_name: 'friend', email: 'foo@bar.com', password: 'foobar')
+      future_friend = User.create(first_name: 'future', last_name: 'friend', email: 'foo@example.com', password: 'foobar')
       to_be_accepted = user.sent_pending_requests.create(sender: user, receiver: future_friend)
       to_be_accepted.accepted!
       expect(user.accepted_requested_friends).to include(future_friend)
     end
 
     it 'has_many accepted received friends' do
-      future_friend = User.create(first_name: 'future', last_name: 'friend', email: 'foo@bar.com', password: 'foobar')
+      future_friend = User.create(first_name: 'future', last_name: 'friend', email: 'foo@example.com', password: 'foobar')
       to_be_accepted = future_friend.sent_pending_requests.create(sender: future_friend, receiver: user)
       to_be_accepted.accepted!
       expect(user.accepted_received_friends).to include(future_friend)
@@ -128,7 +128,7 @@ RSpec.describe User, type: :model do
 
   describe '#full_name' do
     it 'returns the first and last name of the user' do
-      user = User.create(first_name: 'Foo', last_name: 'Bar', email: 'foo@bar.com', password: 'foobar')
+      user = User.create(first_name: 'Foo', last_name: 'Bar', email: 'foo@example.com', password: 'foobar')
       expect(user.full_name).to eq('Foo Bar')
     end
   end
@@ -136,7 +136,7 @@ RSpec.describe User, type: :model do
   describe '#current_password_required?' do
     context 'a user signed up thru the application' do
       it 'returns true' do
-        user = User.create(first_name: 'Foo', last_name: 'Bar', email: 'foo@bar.com', password: 'foobar')
+        user = User.create(first_name: 'Foo', last_name: 'Bar', email: 'foo@example.com', password: 'foobar')
         expect(user.current_password_required?).to eq(true) 
       end
     end
