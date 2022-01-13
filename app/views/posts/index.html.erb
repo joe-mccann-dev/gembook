@@ -1,6 +1,6 @@
 <h1>Timeline Posts for <%= current_user.full_name %> </h1>
 <div>
-  <%= render partial: 'posts/post_form.html' %>
+  <%= render partial: 'posts/post_form' %>
 </div>
 <ul>
   <%= render partial: 'posts/post', collection: @posts %>
