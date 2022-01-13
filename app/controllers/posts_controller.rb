@@ -8,6 +8,7 @@ class PostsController < ApplicationController
   def index
     @posts = timeline_posts
     @comment = current_user.comments.build
+    @post = current_user.posts.build
   end
 
   def timeline_posts
