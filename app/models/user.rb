@@ -69,7 +69,7 @@ class User < ApplicationRecord
            source: :sender
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    oauth_user = where(provider: auth.provider, uid: auth.uid).first_or_initialize do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
       user.first_name = auth.info.name.split.first
@@ -78,6 +78,11 @@ class User < ApplicationRecord
       user.last_name = auth.info.name.split.second || ''
       # user.skip_confirmation!
     end
+    if oauth_user.new_record?
+      oauth_user.save
+      UserMailer.welcome_email(oauth_user).deliver
+    end
+    oauth_user
   end
 
   def full_name
