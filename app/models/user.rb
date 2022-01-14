@@ -78,10 +78,7 @@ class User < ApplicationRecord
       user.last_name = auth.info.name.split.second || ''
       # user.skip_confirmation!
     end
-    if oauth_user.new_record?
-      oauth_user.save
-      UserMailer.welcome_email(oauth_user).deliver
-    end
+    UserMailer.welcome_email(oauth_user).deliver if oauth_user.new_record? && oauth_user.save
     oauth_user
   end
 

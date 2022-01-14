@@ -3,8 +3,6 @@ require 'rails_helper'
 RSpec.describe "LoginWithProviders", type: :system do
   before do
     driven_by(:rack_test)
-    Rails.application.env_config["devise.mapping"] = Devise.mappings[:user] # If using Devise
-    Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:github]
   end
 
   describe 'logging in with GitHub' do
@@ -25,7 +23,7 @@ RSpec.describe "LoginWithProviders", type: :system do
 
         context 'User is already registered via Devise' do
           it 'redirects with a flash notice' do
-            OmniAuth.config.add_mock(:github, {info: { email: existing_user.email, name: existing_user.full_name } })
+            OmniAuth.config.add_mock(:github, {info: { email: existing_user.email, name: existing_user.full_name, image: 'http://placehold.it/800x600' } })
             click_link 'Sign in with GitHub'
             expect(page).to have_content('Account email is already registered with this site.')
             expect(page.current_path).to eq(new_user_registration_path)
