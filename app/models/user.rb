@@ -82,6 +82,13 @@ class User < ApplicationRecord
     oauth_user
   end
 
+  def self.search(query)
+    return unless query
+
+    name = query.strip.downcase.split
+    where('lower(first_name) = ? OR lower(last_name) = ?', name.first, name.last)
+  end
+
   def full_name
     "#{first_name} #{last_name}"
   end

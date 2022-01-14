@@ -1,9 +1,24 @@
-<h1>All Users</h1>
-<ul>
-  <%= render partial: 'user', collection: @users %>
-</ul>
+<h1>Find Users</h1>
+
+<%= form_with(url: search_users_path, method: :get) do |f| %>
+  <%= f.text_field :query, placeholder: 'Search for users by name.' %>
+  <%= f.submit 'Search' %>
+<% end %>
+
+<% if params[:query].present? %>
+<h2>Search Results</h2>
+  <ul>
+    <%= render partial: 'result', collection: @results %>
+  </ul>
+  <%= content_tag(:em, "No users found") if @results.none? %>
+<% end %>
 
 <h2>Friends</h2>
 <ul>
   <%= render partial: 'friend', collection: @friends %>
+</ul>
+
+<h2>Other Users</h2>
+<ul>
+  <%= render partial: 'user', collection: @users %>
 </ul>

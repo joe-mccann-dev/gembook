@@ -3,9 +3,10 @@ class UsersController < ApplicationController
 
   def index
     @friendship = current_user.sent_pending_requests.build
-    @users = User.all
+    @users = User.where.not(id: current_user.id)
     @friends = current_user.friends
     @friendships = current_user.friendships_via_friend_id
+    @results = User.search(params[:query])
   end
 
   def show

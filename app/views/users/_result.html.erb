@@ -1,0 +1,6 @@
+
+<% if current_user.friends.include?(result) %>
+  <%= render partial: 'friend', locals: { friend: result } %>
+<% else %>
+  <%= render partial: 'user', locals: { user: result } %>
+<% end %>
