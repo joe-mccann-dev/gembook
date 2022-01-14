@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @friendship = current_user.sent_pending_requests.build
-    @users = User.where.not(id: current_user.id)
+    @users = User.where.not(id: [current_user.id, current_user.friends.map(&:id)].flatten)
     @friends = current_user.friends
     @friendships = current_user.friendships_via_friend_id
     @results = User.search(params[:query])
