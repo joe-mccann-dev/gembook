@@ -126,6 +126,15 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '.search' do
+    it 'accepts a query string and returns user results' do
+      expected_results = User.where(first_name: user.first_name, last_name: user.last_name)
+      search_results = User.search(user.full_name)
+      user = expected_results.first
+      expect(search_results).to include(user)
+    end
+  end
+
   describe '#full_name' do
     it 'returns the first and last name of the user' do
       user = User.create(first_name: 'Foo', last_name: 'Bar', email: 'foo@example.com', password: 'foobar')
@@ -170,7 +179,7 @@ RSpec.describe User, type: :model do
   describe '#friendships_via_friend_id' do
     context 'A user wants to know who they are friends with' do
       let(:user) { User.create(first_name: 'Joe', last_name: 'DiMaggio', email: 'joe@yankees.com', password: 'foobar') }
-      let(:friend_one) { User.create(first_name: 'Mike', email: 'Tyson', email: 'mike@tyson.com', password: 'foobar') }
+      let(:friend_one) { User.create(first_name: 'Mike', email: 'mike@tyson.com', password: 'foobar') }
       let(:friend_two) { User.create(first_name: 'Connor', last_name: 'McGreggor', email: 'connor@toughguy.com', password: 'foobar') }
 
       let(:sent_friendship) { user.sent_accepted_requests.create(receiver: friend_one, status: 'accepted') }
