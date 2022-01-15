@@ -13,12 +13,12 @@ class UsersController < ApplicationController
     @profile = @user.profile
     @post = current_user.posts.build
     @posts = @user.posts.with_attached_image
-                        .includes([:image_attachment, :comments, :likes, :likers])
-                        .order(created_at: :desc)
+                  .includes([:image_attachment, :comments, :likes, :likers])
+                  .order(created_at: :desc)
     @friendship = current_user.requests_via_sender_id[@user.id]
     return unless current_user.pending_received_friends.any?
 
-    @notification = Notification.find_by(sender_id: @user.id, 
+    @notification = Notification.find_by(sender_id: @user.id,
                                          receiver_id: current_user.id,
                                          object_type: 'Friendship')
   end
