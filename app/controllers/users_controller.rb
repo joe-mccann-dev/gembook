@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @friendship = current_user.sent_pending_requests.build
-    @users = User.where.not(id: [current_user.id, current_user.friends.map(&:id)].flatten)
+    @users = other_users
     @friends = current_user.friends
     @friendships = current_user.friendships_via_friend_id
     @results = User.search(params[:query])
@@ -21,6 +21,10 @@ class UsersController < ApplicationController
     @notification = Notification.find_by(sender_id: @user.id,
                                          receiver_id: current_user.id,
                                          object_type: 'Friendship')
+  end
+
+  def other_users
+    User.where.not(id: [current_user.id, current_user.friends.map(&:id)].flatten)
   end
 
   private
