@@ -1,7 +1,7 @@
 <h1>Find Users</h1>
 
 <%= form_with(url: search_users_path, method: :get) do |f| %>
-  <%= f.text_field :query, placeholder: 'Search for users by name.' %>
+  <%= f.text_field :query, placeholder: 'Search for users by name.', required: true %>
   <%= f.submit 'Search' %>
 <% end %>
 
