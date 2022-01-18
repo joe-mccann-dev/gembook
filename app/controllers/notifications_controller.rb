@@ -3,7 +3,7 @@ class NotificationsController < ApplicationController
 
   def index
     @notifications = current_user.received_notifications.includes([:sender])
-    @friendships = current_user.requests_via_sender_id
+    @friendships = current_user.requests_via_notification_sender_id
   end
 
   def update

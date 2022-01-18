@@ -133,6 +133,14 @@ class User < ApplicationRecord
     end
   end
 
+  def requests_via_notification_sender_id
+    notifications = received_notifications
+    sender_ids = notifications.pluck(:sender_id)
+    sender_ids.to_h do |id|
+      [id, Friendship.find_by(sender_id: id, receiver_id: self.id)]
+    end
+  end
+
   def friendships_via_friend_id
     friendships_via_sender_id.merge(friendships_via_receiver_id).except(id)
   end

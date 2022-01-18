@@ -30,5 +30,26 @@ RSpec.describe "UnfriendFriend", type: :system do
       click_on "Unfriend"
       expect(page).to have_content("You are no longer friends with #{user.first_name}.")
     end
+
+    it 'allows the unfriended user to accept a second friend request after being unfriended' do
+      click_on "Unfriend"
+      expect(page).to have_content("You are no longer friends with #{user.first_name}.")
+
+      # refriend foo
+      find("#friend-#{user.id}").click
+      expect(page).to have_content("Friend request sent to #{user.first_name}")
+
+      logout(other_user, scope: :user)
+      login_as(user, scope: :user)
+
+      visit notifications_path
+      
+      
+      expect(page).to have_content('accept')
+
+      #foo accepts second requests from
+      find("#accept-sender-#{other_user.id}-request").click
+
+    end
   end
 end
