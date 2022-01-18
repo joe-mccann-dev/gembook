@@ -48,6 +48,7 @@ RSpec.describe "UnfriendFriend", type: :system do
       expect(page).to have_content('accept')
 
       #foo accepts second requests from
+      expect(page).to have_button('Accept')
       find("#accept-sender-#{other_user.id}-request").click
       expect(user.received_notifications.unread.count).to eq(0)
       expect(page).to_not have_button('Accept')
