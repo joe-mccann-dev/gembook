@@ -16,7 +16,7 @@
     <em><%= @user.first_name %> sent you a friend request. Once you accept you'll be able to see their posts.</em>
     <%= link_to "Accept request", 
                     friendship_path(@friendship, friendship: { status: 'accepted' },
-                                                 notification: { time_sent: @notification.time_sent} ),
+                                                 notification: { id: @notification.id, time_sent: @notification.time_sent} ),
                     method: :put,
                     data: { confirm: "Accept friend request from #{@user.first_name}?"} %>
   <% end %>
