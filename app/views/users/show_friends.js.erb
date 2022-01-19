@@ -3,18 +3,18 @@ function toggleFriends() {
   const friendsButton = document.querySelector("#show-friends")
   hasChildrenNodes = friends.children.length
   if (hasChildrenNodes) {
-    hideUsers(friends);
+    hideFriends(friends);
   } else {
-    showUsers(friends);
+    showFriends(friends);
   }
   friendsButton.value = toggleButtonValue(hasChildrenNodes)
 }
 
-function hideUsers(friends) {
+function hideFriends(friends) {
   removeAllChildNodes(friends)
 }
 
-function showUsers(friends) {
+function showFriends(friends) {
   friends.insertAdjacentHTML("beforeend", "<%= j render partial: 'friend', collection: @friends %>");
 }
 

@@ -15,13 +15,20 @@
 
 <h2>Friends</h2>
 
-<%= button_to "Show Friends", show_friends_users_path, method: :get, remote: true, id: 'show-friends' %>
-<ul id="friends">
-</ul>
+<% if @friends.any? %>
+  <%= button_to "Show Friends", show_friends_users_path, method: :get, remote: true, id: 'show-friends' %>
 
-<h2>Other Users</h2>
+  <ul id="friends">
+  </ul>
+<% else %>
+  <em>No Friends yet. Send some requests below!</em>
+<% end %>
 
-<%= button_to "Show Friend Suggestions", show_other_users_users_path, method: :get, remote: true, id: 'show-other-users' %>
+<% if @users.any? %>
+  <h2>Other Users</h2>
 
-<ul id="other-users">
-</ul>
+  <%= button_to "Show Other Users", show_other_users_users_path, method: :get, remote: true, id: 'show-other-users' %>
+
+  <ul id="other-users">
+  </ul>
+<% end %>
