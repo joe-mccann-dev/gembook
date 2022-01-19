@@ -22,9 +22,7 @@ class FriendshipsController < ApplicationController
   end
 
   def update
-    notification = Notification.find(params[:notification][:id])
     if @friendship.update(friendship_params)
-      notification.update(read: true)
       flash[:info] = if @friendship.accepted?
                        'Friendship accepted!'
                      else
