@@ -2,10 +2,6 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show]
 
   def index
-    @friendship = current_user.sent_pending_requests.build
-    @users = other_users
-    @friends = current_user.friends
-    @friendships = current_user.friendships_via_friend_id
     @results = User.search(params[:query])
   end
 
@@ -25,6 +21,24 @@ class UsersController < ApplicationController
 
   def other_users
     User.where.not(id: [current_user.id, current_user.friends.map(&:id)].flatten)
+  end
+
+  def show_other_users
+    respond_to do |format|
+      format.js do
+        @users = other_users
+        @friendship = current_user.sent_pending_requests.build
+      end
+    end
+  end
+
+  def show_friends
+    respond_to do |format|
+      format.js do
+        @friendships = current_user.friendships_via_friend_id
+        @friends = current_user.friends
+      end
+    end
   end
 
   private

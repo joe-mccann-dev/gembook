@@ -4,7 +4,12 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'registrations' }
   resources :users, only: [:index, :show] do
-    get 'search', to: 'users#index', on: :collection
+    collection do
+      get 'search', to: 'users#index'
+      get 'show_other_users'
+      get 'show_friends'
+    end
+    
     resource :profile
   end
   resources :posts do

@@ -1,0 +1,33 @@
+function toggleFriends() {
+  const friends = document.querySelector("#friends");
+  const friendsButton = document.querySelector("#show-friends")
+  hasChildrenNodes = friends.children.length
+  if (hasChildrenNodes) {
+    hideUsers(friends);
+  } else {
+    showUsers(friends);
+  }
+  friendsButton.value = toggleButtonValue(hasChildrenNodes)
+}
+
+function hideUsers(friends) {
+  removeAllChildNodes(friends)
+}
+
+function showUsers(friends) {
+  friends.insertAdjacentHTML("beforeend", "<%= j render partial: 'friend', collection: @friends %>");
+}
+
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
+
+function toggleButtonValue(hasChildrenNodes) {
+  if (hasChildrenNodes) return 'Show Friends'
+
+  return 'Hide Friends'
+}
+
+toggleFriends();

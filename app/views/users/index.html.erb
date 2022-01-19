@@ -14,11 +14,14 @@
 <% end %>
 
 <h2>Friends</h2>
-<ul>
-  <%= render partial: 'friend', collection: @friends %>
+
+<%= button_to "Show Friends", show_friends_users_path, method: :get, remote: true, id: 'show-friends' %>
+<ul id="friends">
 </ul>
 
 <h2>Other Users</h2>
-<ul>
-  <%= render partial: 'user', collection: @users %>
+
+<%= button_to "Show Friend Suggestions", show_other_users_users_path, method: :get, remote: true, id: 'show-other-users' %>
+
+<ul id="other-users">
 </ul>
