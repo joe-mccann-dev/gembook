@@ -1,4 +1,5 @@
 <h1>Notifications for <%= current_user.first_name %></h1>
+<%= content_tag(:em, 'All Caught Up') if @notifications.unread.none? %>
 <ul>
   <% @notifications.unread.each do |notification| %>
     <%= show_notification(notification) %>
