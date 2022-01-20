@@ -177,7 +177,7 @@ RSpec.describe "ViewProfiles", type: :system do
         accept_confirm do
           click_link link
         end
-        expect(page).to have_content('Friendship accepted!')
+        expect(page).to have_content('Friendship accepted!', wait: 5)
         expect(user.received_accepted_requests.count).to eq(1)
       end
     end
@@ -198,7 +198,7 @@ RSpec.describe "ViewProfiles", type: :system do
 
         link = "Send #{other_user.first_name} a friend request"
         visit user_path(other_user)
-        expect(page).to have_content("You sent #{other_user.first_name} a friend request.")
+        expect(page).to have_content("You sent #{other_user.first_name} a friend request.", wait: 5)
         expect(page).to_not have_link(link)
       end
     end
