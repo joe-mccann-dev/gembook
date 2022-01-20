@@ -1,4 +1,6 @@
   <li>
+    <%= render partial: 'user_icon', locals: { user: user } %>
+
     <%= link_to user.full_name, user_path(user) %>
     <% if new_friendship_eligible?(user) %>
       <%= button_to 'Add Friend',

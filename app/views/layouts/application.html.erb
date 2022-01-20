@@ -16,13 +16,15 @@
     <% if user_signed_in? %>
       <%= link_to "Home", root_url %>
       <%= link_to "Users", users_path %>
-      <%= link_to "My Profile", '/profile' %>
       <% if current_user.received_notifications.unread.any? %>
         <%= link_to display_notifications(current_user), notifications_path %>
       <% else %>
         <%= link_to "Notifications", notifications_path %>
       <% end %>
-      <span>logged in as </span><%= link_to current_user.full_name, edit_user_registration_path %>
+      <span>logged in as </span>
+      <%= render partial: 'users/user_icon', locals: { user: current_user } %>
+      <%= link_to current_user.full_name, edit_user_registration_path %>
+      <%= link_to "My Profile", '/profile' %>
       <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
     <% else %>
       <%= link_to "Sign in with Github", user_github_omniauth_authorize_path, method: :post %>

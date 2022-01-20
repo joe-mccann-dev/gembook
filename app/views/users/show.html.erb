@@ -1,7 +1,7 @@
 <h1><%= @user.full_name %></h1>
 <div class="profile-info">
   <p>Profile</p>
-  <%= render partial: 'profiles/profile', object: @profile || Profile.new %>
+  <%= render partial: 'profiles/profile', object: @profile || Profile.new, locals: { user: @user } %>
   <% if user_is_current_user?(@user) %>
     <p>
       <% if !@profile.present? %>

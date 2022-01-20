@@ -1,6 +1,4 @@
-<h1>Profiles#new</h1>
-<p>Find me in app/views/profiles/new.html.erb</p>
-
+<h1>Profile for <%= current_user.full_name %></h1>
 <%= form_with(model: @profile, url: user_profile_path(current_user)) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <%= render partial: 'profile_form_fields', locals: { f: f } %>
