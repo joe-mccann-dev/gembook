@@ -56,24 +56,6 @@ RSpec.describe "ViewProfiles", type: :system do
         expect(page.current_path).to eq(user_path(user))
         expect(page).to have_content("You've successfully edited your profile.")
       end
-
-      it 'profile picture is a resized image that is a link to full sized image' do
-        click_link 'Create Profile'
-        expect(current_path).to eq(new_user_profile_path(user))
-        image_1_file_path = "#{Rails.root}/spec/files/image_1.jpg"
-        attach_file(image_1_file_path)
-        find("#profile_profile_picture").click
-        click_on 'Create Profile'
-        expect(page).to have_css("#profile-#{user.profile.id}-picture")
-        click_link "profile-#{user.profile.id}-picture"
-        
-        # path helpers did not work due to the way active storage creates links in test environment
-        desired_end_of_url = "image_1.jpg"
-        end_length = desired_end_of_url.length
-        url_length = current_url.length
-        end_of_url = "#{current_url[-end_length..url_length]}"
-        expect(end_of_url).to eq(desired_end_of_url)
-      end
     end
   end
 

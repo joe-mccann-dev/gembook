@@ -13,16 +13,6 @@ RSpec.describe "ProfilePictures", type: :system do
       visit new_user_profile_path(user)
     end
 
-    it 'allows them to upload a profile picture and associate it with their profile' do
-      image_1_file_path = "#{Rails.root}/spec/files/image_1.jpg"
-      attach_file(image_1_file_path)
-      find("#profile_profile_picture").click
-      click_on "Create Profile"
-      profile_picture_record = user.profile.profile_picture.record
-      profile = user.profile
-      expect(profile_picture_record).to eq(profile)
-    end
-
     context 'Image files' do
       it 'allows jpg files' do
         image_1_file_path = "#{Rails.root}/spec/files/image_1.jpg"

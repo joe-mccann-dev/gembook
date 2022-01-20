@@ -1,4 +1,4 @@
-  <% if user.profile.present? && user.profile.profile_picture%>
+  <% if user.profile.present? && user.profile.profile_picture.representable? %>
   <%= link_to image_tag(user.profile
                 .profile_picture
                 .representation(resize_to_fill: [50, 50], convert: "png"), alt: 'a user profile picture', id: 'profile-picture'),
