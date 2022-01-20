@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   end
 
   def other_users
-    User.where.not(id: [current_user.id, current_user.friends.map(&:id)].flatten)
+    User.includes([:profile]).where.not(id: [current_user.id, current_user.friends.map(&:id)].flatten)
   end
 
   def show_friends

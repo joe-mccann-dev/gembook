@@ -7,6 +7,8 @@ class Profile < ApplicationRecord
                               size: { less_than: 10.megabytes, message: 'image must be less than 10MB' },
                               unless: proc { |profile| profile.profile_picture.blank? }
 
+  default_scope { includes(profile_picture_attachment: :blob) }
+
   def self.attach_and_save_auth_image(auth, user)
     image_file = Down.download(auth.info.image)
     filename = File.basename(image_file.path)
