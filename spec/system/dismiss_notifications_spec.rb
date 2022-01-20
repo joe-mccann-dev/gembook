@@ -11,24 +11,27 @@ RSpec.describe "DismissNotifications", type: :system do
   context 'a user sends a friend request and request is accepted' do
 
     before do
+      Capybara.current_driver = Capybara.javascript_driver
       login_as(friend_requester, scope: :user)
       visit users_path
-      
-      find("#friend-#{user.id}").click
+    end
 
-      logout(friend_requester)
+    it 'shows the sender of the request a notification and allows them to dismiss it' do
+      click_button 'Show Other Users'
+      accept_confirm do
+        find("#friend-#{user.id}").click
+      end
+            
+      click_link 'Sign out'
       login_as(user, scope: :user)
       visit notifications_path
 
       find("#accept-sender-#{friend_requester.id}-request").click
 
-      logout(user)
+      click_link 'Sign out'
       login_as(friend_requester)
 
       visit notifications_path
-    end
-
-    it 'shows the sender of the request a notification and allows them to dismiss it' do
       click_link '1 unread notification'
       visit notifications_path
       expect(current_path).to eq(notifications_path)
@@ -43,14 +46,19 @@ RSpec.describe "DismissNotifications", type: :system do
 
   context 'a user sends a request' do
     before do
+      Capybara.current_driver = Capybara.javascript_driver
       login_as(friend_requester, scope: :user)
       visit users_path
       
-      find("#friend-#{user.id}").click
     end
 
     it 'allows receiver of request to dismiss the request' do
-      logout(friend_requester)
+      click_button 'Show Other Users'
+      accept_confirm do
+        find("#friend-#{user.id}").click
+      end
+      
+      click_link 'Sign out'
       login_as(user, scope: :user)
       visit notifications_path
 

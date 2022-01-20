@@ -10,12 +10,16 @@ RSpec.describe "UnfriendFriend", type: :system do
 
   context "A user wants to 'unfriend' a user they are friends with" do
     before do
+      Capybara.current_driver = Capybara.javascript_driver
       login_as(user, scope: :user)
       visit users_path
 
-      find("#friend-#{other_user.id}").click
-
-      logout(user, scope: :user)
+      click_button "Show Other Users"
+      accept_confirm do
+        find("#friend-#{other_user.id}").click
+      end
+  
+      click_link 'Sign out'
       login_as(other_user, scope: :user)
 
       visit notifications_path
@@ -27,23 +31,32 @@ RSpec.describe "UnfriendFriend", type: :system do
     end
 
     it 'allows the user to unfriend a user they are friends with' do
-      click_on "Unfriend"
+      click_button "Show Friends"
+      accept_confirm do
+        click_on "Unfriend"
+      end
       expect(page).to have_content("You are no longer friends with #{user.first_name}.")
     end
 
     it 'allows the unfriended user to accept a second friend request after being unfriended' do
-      click_on "Unfriend"
+      click_button "Show Friends"
+      accept_confirm do
+        click_on "Unfriend"
+      end
       expect(page).to have_content("You are no longer friends with #{user.first_name}.")
 
       # refriend foo
-      find("#friend-#{user.id}").click
+      click_button "Show Other Users"
+      accept_confirm do
+        find("#friend-#{user.id}").click
+      end
+      
       expect(page).to have_content("Friend request sent to #{user.first_name}")
 
-      logout(other_user, scope: :user)
+      click_link 'Sign out'
       login_as(user, scope: :user)
 
       visit notifications_path
-      
       
       expect(page).to have_content('accept')
 

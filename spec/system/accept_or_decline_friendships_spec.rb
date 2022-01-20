@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Accept or Decline Friendships', type: :system do
   before do
-    driven_by(:rack_test)
+    driven_by(:selenium)
   end
 
   let!(:friend_requester) { User.create(first_name: 'friend', last_name: 'requester', email: 'friend@requester.com', password: 'foobar') }
@@ -13,9 +13,12 @@ RSpec.describe 'Accept or Decline Friendships', type: :system do
       login_as(friend_requester, scope: :user)
       visit users_path
 
-      find("#friend-#{user.id}").click
-
-      logout(:friend_requester)
+      click_button 'Show Other Users'
+      accept_confirm do
+        find("#friend-#{user.id}").click
+      end
+      
+      click_link 'Sign out'
       login_as(user, scope: :user)
 
       visit users_path

@@ -36,8 +36,9 @@ RSpec.describe "ViewProfiles", type: :system do
         fill_in 'Current City', with: 'Bartown'
         fill_in 'Hometown', with: 'Footown'
         image_1_file_path = "#{Rails.root}/spec/files/image_1.jpg"
-        attach_file(image_1_file_path)
         find("#profile_profile_picture").click
+        attach_file(image_1_file_path)
+        
         click_on 'Create Profile'
         expect(page).to have_content("You've successfully created your profile.")
         expect(page.current_path).to eq(user_path(user))
@@ -150,55 +151,81 @@ RSpec.describe "ViewProfiles", type: :system do
 
     context "viewed user has already sent them a friend request" do
       before do
+        Capybara.current_driver = Capybara.javascript_driver
         login_as(other_user, scope: :user)
-        visit users_path
-
-        click_on "Add Friend"
-        logout(other_user, scope: :user)
-        login_as(user, scope: :user)
-
-        visit user_path(other_user)
       end
 
       it "offers them an 'accept friend request' link" do
+        visit users_path
+
+        click_on "Show Other Users"
+        
+        accept_confirm do
+          click_on "Add Friend"
+        end
+        click_link "Sign out"
+        login_as(user, scope: :user)
+
+        visit user_path(other_user)
+        
         message = "#{other_user.first_name} sent you a friend request. Once you accept you'll be able to see their posts."
         link = "Accept request"
-
         expect(page).to have_content(message)
         expect(page).to have_content(link)
-        expect { click_link link }.to change { user.received_accepted_requests.count }.from(0).to(1)
+
+        expect(user.received_accepted_requests.count).to eq(0)
+        accept_confirm do
+          click_link link
+        end
+        expect(page).to have_content('Friendship accepted!')
+        expect(user.received_accepted_requests.count).to eq(1)
       end
     end
 
     context "they have already sent viewed user a friend request" do
       before do
+        Capybara.current_driver = Capybara.javascript_driver
         login_as(user, scope: :user)
-        visit users_path
-
-        click_on "Add Friend"
       end
 
       it 'does not show send a friend request link' do
+        visit users_path
+
+        click_on "Show Other Users"
+        accept_confirm do
+          click_on 'Add Friend'
+        end
+
         link = "Send #{other_user.first_name} a friend request"
         visit user_path(other_user)
+        expect(page).to have_content("You sent #{other_user.first_name} a friend request.")
         expect(page).to_not have_link(link)
       end
     end
 
     context 'they have already accepted a request from the profile page' do
       before do
+        Capybara.current_driver = Capybara.javascript_driver
         login_as(user, scope: :user)
-        visit users_path
-
-        click_on 'Add Friend'
-        logout(user, scope: :user)
-        login_as(other_user, scope: :user)
-        visit user_path(user)
       end
 
       it 'does not show accept request' do
+        visit users_path
+
+        click_on "Show Other Users"
+        accept_confirm do
+          click_on 'Add Friend'
+        end
+        
+        click_link 'Sign out'
+        login_as(other_user, scope: :user)
+        visit user_path(user)
+
         link = 'Accept request'
-        click_link link
+        accept_confirm do
+          click_link link
+        end
+        expect(page).to have_content('Friendship accepted!')
         expect(page).to_not have_link(link)
       end
     end
