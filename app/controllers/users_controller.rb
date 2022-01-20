@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   def index
     @users = other_users
     @friends = current_user.friends
+    @friendships = current_user.friendships_via_friend_id
     @results = User.search(params[:query])
   end
 
