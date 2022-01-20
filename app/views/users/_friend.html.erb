@@ -1,4 +1,6 @@
 <li>
+  <%= render partial: 'user_icon', locals: { user: friend } %>
+
   <%= link_to friend.full_name, user_path(friend) %>
   <%= button_to "Unfriend",
               @friendships[friend.id],
