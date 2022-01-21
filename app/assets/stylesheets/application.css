@@ -28,7 +28,7 @@
 }
 *, *::before, *::after {
   box-sizing: inherit;
-  border: none;
+  /* border: none; */
   outline: none;
 }
 
@@ -129,8 +129,13 @@ textarea, input {
   color: var(--dark-blue);
   background-color: var(--light-blue);
   font-weight: 700;
-  border-radius: 12px;
-  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin: 0.5rem auto;
+}
+
+input:focus, textarea:focus {
+  border: solid 2px var(--cyan);
 }
 
 .button_to,
@@ -138,6 +143,56 @@ textarea, input {
   display: inline;
 }
 
-li {
+/* END BUTTONS/INPUTS */
+
+/* DEVISE FORMS */
+
+.login-signup {
+  padding: 0.5rem 1.5rem;
+  color: var(--dark-blue);
+  background-color: var(--cyan)
+}
+
+.login-signup:focus {
+  border: solid 2px var(--yellow-orange);
+}
+
+.heading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.devise-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.devise-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.field, .actions {
   margin: 12px 0;
+  min-height: 2rem;
+}
+
+
+/* END DEVISE FORMS */
+
+/* GENERAL FORMS */
+
+/* END GENERAL FORMS */
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  margin: 1rem 0;
 }
