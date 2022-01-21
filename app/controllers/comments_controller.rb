@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
   def create
     if @comment.save
       flash[:info] = "Successfully created comment"
-      redirect_to polymorphic_path(@comment.commentable)
+      redirect_to request.referrer
     else
       flash[:warning] = "Failed to create comment"
       render :new

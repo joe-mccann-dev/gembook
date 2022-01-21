@@ -26,7 +26,7 @@ RSpec.describe "EditComments", type: :system do
       comment_content = 'This is that comment that I promised.'
       fill_in "post-#{post.id}-comment", with: comment_content
       click_on 'Comment'
-      expect(page.current_path).to eq(post_path(post))
+      expect(page.current_path).to eq(user_path(user))
       expect(page).to have_link('edit comment')
 
       click_link 'edit comment'
