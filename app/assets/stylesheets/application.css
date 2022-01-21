@@ -27,8 +27,6 @@
   scroll-behavior: smooth;
 }
 *, *::before, *::after {
-  margin: 0;
-  padding: 0;
   box-sizing: inherit;
   border: none;
   outline: none;
@@ -100,6 +98,10 @@ ion-icon {
   font-size: 75%;
 }
 
+/* END NAVBAR */
+
+/* LINKS */
+
 a {
   text-decoration: none;
   color: var(--yellow-orange);
@@ -111,6 +113,8 @@ a:hover {
   color: var(--light-blue)
 }
 
+/* END LINKS */
+
 .profile-picture {
   border-radius: 50%;
 }
@@ -119,8 +123,14 @@ a:hover {
   border-bottom: none;
 }
 
+/* BUTTONS/INPUTS */
+
 textarea, input {
+  color: var(--dark-blue);
   background-color: var(--light-blue);
+  font-weight: 700;
+  border-radius: 12px;
+  padding: 0.25rem 0.5rem;
 }
 
 .button_to,
