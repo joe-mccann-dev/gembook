@@ -24,10 +24,10 @@ class FriendshipsController < ApplicationController
   def update
     if @friendship.update(friendship_params)
       flash[:success] = if @friendship.accepted?
-                       'Friendship accepted!'
-                     else
-                       'Friendship declined.'
-                     end
+                          'Friendship accepted!'
+                        else
+                          'Friendship declined.'
+                        end
     else
       flash[:warning] = 'Failed to accept or decline friendship'
     end
@@ -37,9 +37,9 @@ class FriendshipsController < ApplicationController
   def destroy
     @friendship = Friendship.find(params[:id])
     if @friendship.destroy
-      flash[:success] = "You are no longer friends with #{params[:friend_name]}."
+      flash[:info] = "You are no longer friends with #{params[:friend_name]}."
     else
-      flash[:info] = "Failed to unfriend #{params[:friend_name]}."
+      flash[:warning] = "Failed to unfriend #{params[:friend_name]}."
     end
     redirect_to request.referrer
   end
