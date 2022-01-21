@@ -32,7 +32,7 @@ RSpec.describe "DismissNotifications", type: :system do
       login_as(friend_requester)
 
       visit notifications_path
-      click_link '1 unread notification'
+      click_link 'Notifications'
       visit notifications_path
       expect(current_path).to eq(notifications_path)
       name = "#{user.first_name} #{user.last_name}"

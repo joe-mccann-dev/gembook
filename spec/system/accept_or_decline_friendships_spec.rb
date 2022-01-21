@@ -24,13 +24,15 @@ RSpec.describe 'Accept or Decline Friendships', type: :system do
       visit users_path
     end
 
-    it 'shows they have 1 unread notification' do
-      expect(page).to have_content('1 unread notification')
+    it 'shows them the notification' do
+      visit notifications_path
+      expect(page).to have_css(".notifications-bell")
+      expect(page).to have_content('new friend request')
     end
 
     context 'the user clicks the notifications link' do
       it 'shows them the friend request' do
-        click_link '1 unread notification'
+        click_link 'Notifications'
         name = "#{friend_requester.first_name} #{friend_requester.last_name}"
         expect(page).to have_content("new friend request from #{name}")
       end

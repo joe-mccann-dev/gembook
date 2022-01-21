@@ -22,11 +22,11 @@
           <%= link_to "Users", users_path %>
           <% if current_user.received_notifications.unread.any? %>
             <%= link_to notifications_path, class: 'notifications-link' do %>
-              <span class="notifications-link">notifications</span>
+              <span class="notifications-link">Notifications</span>
               <ion-icon class="notifications-bell" name="notifications"></ion-icon>
             <% end %>
           <% else %>
-            <%= link_to "Notifications", notifications_path %>
+            <%= link_to "Notifications", notifications_path, class: 'notifications-link' %>
           <% end %>
       </div>
       <div class="navbar">
@@ -34,7 +34,7 @@
           <%= link_to root_url do %>
             <div>
               <ion-icon class="diamond-left" name="diamond"></ion-icon>
-              <span class="gembook-link">gembook</span>
+              <span class="gembook-link">GEMBOOK</span>
               <ion-icon class="diamond-right" name="diamond"></ion-icon>
             </div>
           <% end %>
