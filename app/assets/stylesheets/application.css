@@ -17,7 +17,9 @@
  :root {
    --light-blue: #E2F5FE;
    --dark-blue: #1B2B34;
-   --orange: #ec8849;
+   --yellow-orange: #ecb349;
+   --red: #A41300;
+   --cyan: #65D8F8;
  }
 
  html {
@@ -36,20 +38,97 @@ body {
   font-family: 'Ubuntu', sans-serif;
   color: var(--light-blue);
   background-color: var(--dark-blue);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+/* NAVBAR */
+
+nav {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.navbar a {
+  font-size: 1.2rem;
+}
+
+.nav-title {
+  text-transform: uppercase;
+}
+
+.notifications-link {
+  text-transform: capitalize;
+}
+
+.gembook-link {
+  color: var(--cyan);
+}
+
+.notifications-link {
+  position: relative;
+}
+
+ion-icon {
+  pointer-events: none;
+}
+
+.notifications-bell {
+  position: absolute;
+  color: var(--cyan);
+  font-size: 92%;
+  transform: rotate(10deg);
+}
+
+.diamond {
+  transform: rotate(-45deg);
+  font-size: 200%;
+  color: var(--cyan);
+}
+
+.diamond-left {
+  transform: rotate(-30deg);
+  font-size: 75%;
+}
+
+.diamond-right {
+  transform: rotate(30deg);
+  font-size: 75%;
 }
 
 a {
   text-decoration: none;
-  color: var(--orange);
+  color: var(--yellow-orange);
   font-weight: 700;
+  padding-bottom: 0.5rem;
+}
+
+a:hover {
+  color: var(--light-blue)
+}
+
+.profile-picture {
+  border-radius: 50%;
+}
+
+.profile-picture-link:hover {
+  border-bottom: none;
 }
 
 textarea, input {
   background-color: var(--light-blue);
-}
-
-a:hover {
-  border-bottom: solid var(--orange) 2px;
 }
 
 .button_to,

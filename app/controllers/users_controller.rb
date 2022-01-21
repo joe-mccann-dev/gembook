@@ -5,6 +5,7 @@ class UsersController < ApplicationController
     @users = other_users
     @friends = current_user.friends
     @friendships = current_user.friendships_via_friend_id
+    @friendship = current_user.sent_pending_requests.build
     @results = User.search(params[:query])
   end
 

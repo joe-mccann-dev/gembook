@@ -11,7 +11,7 @@ module ApplicationHelper
   end
 
   def display_notifications(user)
-    count = user.received_notifications.unread.count
-    count == 1 ? "#{count} unread notification" : "#{count} unread notifications"
+    count = user.received_notifications.unread.length
+    pluralize(count, 'notification')
   end
 end
