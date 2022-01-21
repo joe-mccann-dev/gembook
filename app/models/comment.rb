@@ -1,5 +1,5 @@
 class Comment < ApplicationRecord
-  default_scope { includes([:user, :comments]) }
+  default_scope { includes([:user, :comments, :likes, :likers]) }
   belongs_to :user
 
   belongs_to :commentable, polymorphic: true
