@@ -23,7 +23,7 @@ class PostsController < ApplicationController
 
   def create
     if @post.save
-      flash[:info] = 'Post created successfully.'
+      flash[:success] = 'Post created successfully.'
       redirect_to request.referrer
     else
       flash[:warning] = 'Failed to create post. Please try again.'
@@ -33,7 +33,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      flash[:info] = 'Post successfully edited.'
+      flash[:success] = 'Post successfully edited.'
       redirect_to post_path(@post)
     else
       render :edit

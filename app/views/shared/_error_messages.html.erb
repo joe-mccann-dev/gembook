@@ -1,7 +1,12 @@
 <% if object.errors.any? %>
-  <ul>
-    <% object.errors.full_messages.each do |message| %>
-      <li class="has-text-danger-dark is-size-5-desktop is-size-6-mobile">- <%= message %></li>
-    <% end %>
-  </ul>
+  <div id="error_explanation">
+    <h2>
+      <%= pluralize(object.errors.count, 'error')%> prevented this <%= object_to_s(object) %> from being saved:
+    </h2>
+    <ul>
+      <% object.errors.full_messages.each do |message| %>
+        <li class="notification warning message"><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>

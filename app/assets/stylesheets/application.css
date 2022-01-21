@@ -18,8 +18,9 @@
    --light-blue: #E2F5FE;
    --dark-blue: #1B2B34;
    --yellow-orange: #ecb349;
-   --red: #A41300;
+   --red: #B73929;
    --cyan: #65D8F8;
+   --green: #0EA76D;
  }
 
  html {
@@ -77,9 +78,8 @@ ion-icon {
 
 .notifications-bell {
   position: absolute;
-  color: var(--cyan);
+  color: var(--red);
   font-size: 92%;
-  transform: rotate(10deg);
 }
 
 .diamond {
@@ -185,9 +185,31 @@ input:focus, textarea:focus {
 
 /* END DEVISE FORMS */
 
-/* GENERAL FORMS */
+/* NOTIFICATIONS */
 
-/* END GENERAL FORMS */
+.notification.message {
+  padding: 0.5rem;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.notification.success {
+  color: var(--dark-blue);
+  background-color: var(--green);
+}
+
+.notification.info, .notification.notice {
+  color: var(--dark-blue);
+  background-color: var(--cyan);
+}
+
+.notification.warning, .notification.alert {
+  color: var(--light-blue);
+  background-color: var(--red);
+}
+
+/* NOTIFICATIONS */
 
 ul {
   list-style-type: none;

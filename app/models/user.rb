@@ -68,6 +68,9 @@ class User < ApplicationRecord
            through: :received_accepted_requests,
            source: :sender
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+
   def self.from_omniauth(auth)
     oauth_user = where(provider: auth.provider, uid: auth.uid).first_or_initialize do |user|
       user.email = auth.info.email

@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
 
   def create
     if @comment.save
-      flash[:info] = "Successfully created comment"
+      flash[:success] = "Successfully created comment"
       redirect_to request.referrer
     else
       flash[:warning] = "Failed to create comment"
@@ -29,7 +29,7 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update(comment_params)
-      flash[:info] = 'Comment successfully edited.'
+      flash[:success] = 'Comment successfully edited.'
       redirect_to polymorphic_path(@comment.commentable)
     else
       render :edit

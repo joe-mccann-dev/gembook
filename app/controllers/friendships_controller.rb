@@ -23,7 +23,7 @@ class FriendshipsController < ApplicationController
 
   def update
     if @friendship.update(friendship_params)
-      flash[:info] = if @friendship.accepted?
+      flash[:success] = if @friendship.accepted?
                        'Friendship accepted!'
                      else
                        'Friendship declined.'

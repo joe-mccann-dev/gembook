@@ -49,7 +49,7 @@
     </nav>
     <div id="flash-message">
       <% flash.each do |message_type, message| %>
-        <%= content_tag(:p, message, class: "notification #{message_type}") %>
+        <%= content_tag(:p, message, class: "notification #{message_type} message") %>
       <% end %>
     </div>
     <%= yield %>
