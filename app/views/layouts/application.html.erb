@@ -52,7 +52,9 @@
         <%= content_tag(:p, message, class: "notification #{message_type} message") %>
       <% end %>
     </div>
-    <%= yield %>
+    <div class="yielded">
+      <%= yield %>
+    </div>
     <%= debug(params) if Rails.env.development? %>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

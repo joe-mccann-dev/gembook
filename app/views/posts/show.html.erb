@@ -1,5 +1,5 @@
 
-<div style="border: solid 1px black; border-radius: 12px; max-width: 800px; padding: 24px; margin: 24px 0; list-style: none;">
+<div class="post">
   <%= render partial: 'post', locals: { post: @post } %>
   <% if @post.likers.any? %>
     <p>This post is liked by<p>
