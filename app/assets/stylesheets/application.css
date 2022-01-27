@@ -29,8 +29,10 @@
 }
 *, *::before, *::after {
   box-sizing: inherit;
-  /* border: none; */
+  border: none;
   outline: none;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -39,33 +41,48 @@ body {
   background-color: var(--dark-blue);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 1rem;
+  align-items: center;
+  /* padding: 1rem; */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 /* NAVBAR */
 
 nav {
-  margin: 0.5rem;
-  padding: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.logo {
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
 .navbar {
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 1rem;
-  width: 100%;
 }
 
 .navbar a {
   font-size: 1.2rem;
 }
 
-.gembook-link {
+.navbar .gembook-link {
+  font-size: 1.4rem;
+  text-transform: uppercase;
   color: var(--cyan);
 }
 
@@ -87,16 +104,6 @@ ion-icon {
   transform: rotate(-45deg);
   font-size: 200%;
   color: var(--cyan);
-}
-
-.diamond-left {
-  transform: rotate(-30deg);
-  font-size: 75%;
-}
-
-.diamond-right {
-  transform: rotate(30deg);
-  font-size: 75%;
 }
 
 /* END NAVBAR */
@@ -193,6 +200,7 @@ input:focus, textarea:focus {
 
 .notification.message {
   padding: 0.5rem;
+  margin-bottom: 1rem;
   border-radius: 4px;
   text-align: center;
   font-weight: 700;
@@ -218,4 +226,31 @@ input:focus, textarea:focus {
 li {
   list-style-type: none;
   margin: 1rem 0;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 600px) {
+
+  .navbar a {
+    font-size: 1rem;
+  }
+
+  .navbar .gembook-link {
+    font-size: 1.2rem;
+  }
+  .navbar {
+    justify-content: space-between;
+  }
+
+}
+
+@media screen and (max-width: 800px) {
+  /* nav {
+    justify-content: center;
+    gap: 0;
+  } */
+
 }

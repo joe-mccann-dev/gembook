@@ -25,9 +25,10 @@
       <%= render partial: 'comments/comment_form',
                           locals: { commentable: comment,
                                     id: "post-#{comment.commentable_id}-comment-#{comment.id}-reply" } %>
+                                         
     </li>
   </ul>
-  <ul>
+  <ul class="comment-comments">
     <%= render partial: 'comments/comment', collection: comment.comments %>
   </ul>
 </div>

@@ -2,28 +2,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-
 // POST FORM
 
-.posts.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .form.new-post {
-  width: 50vw;
-  flex: 1 1 auto;
+  flex: 1;
   display: flex;
   flex-direction: column;
   border: solid 2px var(--yellow-orange);
   border-radius: 8px;
   padding: 1rem;
-}
-
-.post-fields {
-  display: flex;
-  flex-direction: column;
+  
 }
 
 .post-text-area {
@@ -32,13 +20,19 @@
   font-weight: 400;
 }
 
-.image-icon {
-  font-size: 200%;
-  color: var(--green);
+.image-upload {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 0.5rem;
 }
 
 .image-label {
+  width: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 1rem;
   border: solid 1px var(--cyan);
@@ -46,14 +40,13 @@
   padding: 0.5rem 1rem;
 }
 
-.image-upload {
-  width: 50vw;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-around;
-  gap: 12px;
-  padding: 0.5rem;
+.file-field {
+  max-width: 50vw;
+}
+
+.image-icon {
+  font-size: 200%;
+  color: var(--green);
 }
 
 .button-post.submit {
@@ -61,3 +54,65 @@
 }
 
 // END POST FORM
+
+// POST DISPLAY
+
+.posts-collection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.post-comments {
+  margin-left: 2rem;
+}
+
+.comment-comments {
+  margin-left: 2rem;
+}
+
+.post-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  padding-bottom: 1rem;
+  border: solid 2px var(--cyan);
+  border-radius: 1rem;
+  padding: 1rem;
+  width: 100%;
+}
+
+.post-content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.post-image img {
+  max-width: 95%;
+  border-radius: 12px;
+  padding: 0.4rem 0;
+}
+
+.post-controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-author {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.time-posted {
+  color: var(--cyan)
+}
+
+// END POST DISPLAY //
+
+// MEDIA QUERIES
+
+
+// END MEDIA QUERIES

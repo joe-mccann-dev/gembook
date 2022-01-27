@@ -1,20 +1,17 @@
 <div class="form new-post">
   <p><em>Create a new post.</em></p>
-  <%= form_with(model: @post, class: 'post-fields') do |f| %>
+  <%= form_with(model: @post) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
     <div class="field">
       <%= f.text_area :content, rows: 7, placeholder: "What's new?", class: 'post-text-area' %>
     </div>
     <div class="field image-upload">
-      <div class="label-input-container">
-        <label class="image-label">
-          <span>Add an image to your post.</span>
-          <ion-icon class="image-icon" name="image"></ion-icon>
-          <span>
-            <%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg,image/jpg' %>
-          </span>
-        </label>
-      </div>
+      <label class="image-label">
+        <ion-icon class="image-icon" name="image"></ion-icon>
+        <span>
+          <%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg,image/jpg', class: 'file-field' %>
+        </span>
+      </label>
     </div>
     <div class="field">
       <%= f.submit "Post", class: 'button-post submit' %>

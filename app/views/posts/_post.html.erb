@@ -1,44 +1,45 @@
-<li>
-  <div id="likeable-<%= post.id %>">
-    <p><%= post.user.full_name %></p>
-    <% if post.content.present? %>
-      <p style="border: solid 1px black; border-radius: 12px; max-width: 500px; padding: 24px;">
-        <%= post.content %>
-      </p>
-    <% end %>
-    <% if post.image.present? %>
-      <div class="post-image">
-        <%= link_to image_tag(post
+<li class="post-container" id="likeable-<%= post.id %>">
+  <% if user_is_current_user?(post.user) %>
+    <div class="post-controls">
+      <p class="post-author"><%= link_to post.user.full_name, user_path(post.user) %></p>
+      <div>
+        <%= link_to 'edit post', edit_post_path(post) %>
+        <%= link_to 'delete post', post_path(post), method: :delete, data: { confirm: 'Are you sure you want to delete this post?'}%>   
+      </div>  
+    </div>
+  <% else %>
+    <p class="post-author"><%= link_to post.user.full_name, user_path(post.user) %></p>
+  <% end %>
+  <% if post.edited? %>
+    <em class="time-posted">updated <%= time_ago_in_words(post.updated_at) %> ago</em>
+  <% else %>
+    <em class="time-posted">posted <%= time_ago_in_words(post.created_at) %> ago</em>
+  <% end %>
+  <% if post.content.present? %>
+    <p class="post-content">
+      <%= simple_format(post.content.gsub(/\\r\\n/, "\n")) %>
+    </p>
+  <% end %>
+  <% if post.image.present? %>
+    <div class="post-image">
+      <%= link_to image_tag(post
                       .image
-                      .representation(resize_to_fit: [400, 400], convert: "png"), alt: 'a user posted image'),
+                      .representation(resize_to_fit: [600, 600], convert: "png"), alt: 'a user posted image'),
                     url_for(post.image),
                     id: "post-#{post.id}-image" %>
-      </div>
+    </div>
+  <% end %>
+  <div class="post-likes">
+    <% if post.likes.any? && !current_page?(post_path(post)) %>
+      <%= render partial: 'likes/like_count', locals: { likeable: post, path: post_path(post) } %>
     <% end %>
-    <% if user_is_current_user?(post.user) %>
-      <div>
-        <%= link_to 'delete post', post_path(post), method: :delete, data: { confirm: 'Are you sure you want to delete this post?'}%>
-        <%= link_to 'edit post', edit_post_path(post) %>
-      </div>
-    <% end %>
-    <br>
-    <em>posted <%= time_ago_in_words(post.created_at) %> ago</em>
-    <% if post.edited? %>
-      <div>
-        <em>updated <%= time_ago_in_words(post.updated_at) %> ago</em>
-      </div>
-    <% end %>
-    <div class="post-likes">
-      <% if post.likes.any? && !current_page?(post_path(post)) %>
-        <%= render partial: 'likes/like_count', locals: { likeable: post, path: post_path(post) } %>
-      <% end %>
-      <%= render partial: 'likes/like_button', locals: { likeable: post, path: post_likes_path(post) } %>
-      <%= render partial: 'comments/comment_form',
+    <%= render partial: 'likes/like_button', locals: { likeable: post, path: post_likes_path(post) } %>
+    <%= render partial: 'comments/comment_form',
                           locals: { commentable: post,
                                     id: "post-#{post.id}-comment"} %>
-      <div class="post-comments">
-        <%= render partial: "/comments/comment", collection: post.comments  %>
-      </div>
+    <div class="post-comments">
+      <%= render partial: "/comments/comment", collection: post.comments  %>
     </div>
   </div>
 </li>
+<%# <hr class="post-divider"> %>

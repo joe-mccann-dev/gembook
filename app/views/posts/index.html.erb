@@ -1,9 +1,7 @@
-
-<div class="content posts container">
+<div class="container">
   <h1>Home</h1>
   <%= render partial: 'posts/post_form' %>
-  <ul>
+  <ul class="posts-collection">
     <%= render partial: 'posts/post', collection: @posts %>
   </ul>
 </div>
-

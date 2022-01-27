@@ -1,4 +1,4 @@
-<div style="border: solid 1px black; border-radius: 12px; max-width: 800px; padding: 24px; margin: 24px 0; list-style: none;">
+<div>
   <%= render partial: 'comment', locals: { comment: @comment } %>
   <% if @comment.likers.any? %>
     <p>This comment is liked by<p>
