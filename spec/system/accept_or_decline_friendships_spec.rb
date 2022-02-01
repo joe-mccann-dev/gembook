@@ -32,7 +32,8 @@ RSpec.describe 'Accept or Decline Friendships', type: :system do
 
     context 'the user clicks the notifications link' do
       it 'shows them the friend request' do
-        click_link 'Notifications'
+        
+        find('.notifications-link').click
         name = "#{friend_requester.first_name} #{friend_requester.last_name}"
         expect(page).to have_content("new friend request from #{name}")
       end

@@ -1,6 +1,9 @@
 <p>Edit Comment</p>
 <p><%= @comment.content %></p>
-<%= render partial: 'comments/comment_form',
-                     locals: { commentable: @comment,
-                               id: "#{object_to_s(@comment.commentable)}-#{@comment.commentable.id}-comment"
-                                                 } %>
+
+<%= form_with(model: [@comment.commentable, @comment]) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <%= f.text_area :content, id: "#{object_to_s(@comment.commentable)}-#{@comment.commentable.id}-comment" %>
+  <br>
+  <%= f.submit "Edit Comment" %>
+<% end %>

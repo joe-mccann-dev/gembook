@@ -1,4 +1,4 @@
-<%= form_for([commentable, @comment || Comment.new]) do |f| %>
+<%= form_with(model: [commentable, Comment.new]) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <%= f.text_area :content, id: id %>
   <br>

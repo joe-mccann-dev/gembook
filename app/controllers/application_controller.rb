@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   def determine_path(object)
     objects = {
       'Post' => post_path(object),
-      'Comment' => comment_path(object)
+      'Comment' => polymorphic_path(object)
     }
     objects[object.class.to_s]
   end

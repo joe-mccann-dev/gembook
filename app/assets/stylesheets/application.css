@@ -41,7 +41,7 @@ body {
   background-color: var(--dark-blue);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   /* padding: 1rem; */
 }
 
@@ -61,7 +61,7 @@ nav {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 100%;
 }
 
@@ -73,6 +73,7 @@ nav {
 .navbar {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
 }
 
@@ -86,18 +87,31 @@ nav {
   color: var(--cyan);
 }
 
-.notifications-link {
-  position: relative;
-}
-
-ion-icon {
-  pointer-events: none;
-}
-
 .notifications-bell {
+  color: var(--cyan);
+  font-size: 150%;
   position: absolute;
-  color: var(--red);
-  font-size: 92%;
+}
+
+.notifications-bell:hover, .gembook-link:hover {
+  color: var(--light-blue);
+}
+
+.notifications-count {
+  box-sizing: border-box;
+  background-color: var(--red);
+  color: var(--light-blue);
+  font-size: 14px;
+  height: 1.2rem;
+  width: 1.2rem;
+  border: solid 1px var(--light-blue);
+  border-radius: 100%;
+  position: relative;
+  bottom: 8px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .diamond {
@@ -147,7 +161,7 @@ textarea, input {
 }
 
 input:focus, textarea:focus {
-  border: solid 2px var(--cyan);
+  box-shadow: 0 0 0 2px var(--cyan);
 }
 
 .button_to,
@@ -166,13 +180,12 @@ input:focus, textarea:focus {
 }
 
 .submit:focus {
-  border: solid 2px var(--yellow-orange);
+  box-shadow: 0 0 0 2px var(--yellow-orange);
 }
 
 .heading-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
@@ -190,7 +203,7 @@ input:focus, textarea:focus {
 }
 
 .field, .actions {
-  margin: 12px 0;
+  margin: 1rem 0;
   min-height: 2rem;
 }
 
@@ -241,16 +254,17 @@ p {
   .navbar .gembook-link {
     font-size: 1.2rem;
   }
-  .navbar {
-    justify-content: space-between;
-  }
 
 }
 
 @media screen and (max-width: 800px) {
-  /* nav {
+  nav {
     justify-content: center;
     gap: 0;
-  } */
+  }
+
+  .diamond {
+    display: none;
+  }
 
 }
