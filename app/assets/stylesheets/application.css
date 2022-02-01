@@ -59,25 +59,62 @@ body {
 nav {
   padding: 8px;
   margin-bottom: 16px;
-  display: flex;
-  flex-wrap: wrap;
+  /* display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between; */
   width: 100%;
   background-color: var(--cyan);
-}
-
-.logo {
-  display: flex;
-  align-items: center;
+  background: linear-gradient(to right, var(--yellow-orange), var(--cyan));
 }
 
 .navbar {
+  display: none;
+  position: relative;
+}
+
+.nav-item {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
+  gap: 6px;
 }
+
+.is-active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.left-links, .right-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  color: var(--dark-blue);
+}
+
+.logo:hover {
+  color: var(--light-blue);
+}
+
+.burger-icon {
+  font-size: 200%;
+  color: var(--dark-blue);
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.burger-icon:hover {
+  color: var(--light-blue);
+}
+
 
 .navbar a {
   font-size: 1.2rem;
@@ -94,12 +131,12 @@ nav {
   font-size: 200%;
 }
 
-.navbar .gembook-link {
-  font-size: 1.4rem;
-  text-transform: uppercase;
-}
 
 .users-icon {
+  font-size: 200%;
+}
+
+.settings-icon {
   font-size: 200%;
 }
 
@@ -156,8 +193,8 @@ a:hover {
   border-radius: 50%;
 }
 
-.profile-picture-link:hover {
-  border-bottom: none;
+.profile-picture:hover {
+  box-shadow: 0 0 0 2px var(--light-blue);
 }
 
 /* BUTTONS/INPUTS */
@@ -260,26 +297,15 @@ p {
   margin-bottom: 1rem;
 }
 
-@media screen and (max-width: 600px) {
-
-  .navbar a {
-    font-size: 1rem;
-  }
-
-  .navbar .gembook-link {
-    font-size: 1.2rem;
-  }
-
-}
-
 @media screen and (max-width: 800px) {
-  nav {
-    justify-content: center;
-    gap: 4px;
-  }
 
   .navbar a, .gembook {
     font-size: 0.8rem;
+  }
+
+  .notifications-count {
+    bottom: 1rem;
+    left: 0.8rem;
   }
 
   .profile-picture {
