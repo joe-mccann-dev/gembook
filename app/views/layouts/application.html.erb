@@ -16,28 +16,31 @@
     <nav>
       <div class="navbar left-links">
         <% if user_signed_in? %>
-        <%= link_to root_url do %>
-          <div class="logo">
-            <ion-icon class="diamond" name="diamond"></ion-icon>
-            <%= link_to "Gembook", root_url, class: 'gembook-link' %>
-          </div>
+          <%= link_to root_url do %>
+            <div class="logo">
+              <ion-icon class="diamond" name="diamond"></ion-icon>
+              <%= link_to "Gembook", root_url, class: 'gembook-link' %>
+            </div>
           <% end %>
           <%= link_to "Users", users_path %>
           <% if current_user.received_notifications.unread.any? %>
             <%= link_to notifications_path, class: 'notifications-link' do %>
-              <ion-icon class="notifications-bell" name="notifications"></ion-icon>
-              <div class="notifications-count">
-                <span><%= current_user.received_notifications.unread.length %></span>
+              <div class="notifications-bell">
+                <div class="notifications-count">
+                  <span><%= current_user.received_notifications.unread.length %></span>
+                </div>
+                <ion-icon name="notifications"></ion-icon>
               </div>
-              
             <% end %>
           <% else %>
             <%= link_to notifications_path, class: 'notifications-link'  do %>
-              <ion-icon class="notifications-bell" name="notifications"></ion-icon>
+              <div class="notifications-bell">
+                <ion-icon name="notifications"></ion-icon>
+              </div>
             <% end %>
           <% end %>
-      </div>
-      <div class="navbar right-links">
+        </div>
+        <div class="navbar right-links">
           <%= link_to current_user.full_name, edit_user_registration_path %>
           <%= render partial: 'users/user_icon', locals: { user: current_user } %>
           <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
@@ -49,7 +52,7 @@
         <%= content_tag(:p, message, class: "notification #{message_type} message") %>
       <% end %>
     </div>
-      <%= yield %>
+    <%= yield %>
     <%= debug(params) if Rails.env.development? %>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

@@ -87,10 +87,11 @@ nav {
   color: var(--cyan);
 }
 
+
 .notifications-bell {
   color: var(--cyan);
   font-size: 150%;
-  position: absolute;
+  position: relative;
 }
 
 .notifications-bell:hover, .gembook-link:hover {
@@ -98,20 +99,20 @@ nav {
 }
 
 .notifications-count {
-  box-sizing: border-box;
   background-color: var(--red);
   color: var(--light-blue);
-  font-size: 14px;
+  font-size: 0.8rem;
   height: 1.2rem;
   width: 1.2rem;
   border: solid 1px var(--light-blue);
   border-radius: 100%;
-  position: relative;
-  bottom: 8px;
-  left: 16px;
+  position: absolute;
+  bottom: 1.3rem;
+  left: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
 }
 
 .diamond {
