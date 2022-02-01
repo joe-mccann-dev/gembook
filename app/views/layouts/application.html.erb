@@ -18,24 +18,32 @@
         <% if user_signed_in? %>
           <%= link_to root_url do %>
             <div class="logo">
-              <ion-icon class="diamond" name="diamond"></ion-icon>
-              <%= link_to "Gembook", root_url, class: 'gembook-link' %>
+              <%= link_to root_url, class: 'gembook-link' do%>
+                <div class="gembook">
+                  <ion-icon class="diamond" name="diamond"></ion-icon>
+                  <span>Gembook</span>
+                </div>
+              <% end %>
             </div>
           <% end %>
-          <%= link_to "Users", users_path %>
+          <%= link_to users_path do %>
+            <div class="users-icon">
+              <ion-icon name="people-circle-outline"></ion-icon>
+            </div>
+          <% end %>
           <% if current_user.received_notifications.unread.any? %>
             <%= link_to notifications_path, class: 'notifications-link' do %>
               <div class="notifications-bell">
                 <div class="notifications-count">
                   <span><%= current_user.received_notifications.unread.length %></span>
                 </div>
-                <ion-icon name="notifications"></ion-icon>
+                <ion-icon name="notifications-outline"></ion-icon>
               </div>
             <% end %>
           <% else %>
             <%= link_to notifications_path, class: 'notifications-link'  do %>
               <div class="notifications-bell">
-                <ion-icon name="notifications"></ion-icon>
+                <ion-icon name="notifications-outline"></ion-icon>
               </div>
             <% end %>
           <% end %>
@@ -43,7 +51,11 @@
         <div class="navbar right-links">
           <%= link_to current_user.full_name, edit_user_registration_path %>
           <%= render partial: 'users/user_icon', locals: { user: current_user } %>
-          <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+          <%= link_to destroy_user_session_path, :method => :delete do %>
+            <div class="logout-icon">
+              <ion-icon name="log-out-outline"></ion-icon>
+            </div>
+          <% end %>
         <% end %>
       </div>
     </nav>

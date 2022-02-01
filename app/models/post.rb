@@ -14,6 +14,8 @@ class Post < ApplicationRecord
                       unless: proc { |post| post.image.attached? }
 
   def edited?
-    created_at != updated_at
+    second_created = created_at.to_datetime.second
+    second_updated = updated_at.to_datetime.second
+    second_created != second_updated
   end
 end
