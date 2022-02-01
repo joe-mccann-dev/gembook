@@ -16,7 +16,7 @@ RSpec.describe "DisplayProfileIcons", type: :system do
       image_1_file_path = "#{Rails.root}/spec/files/image_1.jpg"
       attach_file(image_1_file_path)
       click_on "Create Profile"
-      click_link 'Sign out'
+      find('.logout-link').click
     end
 
     it "shows them users names with profile pictures next to them" do

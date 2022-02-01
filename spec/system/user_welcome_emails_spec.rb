@@ -29,7 +29,7 @@ RSpec.describe "UserWelcomeEmails", type: :system do
   it 'does not send welcome email to already registered oauth users' do
     visit new_user_registration_path
     expect { click_link 'Sign in with GitHub' }.to change { ActionMailer::Base.deliveries.count}.by(1)
-    click_link 'Sign out'
+    find('.logout-link').click
     expect { click_link 'Sign in with GitHub' }.to change { ActionMailer::Base.deliveries.count}.by(0)
   end
 end

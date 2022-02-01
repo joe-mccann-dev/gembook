@@ -19,7 +19,7 @@ RSpec.describe "UnfriendFriend", type: :system do
         find("#friend-#{other_user.id}").click
       end
   
-      click_link 'Sign out'
+      find('.logout-link').click
       login_as(other_user, scope: :user)
 
       visit notifications_path
@@ -53,7 +53,7 @@ RSpec.describe "UnfriendFriend", type: :system do
       
       expect(page).to have_content("Friend request sent to #{user.first_name}")
 
-      click_link 'Sign out'
+      find('.logout-link').click
       login_as(user, scope: :user)
 
       visit notifications_path

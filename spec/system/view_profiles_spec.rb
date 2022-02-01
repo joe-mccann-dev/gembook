@@ -145,7 +145,7 @@ RSpec.describe "ViewProfiles", type: :system do
         accept_confirm do
           click_on "Add Friend"
         end
-        click_link "Sign out"
+        find('.logout-link').click
         login_as(user, scope: :user)
 
         visit user_path(other_user)
@@ -199,7 +199,7 @@ RSpec.describe "ViewProfiles", type: :system do
           click_on 'Add Friend'
         end
         
-        click_link 'Sign out'
+        find('.logout-link').click
         login_as(other_user, scope: :user)
         visit user_path(user)
 

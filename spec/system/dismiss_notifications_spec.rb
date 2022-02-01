@@ -22,13 +22,13 @@ RSpec.describe "DismissNotifications", type: :system do
         find("#friend-#{user.id}").click
       end
             
-      click_link 'Sign out'
+      find('.logout-link').click
       login_as(user, scope: :user)
       visit notifications_path
 
       find("#accept-sender-#{friend_requester.id}-request").click
 
-      click_link 'Sign out'
+      find('.logout-link').click
       login_as(friend_requester)
 
       visit notifications_path
@@ -58,7 +58,7 @@ RSpec.describe "DismissNotifications", type: :system do
         find("#friend-#{user.id}").click
       end
       
-      click_link 'Sign out'
+      find('.logout-link').click
       login_as(user, scope: :user)
       visit notifications_path
 

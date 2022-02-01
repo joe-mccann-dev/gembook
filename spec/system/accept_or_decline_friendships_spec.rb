@@ -18,7 +18,7 @@ RSpec.describe 'Accept or Decline Friendships', type: :system do
         find("#friend-#{user.id}").click
       end
       
-      click_link 'Sign out'
+      find('.logout-link').click
       login_as(user, scope: :user)
 
       visit users_path

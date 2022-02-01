@@ -51,7 +51,7 @@
         <div class="navbar right-links">
           <%= link_to current_user.full_name, edit_user_registration_path %>
           <%= render partial: 'users/user_icon', locals: { user: current_user } %>
-          <%= link_to destroy_user_session_path, :method => :delete do %>
+          <%= link_to destroy_user_session_path, :method => :delete, class: 'logout-link' do %>
             <div class="logout-icon">
               <ion-icon name="log-out-outline"></ion-icon>
             </div>

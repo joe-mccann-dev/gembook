@@ -18,7 +18,7 @@ RSpec.describe "LoginWithProviders", type: :system do
         it 'allows them to login with GitHub' do
           click_link 'Sign in with GitHub'
           expect(page).to have_content('Successfully authenticated from Github account')
-          expect(page).to have_link 'Sign out'
+          expect(page).to have_css('.logout-link')
         end
 
         context 'User is already registered via Devise' do
