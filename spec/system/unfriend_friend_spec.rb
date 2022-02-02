@@ -33,7 +33,7 @@ RSpec.describe "UnfriendFriend", type: :system do
     it 'allows the user to unfriend a user they are friends with' do
       click_button "Show Friends"
       accept_confirm do
-        click_on "Unfriend"
+        find('.unfriend').click
       end
       expect(page).to have_content("You are no longer friends with #{user.first_name}.")
     end
@@ -41,7 +41,7 @@ RSpec.describe "UnfriendFriend", type: :system do
     it 'allows the unfriended user to accept a second friend request after being unfriended' do
       click_button "Show Friends"
       accept_confirm do
-        click_on "Unfriend"
+        find('.unfriend').click
       end
       expect(page).to have_content("You are no longer friends with #{user.first_name}.")
 

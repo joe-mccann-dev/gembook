@@ -52,8 +52,7 @@ RSpec.describe "CommentNotifications", type: :system do
       logout(other_user)
       login_as(user, scope: :user)
       visit notifications_path
-
-      expect(page).to have_content("#{other_user.full_name} commented on your post.")
+      expect(page).to have_content("#{other_user.full_name}")
       expect(page).to have_link('commented on your post')
       click_link('commented on your post')
       expect(current_path).to eq(post_path(post))
