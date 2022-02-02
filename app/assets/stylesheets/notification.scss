@@ -2,17 +2,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-.notification {
+.individual-notification {
+  padding: 12px;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
-
+  gap: 12px;
+  border-radius: 12px;
 } 
 
 .friendship-buttons {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
+  gap: 8px;
 }
 
 .dismiss-notification.button, 
@@ -23,4 +27,12 @@
 
 .notification-description {
   font-size: 1.2rem;
+}
+
+.notifications-collection .individual-notification {
+  background: linear-gradient(to right, var(--gray-blue-transparent), var(--dark-blue-transparent));
+}
+.notifications-collection .individual-notification:nth-child(odd) {
+  background: linear-gradient(to left, var(--gray-blue-transparent), var(--dark-blue-transparent));
+
 }

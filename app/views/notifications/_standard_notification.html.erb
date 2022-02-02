@@ -1,7 +1,10 @@
           
-<li class="notification <%= notification.object_type.downcase %>">
-  <p><%= notification.sender.full_name %></p>
-  <p class="notification-description"><%= link_to notification.description, notification.object_url %>.</p>
+<li class="individual-notification <%= notification.object_type.downcase %>">
+  <p class="notification-description"><%= notification.sender.full_name %></p>
+  <p class="notification-description">
+    <%= link_to notification.description, notification.object_url %>
+    <p><em><%= time_ago_in_words(notification.created_at) %> ago</em></p>
+  </p>
   <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
 </li>
 

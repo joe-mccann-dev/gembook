@@ -3,7 +3,7 @@
     <h1>Friends and Other Users</h1>
     <%= form_with(url: search_users_path, method: :get, class: 'user-search-form') do |f| %>
       <div class="search-and-submit">
-        <%= f.text_field :query, placeholder: 'Search for users by name.', required: true %>
+        <%= f.text_field :query, placeholder: 'Search for users by name.', size: "25", required: true %>
         <%= f.submit 'Search' %>
       </div>
     <% end %>

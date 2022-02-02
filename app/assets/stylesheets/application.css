@@ -17,10 +17,14 @@
  :root {
    --light-blue: #E2F5FE;
    --dark-blue: #1B2B34;
+   --gray-blue: #465B67;
    --yellow-orange: #ecb349;
    --red: #B73929;
    --cyan: #65D8F8;
    --green: #0EA76D;
+
+   --dark-blue-transparent: #1b2b3491;
+   --gray-blue-transparent: #465b6793;
  }
 
  html {
@@ -325,6 +329,15 @@ p {
 .button:hover {
   box-shadow: 0 0 0 2px var(--cyan);
   transition: .2s;
+}
+
+.button-cancel {
+  background-color: var(--red);
+  color: var(--light-blue);
+}
+
+.button-update {
+  background-color: var(--yellow-orange);
 }
 
 .icon-name {

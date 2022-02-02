@@ -2,14 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+.comments-collection {
+  // padding: 8px;
+}
 
-.comment.content {
-  .post.content {
-    display: flex;
-    flex-wrap: wrap;
-    // justify-content: center;
-    flex-wrap: wrap;
-    width: 100%;
-    flex: 1;
-  }
+.individual-comment {
+  padding: 12px;
+  border-radius: 1rem;
+  background-color: var(--gray-blue);
 }
