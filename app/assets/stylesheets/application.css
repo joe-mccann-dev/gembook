@@ -52,43 +52,50 @@ body {
   gap: 1rem;
   width: 100%;
   flex-wrap: wrap;
+  margin-top: 1rem;
 }
 
 /* NAVBAR */
 
 nav {
-  padding: 8px;
-  margin-bottom: 16px;
-  /* display: flex;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between; */
-  width: 100%;
+  justify-content: space-between;
   background-color: var(--cyan);
   background: linear-gradient(to right, var(--yellow-orange), var(--cyan));
 }
 
-.navbar {
+.nav-links {
+  display: flex;
+}
+
+.nav-links li a {
+  font-size: 1.2rem;
+  color: var(--dark-blue);
+  display: inline-block;
+  padding: 0 1rem;
+}
+
+.nav-links li a:hover {
+  color: var(--light-blue);
+  transition: .2s;
+}
+
+.hamburger {
   display: none;
-  position: relative;
+  font-size: 2rem;
+  background-color: transparent;
+  color: var(--dark-blue);
+  cursor: pointer;
+  margin-left: auto;
 }
 
-.nav-item {
+.link-group {
   display: flex;
   align-items: center;
-  gap: 6px;
-}
-
-.is-active {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.left-links, .right-links {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  gap: 8px;
 }
 
 .logo {
@@ -101,25 +108,9 @@ nav {
 
 .logo:hover {
   color: var(--light-blue);
-}
+  transition: .2s;
+} 
 
-.burger-icon {
-  font-size: 200%;
-  color: var(--dark-blue);
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.burger-icon:hover {
-  color: var(--light-blue);
-}
-
-
-.navbar a {
-  font-size: 1.2rem;
-  color: var(--dark-blue);
-}
 
 .gembook {
   display: flex;
@@ -168,9 +159,8 @@ nav {
 
 .logout-icon:hover {
   color: var(--red);
+  transition: .2s;
 }
-
-
 
 /* END NAVBAR */
 
@@ -184,7 +174,8 @@ a {
 }
 
 a:hover {
-  color: var(--light-blue)
+  color: var(--light-blue);
+  transition: .2s;
 }
 
 /* END LINKS */
@@ -195,6 +186,7 @@ a:hover {
 
 .profile-picture:hover {
   box-shadow: 0 0 0 2px var(--light-blue);
+  transition: .2s;
 }
 
 /* BUTTONS/INPUTS */
@@ -299,18 +291,28 @@ p {
 
 @media screen and (max-width: 800px) {
 
-  .navbar a, .gembook {
-    font-size: 0.8rem;
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    margin-left : 1rem;
+  }
+
+  .nav-links li a {
+    font-size: 1rem;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+  
+  .hamburger {
+    display: block;
   }
 
   .notifications-count {
-    bottom: 1rem;
-    left: 0.8rem;
-  }
-
-  .profile-picture {
-    width: 80%;
-    height: 80%;
+    bottom: 1.5rem;
+    left: 1rem;
   }
 
 }

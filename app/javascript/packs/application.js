@@ -13,9 +13,9 @@ Turbolinks.start()
 ActiveStorage.start()
 
 window.addEventListener("turbolinks:load", () => {
-  const burgerIcon = document.querySelector('#burger');
-  const navbarMenu = document.querySelector('#nav-links');
-  burgerIcon.addEventListener('click', () => {
-    navbarMenu.classList.toggle('is-active')
+  const burger = document.querySelector('#hamburger');
+  const navLinks = document.querySelector('#nav-links');
+  burger.addEventListener('click', () => {
+    navLinks.classList.toggle('show')
   })
 });
