@@ -1,12 +1,13 @@
 <li>
-  <%= render partial: 'user_icon', locals: { user: friend } %>
-
-  <%= link_to friend.full_name, user_path(friend) %>
-  <%= button_to "Unfriend",
+  <div class="icon-name">
+    <%= render partial: 'user_icon', locals: { user: friend } %>
+    <%= link_to friend.full_name, user_path(friend) %>
+    <%= button_to "Unfriend",
               @friendships[friend.id],
               params: { friend_name: "#{friend.first_name}" },
               method: :delete,
               class: "unfriend",
               id: "unfriend-#{friend.id}",
               data: { confirm: "You will no longer be friends with #{friend.first_name}. Continue?" } %>
+  </div>
 </li>

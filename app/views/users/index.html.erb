@@ -1,34 +1,32 @@
-<h1>Find Users</h1>
-
-<%= form_with(url: search_users_path, method: :get) do |f| %>
-  <%= f.text_field :query, placeholder: 'Search for users by name.', required: true %>
-  <%= f.submit 'Search' %>
-<% end %>
-
-<% if params[:query].present? %>
-<h2>Search Results</h2>
-  <ul>
-    <%= render partial: 'result', collection: @results %>
-  </ul>
-  <%= content_tag(:em, "No users found") if @results.none? %>
-<% end %>
-
-<h2>Friends</h2>
-
-<% if @friends.any? %>
-  <%= button_to "Show Friends", show_friends_users_path, method: :get, remote: true, id: 'show-friends' %>
-
-  <ul id="friends">
-  </ul>
-<% else %>
-  <em>No Friends yet. Send some requests below!</em>
-<% end %>
-
-<% if @users.any? %>
-  <h2>Other Users</h2>
-
-  <%= button_to "Show Other Users", show_other_users_users_path, method: :get, remote: true, id: 'show-other-users' %>
-
-  <ul id="other-users">
-  </ul>
-<% end %>
+<div class="container">
+  <div class="users-container">
+    <h1>Friends and Other Users</h1>
+    <%= form_with(url: search_users_path, method: :get, class: 'user-search-form') do |f| %>
+      <div class="search-and-submit">
+        <%= f.text_field :query, placeholder: 'Search for users by name.', required: true %>
+        <%= f.submit 'Search' %>
+      </div>
+    <% end %>
+    <% if params[:query].present? %>
+      <h2>Search Results</h2>
+      <ul>
+        <%= render partial: 'result', collection: @results %>
+      </ul>
+      <%= content_tag(:em, "No users found") if @results.none? %>
+    <% end %>
+    <h2>Friends</h2>
+    <% if @friends.any? %>
+      <%= button_to "Show Friends", show_friends_users_path, method: :get, remote: true, id: 'show-friends' %>
+      <ul id="friends">
+      </ul>
+    <% else %>
+      <em>No Friends yet. Send some requests below!</em>
+    <% end %>
+    <% if @users.any? %>
+      <h2>Other Users</h2>
+      <%= button_to "Show Other Users", show_other_users_users_path, method: :get, remote: true, id: 'show-other-users' %>
+      <ul id="other-users">
+      </ul>
+    <% end %>
+  </div>
+</div>

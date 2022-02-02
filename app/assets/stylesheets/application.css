@@ -99,6 +99,7 @@ nav {
 }
 
 .logo {
+  margin-left: 8px;
   font-size: 1.4rem;
   text-transform: uppercase;
   display: flex;
@@ -110,7 +111,6 @@ nav {
   color: var(--light-blue);
   transition: .2s;
 } 
-
 
 .gembook {
   display: flex;
@@ -206,12 +206,19 @@ textarea, input {
 
 input:focus, textarea:focus {
   box-shadow: 0 0 0 2px var(--cyan);
+  transition: .2s;
 }
 
-.button_to,
+input:hover, textarea:hover {
+  cursor: pointer;
+  box-shadow: 0 0 0 2px var(--cyan);
+  transition: .2s;
+}
+
+/* .button_to,
 .button_to div {
   display: inline;
-}
+} */
 
 /* END BUTTONS/INPUTS */
 

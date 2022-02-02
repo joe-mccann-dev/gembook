@@ -1,13 +1,19 @@
-  <li>
+<li>
+  <div class="icon-name">
     <%= render partial: 'user_icon', locals: { user: user } %>
-
     <%= link_to user.full_name, user_path(user) %>
     <% if new_friendship_eligible?(user) %>
-      <%= button_to 'Add Friend',
-        @friendship,
+      <%= button_to @friendship,
         params: { receiver_id: user.id },
         class: "add-friend",
         id: "friend-#{user.id}",
-        data: { confirm: "Send #{user.first_name} a friend request?"} %>
+        data: { confirm: "Send #{user.first_name} a friend request?"} do %>
+        <div class="link-group add-friend-icon-container">
+          <ion-icon class="add-friend-icon" name="person-add-outline"></ion-icon>
+          <span class="add-friend-text"> Add Friend</span>
+        </div>
+      <% end %>
     <% end %>
-  </li>
+    <%= content_tag(:em, "friendship pending") if user.pending_received_friends.include?(current_user) %>
+  </div>
+</li>

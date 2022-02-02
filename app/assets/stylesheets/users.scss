@@ -1,3 +1,55 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.users-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: solid 2px var(--yellow-orange);
+  border-radius: 12px;
+  padding: 3rem 4rem;
+}
+
+.user-search-form {
+  display: flex;
+}
+
+.search-and-submit {
+  display: flex;
+  gap: 1rem;
+}
+
+.icon-name {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.add-friend {
+  padding: 4px 12px;
+  background: linear-gradient(to right, var(--light-blue), var(--cyan));
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-friend:hover {
+  box-shadow: 0 0 0 2px var(--yellow-orange);
+  transition: .2s;
+}
+
+.add-friend:focus {
+  box-shadow: 0 0 0 2px var(--yellow-orange)
+}
+
+.add-friend-icon {
+  color: var(--dark-blue);
+  font-size: 200%; 
+}
+
+.add-friend-text {
+  color: var(--dark-blue);
+  font-size: 14px;
+  font-weight: 700;
+}
