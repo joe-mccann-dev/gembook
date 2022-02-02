@@ -1,7 +1,8 @@
           
-<li class="notification <%= notification.object_type %>">
-  <span><%= notification.sender.full_name %></span>
-  <span><%= link_to notification.description, notification.object_url %>.</span>
+<li class="notification <%= notification.object_type.downcase %>">
+  <p><%= notification.sender.full_name %></p>
+  <p class="notification-description"><%= link_to notification.description, notification.object_url %>.</p>
+  <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
 </li>
 
-<%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
+

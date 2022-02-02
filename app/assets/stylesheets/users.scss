@@ -2,15 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-.users-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  border: solid 2px var(--yellow-orange);
-  border-radius: 12px;
-  padding: 3rem 4rem;
-}
-
 .user-search-form {
   display: flex;
 }
@@ -20,18 +11,12 @@
   gap: 1rem;
 }
 
-.icon-name {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
-
-.add-friend {
-  padding: 4px 12px;
+.add-friend, .unfriend {
   background: linear-gradient(to right, var(--light-blue), var(--cyan));
   border-radius: 4px;
   cursor: pointer;
+  padding: 4px 12px;
+  max-width: 106px;
 }
 
 .add-friend:hover {
@@ -39,7 +24,11 @@
   transition: .2s;
 }
 
-.add-friend:focus {
+.unfriend:hover {
+  box-shadow: 0 0 0 2px var(--cyan);
+}
+
+.add-friend:focus, .unfriend:focus {
   box-shadow: 0 0 0 2px var(--yellow-orange)
 }
 
@@ -50,6 +39,6 @@
 
 .add-friend-text {
   color: var(--dark-blue);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
 }

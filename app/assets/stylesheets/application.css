@@ -41,8 +41,6 @@ body {
   background-color: var(--dark-blue);
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  /* padding: 1rem; */
 }
 
 .container {
@@ -50,9 +48,18 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  width: 100%;
   flex-wrap: wrap;
   margin-top: 1rem;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  /* border: solid 2px var(--yellow-orange);
+  border-radius: 12px; */
+  padding: 2rem;
+  margin: 1rem;
 }
 
 /* NAVBAR */
@@ -62,7 +69,7 @@ nav {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   background-color: var(--cyan);
   background: linear-gradient(to right, var(--yellow-orange), var(--cyan));
 }
@@ -215,11 +222,6 @@ input:hover, textarea:hover {
   transition: .2s;
 }
 
-/* .button_to,
-.button_to div {
-  display: inline;
-} */
-
 /* END BUTTONS/INPUTS */
 
 /* DEVISE FORMS */
@@ -287,6 +289,18 @@ input:hover, textarea:hover {
 
 /* END NOTIFICATIONS */
 
+h1 {
+  font-size: 1.8rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+}
+
 li {
   list-style-type: none;
   margin: 1rem 0;
@@ -294,6 +308,31 @@ li {
 
 p {
   margin-bottom: 1rem;
+}
+
+.button {
+  background: linear-gradient(to right, var(--light-blue), var(--cyan));
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 4px 12px;
+  max-width: 106px;
+  font-weight: 700;
+  color: var(--dark-blue);
+  cursor: pointer;
+  margin-bottom: 1.2rem;
+}
+
+.button:hover {
+  box-shadow: 0 0 0 2px var(--cyan);
+  transition: .2s;
+}
+
+.icon-name {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: space-evenly;
 }
 
 @media screen and (max-width: 800px) {
@@ -320,6 +359,10 @@ p {
   .notifications-count {
     bottom: 1.5rem;
     left: 1rem;
+  }
+
+  .diamond {
+    font-size: 150%;
   }
 
 }

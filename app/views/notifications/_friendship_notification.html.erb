@@ -1,18 +1,14 @@
 <% if notification.description == 'new friend request' %>
-  <li class="notification friend-request">
-    <span>
-      <%= notification.description %> from <%= link_to notification.sender.full_name, notification.sender %>
-    </span>
-    <div>
+  <li class="friend-request  notification">
+      <p class="notification-description"><%= notification.description %> from <%= link_to notification.sender.full_name, notification.sender %></p>
       <%= render partial: 'friendship_accept', locals: { notification: notification } %>
       <%= render partial: 'friendship_decline', locals: { notification: notification } %>
       <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
-    </div>
   </li>
 <% else %>
   <li class="notification accepted-request">
     <%= link_to notification.sender.full_name, notification.sender %>
-    <%= notification.description %>
+    <p class="notification-description"><%= notification.description %></p>
     <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
   </li>
 <% end %>

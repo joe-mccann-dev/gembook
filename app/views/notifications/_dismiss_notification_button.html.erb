@@ -1,6 +1,7 @@
-<%= button_to "Dismiss",
+<%= button_to "Dismiss", 
 notification,
 method: :put,
 params: { notification: { read: true } },
-class: "button dismiss-notification",
-id: "dismiss-notification-#{notification.id}" %>
+class: "dismiss-notification button",
+id: "dismiss-notification-#{notification.id}"
+ %>
