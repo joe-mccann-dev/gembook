@@ -4,28 +4,32 @@
     <%= form_with(url: search_users_path, method: :get, class: 'user-search-form') do |f| %>
       <div class="search-and-submit">
         <%= f.text_field :query, placeholder: 'Search for users by name.', size: "25", required: true %>
-        <%= f.submit 'Search' %>
+        <%= f.submit 'Search', class: 'submit' %>
       </div>
     <% end %>
     <% if params[:query].present? %>
       <h2>Search Results</h2>
-      <ul>
+      <ul class="user-friends">
         <%= render partial: 'result', collection: @results %>
       </ul>
       <%= content_tag(:em, "No users found") if @results.none? %>
     <% end %>
-    <h2>Friends</h2>
-    <% if @friends.any? %>
-      <%= button_to "Show Friends", show_friends_users_path, method: :get, remote: true, id: 'show-friends' %>
-      <ul id="friends">
-      </ul>
-    <% else %>
-      <em>No Friends yet. Send some requests below!</em>
-    <% end %>
+    <div class="users-heading-button-container">
+      <h2>Friends</h2>
+      <% if @friends.any? %>
+        <%= button_to "Show Friends", show_friends_users_path, method: :get, remote: true, class: 'submit', id: 'show-friends' %>
+      <% else %>
+        <em>No Friends yet. Send some requests below!</em>
+      <% end %>
+    </div>
+    <ul class="users-friends", id="friends">
+    </ul>
     <% if @users.any? %>
-      <h2>Other Users</h2>
-      <%= button_to "Show Other Users", show_other_users_users_path, method: :get, remote: true, id: 'show-other-users' %>
-      <ul id="other-users">
+      <div class="users-heading-button-container">
+        <h2>Other Users</h2>
+        <%= button_to "Show Other Users", show_other_users_users_path, method: :get, remote: true, class: 'submit', id: 'show-other-users' %>
+      </div>
+      <ul class="users-friends", id="other-users">
       </ul>
     <% end %>
   </div>

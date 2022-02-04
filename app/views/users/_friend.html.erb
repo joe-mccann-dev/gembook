@@ -1,7 +1,9 @@
-<li>
-  <div class="icon-name">
+<li class="result">
+  <div class="name-and-icon">
     <%= render partial: 'user_icon', locals: { user: friend } %>
     <%= link_to friend.full_name, user_path(friend) %>
+  </div>
+  <div class="button-container">
     <%= button_to @friendships[friend.id],
               params: { friend_name: "#{friend.first_name}" },
               method: :delete,
@@ -14,4 +16,5 @@
       </div>
     <% end %>
   </div>
+</div>
 </li>

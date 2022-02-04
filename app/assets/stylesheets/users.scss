@@ -11,12 +11,54 @@
   gap: 1rem;
 }
 
+.users-friends {
+  display: flex;
+  flex-direction: column;
+}
+
+.result {
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5rem;
+  border-radius: 12px;
+}
+
+.name-and-icon {
+  flex: 1;
+  align-self:center;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.users-heading-button-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;  
+}
+
+.button-container {
+  align-self: center;
+}
+
+.add-friend.button, .unfriend.button {
+  margin-bottom: 0;
+}
+
+.users-friends .result {
+  box-shadow: 0 0 8px 2px var(--gray-blue-transparent);
+}
+
 .add-friend, .unfriend {
+  margin-left: auto;
   background: linear-gradient(to right, var(--light-blue), var(--cyan));
   border-radius: 4px;
   cursor: pointer;
   padding: 4px 12px;
-  max-width: 106px;
+  // max-width: 106px;
 }
 
 .add-friend:hover {
@@ -41,4 +83,16 @@
   color: var(--dark-blue);
   font-size: 12px;
   font-weight: 700;
+}
+
+@media screen and (max-width: 800px) {
+  .result {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .users-friends {
+    gap: 1.2rem;
+  }
 }

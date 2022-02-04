@@ -17,20 +17,28 @@
       <%= link_to root_url do %>
         <div class="logo">
           <div class="gembook">
-            <ion-icon class="diamond" name="diamond"></ion-icon>
+            <ion-icon class="diamond nav-icon" name="diamond"></ion-icon>
             <span>Gembook</span>
           </div>
         </div>
       <% end %>
-      <button id="hamburger" class="hamburger">
-        <ion-icon name="menu-outline"></ion-icon>
-      </button>
       <% if user_signed_in? %>
+        <button id="hamburger" class="hamburger">
+          <ion-icon name="menu-outline"></ion-icon>
+        </button>
         <ul class="nav-links" id="nav-links">
+          <li class="nav-item">
+            <%= link_to posts_path do %>
+              <div class="link-group">
+                <ion-icon class="nav-icon" name="create-outline"></ion-icon>
+                <span>Posts</span>
+              </div>
+            <% end %>
+          </li>
           <li class="nav-item">
             <%= link_to users_path do %>
               <div class="link-group">
-                <ion-icon class="users-icon" name="people-circle-outline"></ion-icon>
+                <ion-icon class="nav-icon" name="people-circle-outline"></ion-icon>
                 <span>Friends</span>
               </div>
             <% end %>
@@ -39,7 +47,7 @@
             <% if current_user.received_notifications.unread.any? %>
               <%= link_to notifications_path, class: 'notifications-link' do %>
                 <div class="link-group">
-                  <div class="notifications-bell">
+                  <div class="nav-icon notifications-bell">
                     <div class="notifications-count">
                       <span><%= current_user.received_notifications.unread.length %></span>
                     </div>
@@ -51,7 +59,7 @@
             <% else %>
               <%= link_to notifications_path, class: 'notifications-link'  do %>
                 <div class="link-group">
-                  <div class="notifications-bell">
+                  <div class="nav-icon notifications-bell">
                     <ion-icon name="notifications-outline"></ion-icon>
                   </div>
                   <span>Notifications</span>
@@ -62,7 +70,7 @@
           <li class="nav-item">
             <%= link_to edit_user_registration_path  do %>
               <div class="link-group">
-                <div class="settings-icon">
+                <div class="nav-icon">
                   <ion-icon name="settings-outline"></ion-icon>
                 </div>
                 <span><%= current_user.full_name %></span>
@@ -78,7 +86,7 @@
             <%= link_to destroy_user_session_path, :method => :delete, class: 'logout-link' do %>
               <div class="link-group">
                 <span>Sign out</span>
-                <div class="logout-icon">
+                <div class="nav-icon">
                   <ion-icon name="log-out-outline"></ion-icon>
                 </div>
               </div>

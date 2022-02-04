@@ -23,7 +23,7 @@
    --cyan: #65D8F8;
    --green: #0EA76D;
 
-   --dark-blue-transparent: #1b2b3491;
+   --dark-blue-transparent: #1b2b3479;
    --gray-blue-transparent: #465b6793;
  }
 
@@ -54,14 +54,13 @@ body {
   gap: 1rem;
   flex-wrap: wrap;
   margin-top: 1rem;
+  min-width: 0;
 }
 
 .page-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  /* border: solid 2px var(--yellow-orange);
-  border-radius: 12px; */
   padding: 2rem;
   margin: 1rem;
 }
@@ -130,20 +129,13 @@ nav {
 
 .diamond {
   transform: rotate(-45deg);
-  font-size: 200%;
 }
 
-
-.users-icon {
-  font-size: 200%;
-}
-
-.settings-icon {
+.nav-icon {
   font-size: 200%;
 }
 
 .notifications-bell {
-  font-size: 200%;
   position: relative;
 }
 
@@ -162,15 +154,6 @@ nav {
   align-items: center;
   justify-content: center;
   z-index: 1;
-}
-
-.logout-icon {
-  font-size: 200%;
-}
-
-.logout-icon:hover {
-  color: var(--red);
-  transition: .2s;
 }
 
 /* END NAVBAR */
@@ -231,32 +214,62 @@ input:hover, textarea:hover {
 /* DEVISE FORMS */
 
 .submit {
-  padding: 0.5rem 1.5rem;
   color: var(--dark-blue);
   background-color: var(--cyan)
 }
 
-.submit:focus {
-  box-shadow: 0 0 0 2px var(--yellow-orange);
+.submit.button {
+  font-size: 1rem;
+  padding: 0.8rem 2rem;
 }
 
-.heading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.submit.button:hover {
+  box-shadow: 0 0 0 2px var(--yellow-orange);
+  transition: .2s;
 }
 
 .devise-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+}
+
+.devise-links-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.devise-links-container a {
+  margin: 4px 0;
+  background: linear-gradient(to right, var(--light-blue), var(--cyan));
+  color: var(--dark-blue);
+  text-align: center;
+  cursor: pointer;
+  padding: 6px 12px;
+  font-weight: 700;
+  border-radius: 4px;
+}
+
+.devise-links-container a:hover {
+  box-shadow: 0 0 0 2px var(--yellow-orange);
+  transition: .2s;
 }
 
 .devise-links {
   display: flex;
-  flex-direction: column;
+  /* justify-content: center; */
+}
+
+.provider-link {
+  display: flex;
   align-items: center;
+  gap: 8px;
+}
+
+.github-icon {
+  font-size: 125%;
+  color: var(--dark-blue);
 }
 
 .field, .actions {
@@ -317,13 +330,12 @@ p {
 .button {
   background: linear-gradient(to right, var(--light-blue), var(--cyan));
   border-radius: 4px;
-  cursor: pointer;
   padding: 4px 12px;
-  max-width: 106px;
   font-weight: 700;
   color: var(--dark-blue);
   cursor: pointer;
   margin-bottom: 1.2rem;
+  max-width: 100%;
 }
 
 .button:hover {
@@ -340,15 +352,14 @@ p {
   background-color: var(--yellow-orange);
 }
 
-.icon-name {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  justify-content: space-evenly;
-}
-
 @media screen and (max-width: 800px) {
+
+  html, body {
+    overflow-x: hidden;
+  }
+  body {
+    position: relative
+  }
 
   .nav-links {
     display: none;

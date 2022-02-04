@@ -1,7 +1,9 @@
-<li>
-  <div class="icon-name">
+<li class="result">
+  <div class="name-and-icon">
     <%= render partial: 'user_icon', locals: { user: user } %>
     <%= link_to user.full_name, user_path(user) %>
+  </div>
+  <div class="button-container">
     <% if new_friendship_eligible?(user) %>
       <%= button_to @friendship,
         params: { receiver_id: user.id },

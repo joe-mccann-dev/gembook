@@ -7,9 +7,21 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  gap: 1rem;
   border-radius: 12px;
-} 
+}
+
+.notification-description {
+  font-size: 1.2rem;
+}
+
+.dismiss {
+  margin-left: auto;
+}
+
+.standard-description-link {
+  color: var(--cyan)
+}
 
 .friendship-buttons {
   display: flex;
@@ -25,14 +37,6 @@
   padding: 8px 12px
 }
 
-.notification-description {
-  font-size: 1.2rem;
-}
-
 .notifications-collection .individual-notification {
-  background: linear-gradient(to right, var(--gray-blue-transparent), var(--dark-blue-transparent));
-}
-.notifications-collection .individual-notification:nth-child(odd) {
-  background: linear-gradient(to left, var(--gray-blue-transparent), var(--dark-blue-transparent));
-
+  box-shadow: 0 0 8px 2px var(--gray-blue-transparent);
 }
