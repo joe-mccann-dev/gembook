@@ -23,12 +23,10 @@
   color: var(--cyan)
 }
 
-.friendship-buttons {
+.request-controls {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-evenly;
   gap: 8px;
+  margin-left: auto;
 }
 
 .dismiss-notification.button, 
@@ -38,5 +36,14 @@
 }
 
 .notifications-collection .individual-notification {
-  box-shadow: 0 0 8px 2px var(--gray-blue-transparent);
+  box-shadow: 0 0 6px 4px var(--gray-blue-transparent);
+}
+
+// MEDIA QUERIES
+
+@media screen and (max-width: 800px) {
+  .notification-description {
+    font-size: 1rem;
+  }
+  
 }

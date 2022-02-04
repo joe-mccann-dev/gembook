@@ -1,23 +1,33 @@
 <% if notification.description == 'new friend request' %>
-  <li class="friend-request  individual-notification">
-    <p class="notification-description">
-      <%= notification.description %> from 
-      <%= link_to notification.sender.full_name, notification.sender %> ~
-      <em><%= time_ago_in_words(notification.created_at) %> ago</em>
-    </p>
-    <div class="friendship-buttons">
+  <li class="individual-notification">
+    <div class="description-and-time">
+      <p class="notification-description">
+        <%= notification.description %> from 
+        <%= link_to notification.sender.full_name, notification.sender %>
+      </p>
+      <p>
+        <em><%= time_ago_in_words(notification.created_at) %> ago</em>
+      </p>
+    </div>
+    <div class="request-controls">
       <%= render partial: 'friendship_accept', locals: { notification: notification } %>
       <%= render partial: 'friendship_decline', locals: { notification: notification } %>
       <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
     </div>
   </li>
 <% else %>
-  <li class="individual-notification accepted-request">
-    <p class="notification-description">
-      <%= link_to notification.sender.full_name, notification.sender %>
-      <%= notification.description %> ~
-      <em><%= time_ago_in_words(notification.created_at) %> ago</em>
-    </p>
-    <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
+  <li class="individual-notification">
+    <div class="description-and-time">
+      <p class="notification-description">
+        <%= link_to notification.sender.full_name, notification.sender %>
+        <%= notification.description %>
+      </p>
+      <p>
+        <em><%= time_ago_in_words(notification.created_at) %> ago</em>
+      </p>
+    </div>
+    <div class="dismiss">
+      <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
+    </div>
   </li>
 <% end %>
