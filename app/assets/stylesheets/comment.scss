@@ -6,8 +6,25 @@
   margin-left: 20px;
 }
 
+.comment {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+}
+
+.comment-body {
+  display: flex;
+  flex-direction: column; 
+}
+
+.comment-content {
+  overflow-wrap: break-word;
+}
+
 .comment-info {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
