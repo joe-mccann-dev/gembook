@@ -2,12 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-.comments-collection {
-  // padding: 8px;
+.replies, .post-comments {
+  margin-left: 20px;
 }
 
-.individual-comment {
-  padding: 12px;
-  border-radius: 1rem;
-  box-shadow: 0 0 8px 4px var(--cyan);
+.comment-info {
+  display: flex;
+  gap: 8px;
+}
+
+.comment-likes {
+  display: flex;  
+  align-items: flex-end;
+  gap: 12px;
 }
