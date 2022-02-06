@@ -1,13 +1,23 @@
 <% if likeable.likers.include?(current_user) %>
-  <%= button_to "Like",
-                polymorphic_path([likeable, current_user.find_like(likeable)]),
+  <%= button_to polymorphic_path([likeable, current_user.find_like(likeable)]),
                 method: :delete,
                 remote: true,
-                id: "#{object_to_s(likeable)}-#{likeable.id}-unlike" %>
+                id: "#{object_to_s(likeable)}-#{likeable.id}-unlike" do %>
+    
+    <div class="thumb-filled">
+      <ion-icon class="thumb-icon" name="thumbs-up"></ion-icon>
+      <span class="like-text">Like</span>
+    </div>
+  <% end %>
 <% else %>
-  <%= button_to "Like",
-                path,
+  <%= button_to path,
                 remote: true,
                 class: 'liked',
-                id: "#{object_to_s(likeable)}-#{likeable.id}-like" %>
+                id: "#{object_to_s(likeable)}-#{likeable.id}-like" do %>
+    
+    <div class="thumb-outline">
+      <ion-icon class="thumb-icon" name="thumbs-up-outline"></ion-icon>
+      <span class="like-text">Like</span> 
+    </div>
+  <% end %>
 <% end %>

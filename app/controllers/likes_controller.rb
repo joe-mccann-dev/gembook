@@ -3,19 +3,22 @@ class LikesController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_liked_object, only: [:create, :destroy]
+  before_action :set_likeable_id, only: [:create, :destroy]
   after_action -> { send_like_notification(@liked_object) },
                only: [:create]
 
   def create
     @like = @liked_object.likes.build(user: current_user)
     @like.save
-    redirect_to "#{request.referrer}#likeable-#{@liked_object.id}"
+    flash[:success] = "Liked #{object_to_s(@liked_object)} successfully."
+    redirect_to "#{request.referrer}#{@likeable_id}" || root_url
   end
 
   def destroy
     @like = Like.find(params[:id])
     @like.destroy
-    redirect_to "#{request.referrer}#likeable-#{@liked_object.id}"
+    flash[:success] = "Unliked #{object_to_s(@liked_object)} successfully."
+    redirect_to "#{request.referrer}#{@likeable_id}" || root_url
   end
 
   private
@@ -37,5 +40,9 @@ class LikesController < ApplicationController
                     else
                       Comment.find(params[:comment_id])
                     end
+  end
+
+  def set_likeable_id
+    @likeable_id = "#likeable-#{object_to_s(@liked_object)}-#{@liked_object.id}"
   end
 end

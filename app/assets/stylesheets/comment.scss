@@ -10,7 +10,7 @@
   display: flex;
   flex-direction: column;
 
-  width: 100%;
+  // width: 100%;
 }
 
 .comment-body {
@@ -26,10 +26,4 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-}
-
-.comment-likes {
-  display: flex;  
-  align-items: flex-end;
-  gap: 12px;
 }

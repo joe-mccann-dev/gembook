@@ -1,4 +1,4 @@
-<li class="post-container" id="likeable-<%= post.id %>">
+<li class="post-container" id="likeable-<%= object_to_s(post) %>-<%= post.id %>">
   <% if user_is_current_user?(post.user) %>
     <div class="post-controls">
       <p class="post-author"><%= link_to post.user.full_name, user_path(post.user) %></p>
@@ -30,15 +30,18 @@
     </div>
   <% end %>
   <div class="post-likes">
-    <% if post.likes.any? && !current_page?(post_path(post)) %>
+    <%= render partial: 'likes/like_button', locals: { likeable: post, path: post_likes_path(post) } %>
+    <% if post.likes.any? %>
       <%= render partial: 'likes/like_count', locals: { likeable: post, path: post_path(post) } %>
     <% end %>
-    <%= render partial: 'likes/like_button', locals: { likeable: post, path: post_likes_path(post) } %>
+    
+  </div>
+  <div class="comment-form">
     <%= render partial: 'comments/comment_form',
-                          locals: { commentable: post,
-                                    id: "post-#{post.id}-comment"} %>
-    <div class="post-comments">
-      <%= render partial: "/comments/comment", collection: post.comments  %>
-    </div>
+                      locals: { commentable: post,
+                                id: "post-#{post.id}-comment"} %>
+  </div>
+  <div class="post-comments">
+    <%= render partial: "/comments/comment", collection: post.comments  %>
   </div>
 </li>

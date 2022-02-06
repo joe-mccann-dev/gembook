@@ -1,17 +1,3 @@
 <div class="like-stats">
-  <% if likeable.likes.count == 2 %>
-    <p>
-      <%= link_to likeable.likers.first.full_name, user_path(likeable.likers.first) %>
-      and <%= link_to likeable.likers.second.full_name, user_path(likeable.likers.second) %> like this.
-    </p>
-  <% elsif likeable.likes.count > 2 %>
-    <p>
-      <%= link_to likeable.likers.first.full_name, user_path(likeable.likers.first) %>
-      and <%= link_to "#{likeable.likes.count - 1} others", path %> like this.
-    </p>
-  <% else %>
-    <p>
-      <%= link_to likeable.likers.first.full_name, user_path(likeable.likers.first) %> likes this.
-    </p>
-  <% end %>
+  <%= link_to pluralize(likeable.likes.length, "like"), path %>
 </div>
