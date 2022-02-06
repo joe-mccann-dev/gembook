@@ -27,9 +27,9 @@ RSpec.describe "EditComments", type: :system do
       fill_in "post-#{post.id}-comment", with: comment_content
       click_on 'Comment'
       expect(page.current_path).to eq(user_path(user))
-      expect(page).to have_link('edit comment')
+      expect(page).to have_link('edit')
 
-      click_link 'edit comment'
+      click_link 'edit'
       comment_box = "post-#{post.id}-comment"
       comment = 'this is an edited comment'
       
@@ -52,9 +52,9 @@ RSpec.describe "EditComments", type: :system do
       comment_content = 'This is that comment that I promised.'
       fill_in "post-#{post.id}-comment", with: comment_content
       click_on 'Comment'
-      expect(page).to have_link('edit comment')
+      expect(page).to have_link('edit')
 
-      click_link 'edit comment'
+      click_link 'edit'
       comment_box = "post-#{post.id}-comment"
       comment = 'this is an edited comment'
 

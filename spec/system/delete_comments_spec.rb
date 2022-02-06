@@ -27,9 +27,9 @@ RSpec.describe "DeleteComments", type: :system do
       click_on 'Comment'
 
       expect(page).to have_content(comment_content)
-      expect(page).to have_link('delete comment')
+      expect(page).to have_link('delete')
 
-      expect { click_link 'delete comment' }.to change { user.comments.count }.from(1).to(0)
+      expect { click_link 'delete' }.to change { user.comments.count }.from(1).to(0)
     end
 
     it 'allows them to delete it from the Users#show page' do
@@ -46,9 +46,9 @@ RSpec.describe "DeleteComments", type: :system do
       click_on 'Comment'
 
       expect(page).to have_content(comment_content)
-      expect(page).to have_link('delete comment')
+      expect(page).to have_link('delete')
 
-      expect { click_link 'delete comment' }.to change { user.comments.count }.from(1).to(0)
+      expect { click_link 'delete' }.to change { user.comments.count }.from(1).to(0)
     end
 
     it 'allows the to delete it after editing' do
@@ -65,13 +65,13 @@ RSpec.describe "DeleteComments", type: :system do
       fill_in "post-#{post.id}-comment", with: comment_content
       click_on 'Comment'
 
-      click_link 'edit comment'
+      click_link 'edit'
       edited_comment = "#{comment_content} some additional text"
       fill_in "post-#{post.id}-comment", with: edited_comment
       click_on 'Comment'
 
       comment = post.comments.first
-      expect { click_link 'delete comment' }.to change { post.comments.count }.from(1).to(0)
+      expect { click_link 'delete' }.to change { post.comments.count }.from(1).to(0)
       expect(user.comments.count).to eq(0)
     end
 
@@ -89,7 +89,7 @@ RSpec.describe "DeleteComments", type: :system do
       fill_in "post-#{post.id}-comment", with: comment_content
       click_on 'Comment'
 
-      click_link 'delete comment'
+      click_link 'delete'
       expect(page.current_path).to eq(post_path(post))
     end
   end
