@@ -18,18 +18,33 @@
 
 .comment-body {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
 }
 
 .comment-content {
   overflow-wrap: break-word;
 }
 
+.comment-header {
+  background: linear-gradient(to right, var(--gray-blue-transparent), var(--gray-blue));
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 12px;
+}
 .comment-info {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 8px;
+}
+
+.comment-form {
+  padding: 12px 0;
+  border-bottom: solid var(--gray-blue-transparent) 1px;
+}
+
+.comment-content {
+  margin-left: 8px;
 }
 
 .comment-box {

@@ -84,6 +84,7 @@
   flex-direction: column;
   flex-wrap: wrap;
   width: 100%;
+  margin-left: 8px;
 }
 
 .post-image img {
@@ -94,9 +95,11 @@
 
 .post-controls {
   display: flex;
-  // flex-wrap: wrap;
   justify-content: space-between;
   gap: 8px;
+  background: linear-gradient(to right, var(--gray-blue-transparent), var(--gray-blue));
+  border-radius: 12px;
+  padding: 12px;
 }
 
 .post-user {

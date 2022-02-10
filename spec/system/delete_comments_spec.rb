@@ -23,8 +23,9 @@ RSpec.describe "DeleteComments", type: :system do
       post = user.posts.first
 
       comment_content = 'This is that comment that I promised.'
+      find("##{post.id}").click
       fill_in "post-#{post.id}-comment", with: comment_content
-      click_on 'Comment'
+      find("#submit-#{post.id}").click
 
       expect(page).to have_content(comment_content)
       expect(page).to have_link('delete')
@@ -42,8 +43,9 @@ RSpec.describe "DeleteComments", type: :system do
       post = user.posts.first
 
       comment_content = 'This is that comment that I promised.'
+      find("##{post.id}").click
       fill_in "post-#{post.id}-comment", with: comment_content
-      click_on 'Comment'
+      find("#submit-#{post.id}").click
 
       expect(page).to have_content(comment_content)
       expect(page).to have_link('delete')
@@ -62,13 +64,14 @@ RSpec.describe "DeleteComments", type: :system do
       post = user.posts.first
 
       comment_content = 'This is a comment that will be edited.'
+      find("##{post.id}").click
       fill_in "post-#{post.id}-comment", with: comment_content
-      click_on 'Comment'
+      find("#submit-#{post.id}").click
 
       click_link 'edit'
       edited_comment = "#{comment_content} some additional text"
       fill_in "post-#{post.id}-comment", with: edited_comment
-      click_on 'Comment'
+      click_on "Edit Comment"
 
       comment = post.comments.first
       expect { click_link 'delete' }.to change { post.comments.count }.from(1).to(0)
@@ -86,8 +89,9 @@ RSpec.describe "DeleteComments", type: :system do
       post = user.posts.first
 
       comment_content = 'This is a comment that will be edited.'
+      find("##{post.id}").click
       fill_in "post-#{post.id}-comment", with: comment_content
-      click_on 'Comment'
+      find("#submit-#{post.id}").click
 
       click_link 'delete'
       expect(page.current_path).to eq(post_path(post))

@@ -7,8 +7,8 @@
   <%= f.text_area :content, id: id %>
   <br>
   <% if id.match?(/^.*reply$/)%>
-    <%= f.submit "Reply" %>
+    <%= f.submit "Reply", id: "submit-#{commentable.id}" %>
   <% else %>
-    <%= f.submit "Comment" %>
+    <%= f.submit "Comment", id: "submit-#{commentable.id}" %>
   <% end %>
 <% end %>

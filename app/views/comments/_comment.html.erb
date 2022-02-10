@@ -41,6 +41,7 @@
                             locals: { commentable: comment,
                                       id: "post-#{comment.commentable_id}-comment-#{comment.id}-reply" } %>
         </div>
+        
         <div class="replies">
           <%= render partial: 'comments/comment', collection: comment.comments %>
         </div>
