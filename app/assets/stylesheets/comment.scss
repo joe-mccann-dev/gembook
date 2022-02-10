@@ -31,3 +31,32 @@
   flex-wrap: wrap;
   gap: 8px;
 }
+
+.comment-box {
+  display: none;
+  width: 90%;
+  margin-left: 1rem;
+}
+
+.comment-button-container {
+  margin: 12px;
+}
+
+.comment-button {
+  padding: 2px 8px;
+  cursor: pointer;
+  background-color: var(--dark-blue);
+  color: var(--cyan);
+  font-size: 1rem;
+  font-weight: 400;
+  text-decoration: underline;
+}
+
+.comment-button:hover {
+  color: var(--light-blue);
+  transition: .2s;
+}
+
+.visible {
+  display: block;
+}

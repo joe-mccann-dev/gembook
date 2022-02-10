@@ -24,7 +24,7 @@
 
   .thumb-outline:hover,
   .thumb-filled:hover {
-    box-shadow: 0 0 0 2px var(--gray-blue);
+    color: var(--cyan);
     transition: .2s;
   }
 

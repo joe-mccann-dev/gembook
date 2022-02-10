@@ -203,7 +203,6 @@ input:focus, textarea:focus {
 }
 
 input:hover, textarea:hover {
-  cursor: pointer;
   box-shadow: 0 0 0 2px var(--cyan);
   transition: .2s;
 }
