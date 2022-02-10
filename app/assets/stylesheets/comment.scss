@@ -9,8 +9,11 @@
 .comment {
   display: flex;
   flex-direction: column;
+}
 
-  // width: 100%;
+.comment-likes {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .comment-body {

@@ -1,19 +1,22 @@
 <li class="post-container" id="likeable-<%= object_to_s(post) %>-<%= post.id %>">
   <div class="post-controls">
-    <p class="post-author"><%= link_to post.user.full_name, user_path(post.user) %></p>
+    <div class="post-user">
+      <%= render partial: 'users/user_icon', locals: { user: post.user } %>
+      <p class="post-author"><%= link_to post.user.full_name, user_path(post.user) %></p>
+    </div>
     <div class="time-posted">
+      <% if user_is_current_user?(post.user) %>
+        <div>
+          <%= link_to 'edit post', edit_post_path(post) %>
+          <%= link_to 'delete post', post_path(post), method: :delete, data: { confirm: 'Are you sure you want to delete this post?'}%>
+        </div>
+      <% end %>
       <% if post.edited? %>
         <em>updated <%= time_ago_in_words(post.updated_at) %> ago</em>
       <% else %>
         <em>posted <%= time_ago_in_words(post.created_at) %> ago</em>
       <% end %>
     </div>
-    <% if user_is_current_user?(post.user) %>
-      <div>
-        <%= link_to 'edit post', edit_post_path(post) %>
-        <%= link_to 'delete post', post_path(post), method: :delete, data: { confirm: 'Are you sure you want to delete this post?'}%>
-      </div>
-    <% end %>
   </div>
   <div class="post-content">
     <% if post.content.present? %>

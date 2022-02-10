@@ -94,7 +94,15 @@
 
 .post-controls {
   display: flex;
+  // flex-wrap: wrap;
   justify-content: space-between;
+  gap: 8px;
+}
+
+.post-user {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .post-author {
@@ -103,6 +111,9 @@
 }
 
 .time-posted {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   color: var(--cyan)
 }
 
