@@ -21,3 +21,17 @@ window.addEventListener("turbolinks:load", () => {
     })
   }
 });
+
+window.addEventListener("turbolinks:load", () => {
+  const commentLink = document.querySelectorAll('.comment-button');
+
+  if (commentLink) {
+    commentLink.forEach((link) => {
+      link.addEventListener('click', () => {
+        const id = link.id
+        const commentBox = document.querySelector(`#comment-box-for-commentable-${id}`)
+        commentBox.classList.toggle('visible')
+      })
+    })
+  }
+});
