@@ -78,6 +78,15 @@ nav {
   background: linear-gradient(to right, var(--yellow-orange), var(--cyan));
 }
 
+nav.pagination {
+  border-radius: 12px;
+  background: linear-gradient(to right, var(--gray-blue-transparent), var(--gray-blue));
+}
+
+nav.pagination span {
+  padding: 8px;
+}
+
 .nav-links {
   display: flex;
 }

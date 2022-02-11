@@ -6,13 +6,13 @@ class PostsController < ApplicationController
   before_action -> { verify_object_viewable(@post) }, only: [:show]
 
   def index
-    @posts = timeline_posts
+    @posts = timeline_posts.page params[:page]
     @comment = current_user.comments.build
     @post = current_user.posts.build
   end
 
   def timeline_posts
-    Post.with_attached_image.includes([:image_attachment, :user, :likes, :likers, comments: [:likes, :likers]])
+    Post.with_attached_image.includes([:image_attachment, :likes, :likers, user: [:profile], comments: [:likes, :likers]])
         .where(user_id: [current_user.id, current_user.friends.map(&:id)].flatten)
         .order(created_at: :desc)
   end
@@ -24,7 +24,7 @@ class PostsController < ApplicationController
   def create
     if @post.save
       flash[:success] = 'Post created successfully.'
-      redirect_to request.referrer
+      redirect_to root_url
     else
       flash[:warning] = 'Failed to create post. Please try again.'
       render :new
