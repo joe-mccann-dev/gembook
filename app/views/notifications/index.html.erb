@@ -1,7 +1,11 @@
 <div class="container">
   <div class="page-container">
     <h1>Notifications for <%= current_user.first_name %></h1>
-    <%= content_tag(:em, 'All Caught Up') if @notifications.unread.none? %>
+    <% if @notifications.unread.any? %>
+      <%= button_to "Dismiss all", dismiss_all_notifications_path, data: { confirm: 'Dismiss all notifications?'}, class: 'submit' %>
+    <% else %>
+      <%= content_tag(:em, 'All Caught Up') %>
+    <% end %>
     <ul class="notifications-collection">
       <% @notifications.unread.each do |notification| %>
         <%= show_notification(notification) %>

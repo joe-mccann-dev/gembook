@@ -22,7 +22,11 @@ Rails.application.routes.draw do
     resources :comments
   end
 
-  resources :notifications, only: [:index, :update]
+  resources :notifications, only: [:index, :update] do
+    collection do
+      post 'dismiss_all'
+    end
+  end
   resources :friendships, only: [:create, :update, :destroy]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
