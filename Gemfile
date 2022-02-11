@@ -29,6 +29,7 @@ gem 'active_storage_validations'
 
 gem 'devise'
 gem 'figaro'
+gem 'kaminari'
 gem 'omniauth-github'
 gem 'omniauth-rails_csrf_protection'
 gem "down", "~> 5.0"
