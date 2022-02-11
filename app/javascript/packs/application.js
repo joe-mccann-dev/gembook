@@ -15,23 +15,27 @@ ActiveStorage.start()
 window.addEventListener("turbolinks:load", () => {
   const burger = document.querySelector('#hamburger');
   const navLinks = document.querySelector('#nav-links');
-  if (burger) {
-    burger.addEventListener('click', () => {
-      navLinks.classList.toggle('show')
-    })
-  }
-});
-
-window.addEventListener("turbolinks:load", () => {
   const commentLink = document.querySelectorAll('.comment-button');
-
+  if (burger) {
+    toggleBurger(burger, navLinks);
+  }
   if (commentLink) {
-    commentLink.forEach((link) => {
-      link.addEventListener('click', () => {
-        const id = link.id
-        const commentBox = document.querySelector(`#comment-box-for-commentable-${id}`)
-        commentBox.classList.toggle('visible')
-      })
-    })
+    toggleCommentBox(commentLink)
   }
 });
+
+function toggleCommentBox(commentLink) {
+  commentLink.forEach((link) => {
+    link.addEventListener('click', () => {
+      const id = link.id
+      const commentBox = document.querySelector(`#comment-box-for-commentable-${id}`)
+      commentBox.classList.toggle('visible')
+    })
+  })
+}
+
+function toggleBurger(burger, navLinks) {
+  burger.addEventListener('click', () => {
+    navLinks.classList.toggle('show')
+  })
+}
