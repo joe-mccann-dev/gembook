@@ -1,8 +1,8 @@
 <div class="comment-button-container">
   <% link_text = id.match?(/^.*reply$/) ? 'Reply' : 'Comment' %>
-  <button id="<%= commentable.id %>" class="comment-button"><%=link_text %></button>
+  <button id="<%= link_text %>-<%= commentable.id %>" class="comment-button"><%=link_text %></button>
 </div>
-<%= form_with(model: [commentable, Comment.new], class: 'comment-box', id: "comment-box-for-commentable-#{commentable.id}") do |f| %>
+<%= form_with(model: [commentable, Comment.new], class: 'comment-box', id: "comment-box-for-commentable-#{link_text}-#{commentable.id}") do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <%= f.text_area :content, id: id %>
   <br>

@@ -27,8 +27,8 @@ window.addEventListener("turbolinks:load", () => {
 function toggleCommentBox(commentLink) {
   commentLink.forEach((link) => {
     link.addEventListener('click', () => {
-      const id = link.id
-      const commentBox = document.querySelector(`#comment-box-for-commentable-${id}`)
+      const id = link.id.split('-')
+      const commentBox = document.querySelector(`#comment-box-for-commentable-${id[0]}-${id[1]}`)
       commentBox.classList.toggle('visible')
     })
   })
