@@ -21,13 +21,13 @@ RSpec.describe "EditComments", type: :system do
       
 
       post = user.posts.first
-      expect(page.current_path).to eq(user_path(user))
+      expect(page.current_path).to eq('/')
 
       comment_content = 'This is that comment that I promised.'
       find("##{post.id}").click
       fill_in "post-#{post.id}-comment", with: comment_content
       find("#submit-#{post.id}").click
-      expect(page.current_path).to eq(user_path(user))
+      expect(page.current_path).to eq('/')
       expect(page).to have_link('edit')
 
       click_link 'edit'
@@ -45,7 +45,7 @@ RSpec.describe "EditComments", type: :system do
 
       fill_in 'post_content', with: post_content
       click_on 'Post'
-      expect(page.current_path).to eq(user_path(user))
+      expect(page.current_path).to eq('/')
 
       visit posts_path
       post = user.posts.first

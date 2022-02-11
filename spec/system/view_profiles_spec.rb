@@ -65,16 +65,6 @@ RSpec.describe "ViewProfiles", type: :system do
       visit user_path(user)
     end
 
-    it 'allows them to create a new post and redirects to current path' do
-      expect(page.current_path).to eq(user_path(user))
-      post = 'A new post by Foo'
-      fill_in 'post_content', with: post
-      click_on 'Post'
-      expect(page).to have_content('Post created successfully.')
-      expect(page.current_path).to eq(user_path(user))
-      expect(page).to have_content(post)
-    end
-
     it "shows them 'Your posts' if they're logged in" do
       expect(page).to have_content('Your Posts')
     end
