@@ -1,8 +1,12 @@
-
-<div class="post">
-  <% if @post.likers.any? %>
-    <p>Users who liked this post:<p>
-    <%= render partial: 'liker', collection: @post.likers %>
-  <% end %>
-  <%= render partial: 'post', locals: { post: @post } %>
+<div class="container">
+  <div class="page-container">
+    <div class="post">
+      <% if @post.likers.any? %>
+        <p>Users who liked this post:
+          <p>
+            <%= render partial: 'liker', collection: @post.likers %>
+          <% end %>
+          <%= render partial: 'post', locals: { post: @post } %>
+    </div>
+  </div>
 </div>

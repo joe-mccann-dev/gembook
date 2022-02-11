@@ -69,6 +69,7 @@
 }
 
 .post-container {
+  // position: relative;
   display: flex;
   flex-direction: column;
   max-width: 600px;
@@ -77,6 +78,16 @@
   padding: 1rem;
   width: 100%;
   box-shadow: 0 0 8px 4px var(--gray-blue-transparent);
+}
+
+.post-diamond .diamond {
+  // position: absolute;
+  // top: -8px;
+  // left: 0;
+  font-weight: 200%;
+  transform: rotate(-33deg);
+  color: var(--pink);
+  padding-top: 12px;
 }
 
 .post-content {
@@ -106,14 +117,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-
-.post-diamond .diamond {
-  font-weight: 200%;
-  transform: rotate(-33deg);
-  color: var(--pink);
-  padding-top: 12px;
 }
 
 .post-author {

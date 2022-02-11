@@ -1,4 +1,11 @@
 <li class="post-container" id="likeable-<%= object_to_s(post) %>-<%= post.id %>">
+  <% if post.likes.length >= 3 %>
+    <div class="post-diamond ">
+      <div title="A Shiny Post (3 or more likes)">
+        <ion-icon class="diamond" name="diamond"></ion-icon>
+      </div>
+    </div>
+  <% end %>
   <div class="post-controls">
     <div class="post-user">
       <%= render partial: 'users/user_icon', locals: { user: post.user } %>
@@ -18,13 +25,7 @@
       <% end %>
     </div>
   </div>
-  <% if post.likes.length >= 3 %>
-    <div class="post-diamond ">
-      <div title="A Shiny Post (3 or more likes)">
-        <ion-icon class="diamond" name="diamond"></ion-icon>
-      </div>
-    </div>
-  <% end %>
+
   <div class="post-content">
     <% if post.content.present? %>
       <p class="post-content">
