@@ -108,6 +108,14 @@
   justify-content: center;
 }
 
+
+.post-diamond .diamond {
+  font-weight: 200%;
+  transform: rotate(-33deg);
+  color: var(--pink);
+  padding-top: 12px;
+}
+
 .post-author {
   font-weight: 700;
   font-size: 1.2rem;

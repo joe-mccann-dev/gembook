@@ -23,6 +23,8 @@
    --cyan: #65D8F8;
    --green: #0EA76D;
 
+   --pink: #fb7cff;
+
    --dark-blue-transparent: #1b2b3479;
    --gray-blue-transparent: #465b6793;
  }
@@ -128,6 +130,7 @@ nav {
 
 .diamond {
   transform: rotate(-45deg);
+  font-size: 150%;
 }
 
 .nav-icon {
@@ -172,6 +175,11 @@ a:hover {
 }
 
 /* END LINKS */
+
+ion-icon {
+  pointer-events: none;
+}
+
 
 .profile-picture {
   border-radius: 50%;
@@ -381,10 +389,6 @@ p {
   .notifications-count {
     bottom: 1.5rem;
     left: 1rem;
-  }
-
-  .diamond {
-    font-size: 150%;
   }
 
 }
