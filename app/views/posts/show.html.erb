@@ -1,12 +1,33 @@
 <div class="container">
   <div class="page-container">
     <div class="post">
-      <% if @post.likers.any? %>
-        <p>Users who liked this post:
-          <p>
-            <%= render partial: 'liker', collection: @post.likers %>
+      <div class="post-user">
+        <%= render partial: 'users/user_icon', locals: { user: @post.user } %>
+        <p class="post-author"><%= link_to @post.user.full_name, user_path(@post.user) %></p>
+      </div>
+      <% if @post.image.present? %>
+        <div class="post-image">
+          <%= link_to image_tag(@post
+                      .image
+                      .representation(resize_to_fit: [600, 600], convert: "png"), alt: 'a user posted image'),
+                    url_for(@post.image),
+                    id: "post-#{@post.id}-image" %>
+        </div>
+        <p><%= abbreviated(@post) %><span class="ellipses"> . . .</span></p>
+      <% else %>
+        <p><%= abbreviated(@post) %><span class="ellipses"> . . .</span></p>
+      <% end %>
+        <div class="link-back-container">
+          <%= link_to :back, class: 'back-to-post' do %>
+            <ion-icon class="arrow-back" name="arrow-back-outline"></ion-icon>
+            <span class="back-to-post-text">back to posts</span>
           <% end %>
-          <%= render partial: 'post', locals: { post: @post } %>
+        </div>
+        <% if @post.likers.any? %>
+          <%= render partial: 'liker', collection: @post.likers %>
+        <% end %>
     </div>
   </div>
-</div>
+</div
+
+

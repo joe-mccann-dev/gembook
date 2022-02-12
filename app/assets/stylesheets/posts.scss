@@ -69,7 +69,6 @@
 }
 
 .post-container {
-  // position: relative;
   display: flex;
   flex-direction: column;
   max-width: 600px;
@@ -81,10 +80,7 @@
 }
 
 .post-diamond .diamond {
-  // position: absolute;
-  // top: -8px;
-  // left: 0;
-  font-weight: 200%;
+  margin-bottom: 12px;  
   transform: rotate(-33deg);
   color: var(--pink);
   padding-top: 12px;
@@ -124,12 +120,43 @@
   font-size: 1.2rem;
 }
 
+
 .time-posted {
   display: flex;
   flex-direction: column;
   gap: 8px;
   color: var(--cyan)
 }
+
+.edit-post {
+  color: var(--cyan);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+// posts#show
+
+.back-to-post {
+  display: flex;
+  align-items: center;
+}
+
+.arrow-back {
+  font-size: 200%;
+}
+
+// .liker {
+//   display: flex;
+//   gap: 12px;
+// }
+
+.ellipses {
+  color: var(--cyan);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
 
 // END POST DISPLAY //
 

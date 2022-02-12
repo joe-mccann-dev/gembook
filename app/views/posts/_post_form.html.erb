@@ -1,9 +1,9 @@
 <div class="form new-post">
-  <p><em>Post text, an image, or both</em></p>
+  <p><em>Post some text, an image, or both.</em></p>
   <%= form_with(model: @post) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
     <div class="field">
-      <%= f.text_area :content, rows: 7, placeholder: "What's new?", class: 'post-text-area' %>
+      <%= f.text_area :content, rows: 7, placeholder: "#{placeholders.sample}", class: 'post-text-area' %>
     </div>
     <div class="field image-upload">
       <label class="image-label">
