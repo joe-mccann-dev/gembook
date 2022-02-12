@@ -57,7 +57,7 @@
   margin: 12px;
 }
 
-.comment-button {
+.comment-button, .toggle-comment-button {
   padding: 2px 8px;
   cursor: pointer;
   background-color: var(--dark-blue);
@@ -67,11 +67,21 @@
   text-decoration: underline;
 }
 
-.comment-button:hover {
+.comment-button:hover, .toggle-comment-button:hover {
   color: var(--light-blue);
   transition: .2s;
 }
 
+.toggle-comment-button {
+  display: flex;
+  align-items: center;
+  margin: 12px;
+}
+
 .visible {
   display: block;
+}
+
+.hidden {
+  display: none;
 }

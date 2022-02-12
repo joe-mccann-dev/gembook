@@ -15,17 +15,21 @@ ActiveStorage.start()
 window.addEventListener("turbolinks:load", () => {
   const burger = document.querySelector('#hamburger');
   const navLinks = document.querySelector('#nav-links');
-  const commentLink = document.querySelectorAll('.comment-button');
+  const commentButtons = document.querySelectorAll('.comment-button');
+  const toggleCommentsButtons = document.querySelectorAll('.toggle-comments');
   if (burger) {
     toggleBurger(burger, navLinks);
   }
-  if (commentLink) {
-    toggleCommentBox(commentLink)
+  if (commentButtons) {
+    toggleCommentBox(commentButtons)
+  }
+  if (toggleCommentsButtons) {
+    toggleComments(toggleCommentsButtons);
   }
 });
 
-function toggleCommentBox(commentLink) {
-  commentLink.forEach((link) => {
+function toggleCommentBox(commentButtons) {
+  commentButtons.forEach((link) => {
     link.addEventListener('click', () => {
       const id = link.id.split('-')
       const commentBox = document.querySelector(`#comment-box-for-commentable-${id[0]}-${id[1]}`)
@@ -37,5 +41,22 @@ function toggleCommentBox(commentLink) {
 function toggleBurger(burger, navLinks) {
   burger.addEventListener('click', () => {
     navLinks.classList.toggle('show')
+  })
+}
+
+function toggleComments(buttons) {
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const id = button.id.split('-')[2]
+      const postComments = document.querySelector(`#post-${id}-comments`);
+      postComments.classList.toggle('hidden');
+      if (postComments.classList.contains('hidden')) {
+        button.textContent = 'Show Comments'
+        button.insertAdjacentHTML('beforeend', '<ion-icon class="chevron" name="chevron-down-outline"></ion-icon>')
+      } else {
+        button.textContent = 'Hide Comments'
+        button.insertAdjacentHTML('beforeend', '<ion-icon class="chevron" name="chevron-up-outline"></ion-icon>')
+      }
+    })
   })
 }

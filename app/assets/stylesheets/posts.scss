@@ -128,6 +128,10 @@
   color: var(--cyan)
 }
 
+.chevron {
+  font-size: 150%;
+}
+
 .edit-post {
   color: var(--cyan);
   font-weight: 700;
@@ -144,11 +148,6 @@
 .arrow-back {
   font-size: 200%;
 }
-
-// .liker {
-//   display: flex;
-//   gap: 12px;
-// }
 
 .ellipses {
   color: var(--cyan);
