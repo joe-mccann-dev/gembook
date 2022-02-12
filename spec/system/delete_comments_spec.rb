@@ -23,7 +23,7 @@ RSpec.describe "DeleteComments", type: :system do
       post = user.posts.first
 
       comment_content = 'This is that comment that I promised.'
-      find("##{post.id}").click
+      find("#Comment-#{post.id}").click
       fill_in "post-#{post.id}-comment", with: comment_content
       find("#submit-#{post.id}").click
 
@@ -43,7 +43,7 @@ RSpec.describe "DeleteComments", type: :system do
       post = user.posts.first
 
       comment_content = 'This is that comment that I promised.'
-      find("##{post.id}").click
+      find("#Comment-#{post.id}").click
       fill_in "post-#{post.id}-comment", with: comment_content
       find("#submit-#{post.id}").click
 
@@ -51,50 +51,6 @@ RSpec.describe "DeleteComments", type: :system do
       expect(page).to have_link('delete')
 
       expect { click_link 'delete' }.to change { user.comments.count }.from(1).to(0)
-    end
-
-    it 'allows the to delete it after editing' do
-      visit user_path(user)
-      
-      post_content = 'This is a post I will edit and then immediately delete'
-
-      fill_in 'post_content', with: post_content
-      click_on 'Post'
-
-      post = user.posts.first
-
-      comment_content = 'This is a comment that will be edited.'
-      find("##{post.id}").click
-      fill_in "post-#{post.id}-comment", with: comment_content
-      find("#submit-#{post.id}").click
-
-      click_link 'edit'
-      edited_comment = "#{comment_content} some additional text"
-      fill_in "post-#{post.id}-comment", with: edited_comment
-      click_on "Edit Comment"
-
-      comment = post.comments.first
-      expect { click_link 'delete' }.to change { post.comments.count }.from(1).to(0)
-      expect(user.comments.count).to eq(0)
-    end
-
-    it 'redirects to the path of the commentable object.' do
-      visit user_path(user)
-
-      post_content = 'This is a post from my profile page.'
-
-      fill_in 'post_content', with: post_content
-      click_on 'Post'
-
-      post = user.posts.first
-
-      comment_content = 'This is a comment that will be edited.'
-      find("##{post.id}").click
-      fill_in "post-#{post.id}-comment", with: comment_content
-      find("#submit-#{post.id}").click
-
-      click_link 'delete'
-      expect(page.current_path).to eq(post_path(post))
     end
   end
 end
