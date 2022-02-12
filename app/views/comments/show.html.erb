@@ -1,8 +1,21 @@
+
 <div class="container">
   <div class="page-container">
-    <% if @comment.likers.any? %>
-      <%= render partial: 'liker', collection: @comment.likers %>
-    <% end %>
-    <%= render partial: 'comment', locals: { comment: @comment } %>
+    <div class="post">
+      <div class="post-user">
+        <%= render partial: 'users/user_icon', locals: { user: @comment.user } %>
+        <p class="post-author"><%= link_to @comment.user.full_name, user_path(@comment.user) %></p>
+      </div>
+      <p><%= abbreviated(@comment) %><span class="ellipses"> . . .</span></p>
+      <div class="link-back-container">
+        <%= link_to posts_path, class: 'back-to-post' do %>
+          <ion-icon class="arrow-back" name="arrow-back-outline"></ion-icon>
+          <span class="back-to-post-text">back to posts</span>
+        <% end %>
+      </div>
+      <% if @comment.likers.any? %>
+        <%= render partial: 'liker', collection: @comment.likers %>
+      <% end %>
+    </div>
   </div>
 </div>

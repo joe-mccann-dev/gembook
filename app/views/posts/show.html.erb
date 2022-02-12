@@ -18,7 +18,7 @@
         <p><%= abbreviated(@post) %><span class="ellipses"> . . .</span></p>
       <% end %>
         <div class="link-back-container">
-          <%= link_to :back, class: 'back-to-post' do %>
+          <%= link_to posts_path, class: 'back-to-post' do %>
             <ion-icon class="arrow-back" name="arrow-back-outline"></ion-icon>
             <span class="back-to-post-text">back to posts</span>
           <% end %>
