@@ -1,9 +1,27 @@
-<p>Edit Comment</p>
-<p><%= @comment.content %></p>
-
-<%= form_with(model: [@comment.commentable, @comment]) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
-  <%= f.text_area :content, id: "#{object_to_s(@comment.commentable)}-#{@comment.commentable.id}-comment" %>
-  <br>
-  <%= f.submit "Edit Comment" %>
-<% end %>
+<div class="container">
+  <div class="page-container">
+    <p class="edit-post">Edit Comment</p>
+    <div class="edit-comment-container">
+      <div class="commenting-on-container">
+        <p class="commenting-on">Commenting on</p>
+        <ion-icon class="arrow-down" name="arrow-down-outline"></ion-icon>
+        <% if @comment.commentable.is_a?(Post) && @comment.commentable.image.present? %>
+          <div class="post-image">
+            <%= link_to image_tag(@comment.commentable
+                      .image
+                      .representation(resize_to_fit: [600, 600], convert: "png"), alt: 'a user posted image'),
+                    url_for(@comment.commentable.image),
+                    id: "post-#{@comment.commentable.id}-image" %>
+          </div>
+        <% end %>
+        <%= @comment.commentable.content %></p>
+    </div>
+    <%= form_with(model: [@comment.commentable, @comment]) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <%= f.text_area :content, id: "#{object_to_s(@comment.commentable)}-#{@comment.commentable.id}-comment" %>
+      <br>
+      <%= f.submit "Edit Comment" %>
+    <% end %>
+  </div>
+</div>
+</div>

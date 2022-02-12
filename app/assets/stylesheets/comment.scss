@@ -85,3 +85,26 @@
 .hidden {
   display: none;
 }
+
+// EDIT COMMENT
+
+.edit-comment-container {
+  min-width: 300px;
+
+}
+.commenting-on-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.commenting-on {
+  color: var(--cyan);
+  font-size: 1.2rem;
+}
+
+.arrow-down {
+  font-size: 150%;
+  color: var(--cyan);
+  margin-bottom: 12px;
+}

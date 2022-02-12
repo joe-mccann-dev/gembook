@@ -1,9 +1,8 @@
-
+<div class="container">
   <div class="page-container">
     <% if @comment.likers.any? %>
-      <p>This comment is liked by</p>
       <%= render partial: 'liker', collection: @comment.likers %>
     <% end %>
     <%= render partial: 'comment', locals: { comment: @comment } %>
   </div>
-
+</div>
