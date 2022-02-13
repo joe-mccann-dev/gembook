@@ -140,6 +140,18 @@
 
 // posts#show
 
+.post {
+  min-width: 300px;
+}
+
+.abbreviated {
+  margin: 12px;
+}
+
+.likers {
+  margin: 12px;
+}
+
 .back-to-post {
   display: flex;
   align-items: center;

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="page-container">
     <div class="post">
-      <div class="post-user">
+      <div class="post-user post-controls">
         <%= render partial: 'users/user_icon', locals: { user: @post.user } %>
         <p class="post-author"><%= link_to @post.user.full_name, user_path(@post.user) %></p>
       </div>
@@ -13,21 +13,21 @@
                     url_for(@post.image),
                     id: "post-#{@post.id}-image" %>
         </div>
-        <p><%= abbreviated(@post) %><span class="ellipses"> . . .</span></p>
+        <p class="abbreviated"><%= abbreviated(@post) %><span class="ellipses"> . . .</span></p>
       <% else %>
-        <p><%= abbreviated(@post) %><span class="ellipses"> . . .</span></p>
+        <p class="abbreviated"><%= abbreviated(@post) %><span class="ellipses"> . . .</span></p>
       <% end %>
-        <div class="link-back-container">
-          <%= link_to posts_path, class: 'back-to-post' do %>
-            <ion-icon class="arrow-back" name="arrow-back-outline"></ion-icon>
-            <span class="back-to-post-text">back to posts</span>
-          <% end %>
-        </div>
+      <div class="likers">
         <% if @post.likers.any? %>
           <%= render partial: 'liker', collection: @post.likers %>
         <% end %>
+      </div>
+      <div class="link-back-container">
+        <%= link_to posts_path, class: 'back-to-post' do %>
+          <ion-icon class="arrow-back" name="arrow-back-outline"></ion-icon>
+          <span class="back-to-post-text">back to posts</span>
+        <% end %>
+      </div>
     </div>
   </div>
-</div
-
-
+</div>
