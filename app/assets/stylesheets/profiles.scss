@@ -22,26 +22,28 @@
 
 .profile-details {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   border: solid 2px var(--gray-blue-transparent);
   border-radius: 12px;
   padding: 12px;
-  width: 100%;
+  width: 480px;
 }
 
-.attributes {
-  flex: 1;
+.detail {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
-.values {
-  flex: 1;
-}
 
 .category {
   color: var(--cyan);
   font-weight: 700;
   font-size: 1.1rem;
+  margin-bottom: 8px;
 }
+
+// EDIT PROFILE FORM
 
 .profile-form-fields {
   display: flex;
@@ -65,4 +67,17 @@ input#profile_profile_picture {
 
 .profile-submit {
   width: 25%;
+}
+
+@media screen and (max-width: 800px) {
+
+  .profile-details {
+    width: 320px;
+  }
+
+  .detail {
+    display: block;
+  }
+
+  
 }

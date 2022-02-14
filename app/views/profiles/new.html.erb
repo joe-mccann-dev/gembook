@@ -1,6 +1,9 @@
-<h1>Profile for <%= current_user.full_name %></h1>
-<%= form_with(model: @profile, url: user_profile_path(current_user)) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
-  <%= render partial: 'profile_form_fields', locals: { f: f } %>
-  <%= f.submit "Create Profile" %>
-<% end %>
+<div class="container">
+  <div class="page-container">
+    <h2>Create a Profile</h2>
+    <%= form_with(model: @profile, url: user_profile_path(current_user)) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <%= render partial: 'profile_form_fields', locals: { f: f } %>
+    <% end %>
+  </div>
+</div>

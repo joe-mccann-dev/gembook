@@ -15,16 +15,20 @@
     <% end %>
   <% end %>
   <div class="profile-details">
-    <div class="attributes">
+    <div class="detail">
       <p class="category">Nickname</p>
-      <p class="category">Current City</p>
-      <p class="category">Hometown</p>
-      <p class="category">Bio</p>
-    </div>
-    <div class="values">
       <p class="value"><%= profile.nickname %></p>
+    </div>
+    <div class="detail">
+      <p class="category">Current City</p>
       <p class="value"><%= profile.current_city %></p>
+    </div>
+    <div class="detail">
+      <p class="category">Hometown</p>
       <p class="value"><%= profile.hometown %></p>
+    </div>
+    <div class="detail">
+      <p class="category">Bio</p>
       <p class="value"><%= profile.bio %></p>
     </div>
   </div>
