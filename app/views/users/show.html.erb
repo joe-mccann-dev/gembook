@@ -14,8 +14,8 @@
       <%= render partial: 'posts/post', collection: @posts %>
     </ul>
     <%= content_tag(:em, "There doesn't seem to be anything here.") if @posts.empty? %>
+    <%= paginate @posts if @posts.any? %>
   <% else %>
     <%= render 'send_or_accept_request'%>
   <% end %>
-  <%= paginate @posts %>
 </div>
