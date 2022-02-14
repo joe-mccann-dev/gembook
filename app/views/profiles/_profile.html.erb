@@ -1,30 +1,47 @@
-<% if profile.profile_picture.present? %>
-  <p class="profile_picture">
+<div class="page-container">
+  <h1><%= @user.full_name %></h1>
+  <% if profile.profile_picture.present? %>
     <%= link_to image_tag(profile
-                  .profile_picture
-                  .representation(resize_to_fit: [250, 250], convert: "png"), alt: 'a user profile picture', id: 'profile-picture'),
-                url_for(profile.profile_picture),
-                class: 'profile-picture',
-                id: "profile-#{profile.id}-picture" %>
-  </p>
-<% else %>
-      <% if user == current_user %>
-        <%= link_to image_tag('blank-profile-picture.png', size: '250x250'),
-                  new_user_profile_path(current_user),
-                  class: 'profile-picture' %>
+                .profile_picture
+                .representation(resize_to_fit: [250, 250], convert: "png"), alt: 'a user profile picture', class: 'profile-display-photo'),
+              url_for(profile.profile_picture),
+              id: "profile-#{profile.id}-picture" %>
+  <% else %>
+    <% if user_is_current_user?(@user) %>
+      <%= link_to image_tag('blank-profile-picture.png', size: '250x250', class: 'profile-display-photo'),
+                  new_user_profile_path(current_user) %>
+    <% else %>
+      <%= image_tag('blank-profile-picture.png', size: '250x250' )%>
+    <% end %>
+  <% end %>
+  <div class="create-edit-profile">
+    <% if user_is_current_user?(@user) %>
+      <% if !@profile.present? %>
+        <%= link_to "Create Profile", new_user_profile_path(@user) %>
+        <em>You haven't created a profile yet.</em>
       <% else %>
-        <%= image_tag('blank-profile-picture.png', size: '250x250' )%>
+        <%= link_to "Edit Profile", edit_user_profile_path(@user) %>
       <% end %>
-<% end %>
-<p class="bio">Bio:
-  <%= profile.bio %>
-</p>
-<p class="nickname">Nickname:
-  <%= profile.nickname %>
-</p>
-<p class="current-city">Current City:
-  <%= profile.current_city %>
-</p>
-<p class="hometown">Hometown:
-  <%= profile.hometown %>
-</p>
+    <% end %>
+  </div>
+  <div class="profile-details">
+    <div class="categories">
+      <div class="profile-item">
+        <p class="category">Nickname</p>
+        <p class="value"><%= profile.nickname %></p>
+      </div>
+      <div class="profile-item">
+        <p class="category">Current City</p>
+        <p class="value"><%= profile.current_city %></p>
+      </div>
+      <div class="profile-item">
+        <p class="category">Hometown</p>
+        <p class="value"><%= profile.hometown %></p>
+      </div>
+      <div class="profile-item">
+        <p class="category">Bio</p>
+        <p class="value"><%= profile.bio %></p>
+      </div>
+    </div>
+  </div>
+</div>

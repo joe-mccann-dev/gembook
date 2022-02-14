@@ -10,6 +10,8 @@ class Profile < ApplicationRecord
   default_scope { includes(profile_picture_attachment: :blob) }
 
   def self.attach_and_save_auth_image(auth, user)
+    return if exists?(user.profile.id)
+    
     image_file = Down.download(auth.info.image)
     filename = File.basename(image_file.path)
     profile = user.build_profile

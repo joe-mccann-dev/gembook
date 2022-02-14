@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     @post = current_user.posts.build
     @posts = @user.posts.with_attached_image
                   .includes([:image_attachment, :comments, :likes, :likers])
-                  .order(created_at: :desc)
+                  .order(created_at: :desc).page params[:page]
     @friendship = current_user.requests_via_sender_id[@user.id]
     return unless current_user.pending_received_friends.any?
 

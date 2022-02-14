@@ -1,3 +1,46 @@
 // Place all the styles related to the profiles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+
+.sub-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-display-photo {
+  border-radius: 12px;
+}
+
+.profile-display-photo:hover {
+  box-shadow: 0 0 0 2px var(--light-blue);
+  transition: .2s;
+}
+
+.profile-heading {
+  margin: 12px;
+  text-decoration: underline;
+}
+
+// .profile-details {
+//   display: flex;
+// }
+
+.categories {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.category {
+  color: var(--cyan);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
