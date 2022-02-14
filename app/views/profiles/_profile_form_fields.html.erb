@@ -1,14 +1,25 @@
-<%= f.label :profile_picture %>
-<%= f.file_field :profile_picture %>
-
-<%= f.label :bio %>
-<%= f.text_field :bio %>
-
-<%= f.label :nickname %>
-<%= f.text_field :nickname %>
-
-<%= f.label :current_city, "Current City" %>
-<%= f.text_field :current_city %>
-
-<%= f.label :hometown %>
-<%= f.text_field :hometown %>
+<div class="profile-form-fields">
+  <div class="field profile-item">
+    <%= f.label :nickname, class: 'category' %>
+    <%= f.text_field :nickname %>
+  </div>
+  <div class="field profile-item">
+    <%= f.label :current_city, "Current City", class: 'category' %>
+    <%= f.text_field :current_city %>
+  </div>
+  <div class="field profile-item">
+    <%= f.label :hometown, class: 'category' %>
+    <%= f.text_field :hometown %>
+  </div>
+  <div class="field profile-item">
+    <%= f.label :bio, class: 'category' %>
+    <%= f.text_area :bio, placeholder: "Your story. 500 characters or less" %>
+  </div>
+  <div class="field profile-item">
+    <%= f.label :profile_picture, class: 'category' %>
+    <%= f.file_field :profile_picture, accept: 'image/png,image/gif,image/jpeg,image/jpg' %>
+  </div>
+  <div class="field profile-item profile-submit">
+    <%= f.submit "Edit Profile" %>
+  </div>
+</div>

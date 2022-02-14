@@ -8,6 +8,7 @@ class Comment < ApplicationRecord
   has_many :likers, through: :likes, source: :user
 
   validates :content, presence: true
+  validates :content, length: { in: 2..10**4 }
 
   def edited?
     created_at != updated_at

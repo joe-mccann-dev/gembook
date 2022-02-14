@@ -13,6 +13,7 @@ class Post < ApplicationRecord
 
   validates :content, presence: true,
                       unless: proc { |post| post.image.attached? }
+  validates :content, length: { in: 2..10**4 }                        
 
   def edited?
     second_created = created_at.to_datetime.second

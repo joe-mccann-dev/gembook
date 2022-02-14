@@ -1,26 +1,21 @@
 <div class="container">
   <%= render partial: 'profiles/profile', object: @profile || Profile.new, locals: { user: @user } %>
-  <div class="sub-profile">
-    <% if user_is_current_user?(@user) %>
-    <div class="container">
-      <h3 class="profile-heading">Write a New Post</h3>
-      <%= render partial: 'posts/post_form' %>
-      <h3 class="profile-heading">Your Posts</h3>
-      <ul class="posts-collection">
-        <%= render partial: 'posts/post', collection: @posts %>
-      </ul>
-    <% end %>
-    <% if current_user.friends.include?(@user) %>
-      <h3 class="profile-heading">Posts by <%= @user.full_name %></h3>
-      <ul class="posts-collection">
-        <%= render partial: 'posts/post', collection: @posts %>
-        
-      </ul>
-      <%= content_tag(:em, "There doesn't seem to be anything here.") if @posts.empty? %>
-    <% else %>
-      <%= render 'send_or_accept_request'%>
-    <% end %>
-    </div>
-  </div>
+  <% if user_is_current_user?(@user) %>
+    <h3 class="profile-heading">Write a New Post</h3>
+    <%= render partial: 'posts/post_form' %>
+    <h3 class="profile-heading">Your Posts</h3>
+    <ul class="posts-collection">
+      <%= render partial: 'posts/post', collection: @posts %>
+    </ul>
+  <% end %>
+  <% if current_user.friends.include?(@user) %>
+    <h3 class="profile-heading">Posts by <%= @user.full_name %></h3>
+    <ul class="posts-collection">
+      <%= render partial: 'posts/post', collection: @posts %>
+    </ul>
+    <%= content_tag(:em, "There doesn't seem to be anything here.") if @posts.empty? %>
+  <% else %>
+    <%= render 'send_or_accept_request'%>
+  <% end %>
   <%= paginate @posts %>
 </div>

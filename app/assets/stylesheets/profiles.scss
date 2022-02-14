@@ -2,13 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-
-.sub-profile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .profile-display-photo {
   border-radius: 12px;
 }
@@ -23,19 +16,25 @@
   text-decoration: underline;
 }
 
-// .profile-details {
-//   display: flex;
-// }
-
-.categories {
-  display: flex;
-  flex-direction: column;
+.create-edit-profile {
+  margin-left: 12px;
 }
 
-.profile-item {
+.profile-details {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
+  border: solid 2px var(--gray-blue-transparent);
+  border-radius: 12px;
+  padding: 12px;
+  width: 100%;
+}
+
+.attributes {
+  flex: 1;
+}
+
+.values {
+  flex: 1;
 }
 
 .category {
@@ -44,3 +43,26 @@
   font-size: 1.1rem;
 }
 
+.profile-form-fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 200px;
+}
+
+.field.profile-item {
+  margin: 8px;
+}
+
+input#profile_profile_picture {
+  width: 200px;
+}
+
+.profile-submit {
+  width: 25%;
+}
