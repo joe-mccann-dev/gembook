@@ -39,7 +39,7 @@ RSpec.describe "ViewProfiles", type: :system do
         find("#profile_profile_picture").click
         attach_file(image_1_file_path)
         
-        click_on 'Create Profile'
+        click_on 'Submit Profile'
         expect(page).to have_content("You've successfully created your profile.")
         expect(page.current_path).to eq(user_path(user))
 
@@ -52,7 +52,7 @@ RSpec.describe "ViewProfiles", type: :system do
         image_2_file_path = "#{Rails.root}/spec/files/image_2.png"
         attach_file(image_2_file_path)
         find("#profile_profile_picture").click
-        click_on 'Edit Profile'
+        click_on 'Submit Profile'
         expect(page.current_path).to eq(user_path(user))
         expect(page).to have_content("You've successfully edited your profile.")
       end

@@ -15,7 +15,7 @@ RSpec.describe "DisplayProfileIcons", type: :system do
       visit new_user_profile_path(other_user)
       image_1_file_path = "#{Rails.root}/spec/files/image_1.jpg"
       attach_file(image_1_file_path)
-      click_on "Create Profile"
+      click_on "Submit Profile"
       find('.logout-link').click
     end
 

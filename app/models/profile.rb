@@ -15,7 +15,7 @@ class Profile < ApplicationRecord
   validates :hometown, length: { maximum: 25 }
   
   def self.attach_and_save_auth_image(auth, user)
-    return if exists?(user.profile.id)
+    return if exists?(user_id: user.id )
 
     image_file = Down.download(auth.info.image)
     filename = File.basename(image_file.path)

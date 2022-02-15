@@ -18,7 +18,7 @@ RSpec.describe "ProfilePictures", type: :system do
         image_1_file_path = "#{Rails.root}/spec/files/image_1.jpg"
         attach_file(image_1_file_path)
         find("#profile_profile_picture").click
-        click_on "Create Profile"
+        click_on "Submit Profile"
         expect(page).to have_content("You've successfully created your profile")
       end
   
@@ -26,7 +26,7 @@ RSpec.describe "ProfilePictures", type: :system do
         image_2_file_path = "#{Rails.root}/spec/files/image_2.png"
         attach_file(image_2_file_path)
         find("#profile_profile_picture").click
-        click_on "Create Profile"
+        click_on "Submit Profile"
         expect(page).to have_content("You've successfully created your profile")
       end
   
@@ -34,7 +34,7 @@ RSpec.describe "ProfilePictures", type: :system do
         image_1_jpeg_file_path = "#{Rails.root}/spec/files/image_1_jpeg.jpeg"
         attach_file(image_1_jpeg_file_path)
         find("#profile_profile_picture").click
-        click_on "Create Profile"
+        click_on "Submit Profile"
         expect(page).to have_content("You've successfully created your profile")
       end
   
@@ -42,7 +42,7 @@ RSpec.describe "ProfilePictures", type: :system do
         image_3_file_path = "#{Rails.root}/spec/files/image_3.tiff"
         attach_file(image_3_file_path)
         find("#profile_profile_picture").click
-        click_on "Create Profile"
+        click_on "Submit Profile"
         expect(page).to have_content('Profile picture has an invalid content type')
       end
   
@@ -50,7 +50,7 @@ RSpec.describe "ProfilePictures", type: :system do
         image_4_file_path = "#{Rails.root}/spec/files/image_4.gif"
         attach_file(image_4_file_path)
         find("#profile_profile_picture").click
-        click_on "Create Profile"
+        click_on "Submit Profile"
         expect(page).to have_content('Profile picture has an invalid content type')
       end
     end
@@ -60,7 +60,7 @@ RSpec.describe "ProfilePictures", type: :system do
         pdf_file_path = "#{Rails.root}/spec/files/sample.pdf"
         attach_file(pdf_file_path)
         find("#profile_profile_picture").click
-        click_on "Create Profile"
+        click_on "Submit Profile"
         expect(page).to have_content('Profile picture has an invalid content type')
       end
 
@@ -68,7 +68,7 @@ RSpec.describe "ProfilePictures", type: :system do
         mp3_file_path = "#{Rails.root}/spec/files/sample.mp3"
         attach_file(mp3_file_path)
         find("#profile_profile_picture").click
-        click_on "Create Profile"
+        click_on "Submit Profile"
         expect(page).to have_content('Profile picture has an invalid content type')
       end
 
@@ -76,7 +76,7 @@ RSpec.describe "ProfilePictures", type: :system do
         json_file_path = "#{Rails.root}/spec/files/sample.json"
         attach_file(json_file_path)
         find("#profile_profile_picture").click
-        click_on "Create Profile"
+        click_on "Submit Profile"
         expect(page).to have_content('Profile picture has an invalid content type')
       end
     end
