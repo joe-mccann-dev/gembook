@@ -298,6 +298,15 @@ input:hover, textarea:hover {
 
 /* NOTIFICATIONS */
 
+.notification {
+  opacity: 1;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.notification.fade {
+  opacity: 0;
+}
+
 .notification.message {
   padding: 0.5rem;
   margin-bottom: 1rem;

@@ -26,6 +26,8 @@ window.addEventListener("turbolinks:load", () => {
   if (toggleCommentsButtons) {
     toggleComments(toggleCommentsButtons);
   }
+
+  hideNotice();
 });
 
 function toggleCommentBox(commentButtons) {
@@ -59,4 +61,13 @@ function toggleComments(buttons) {
       }
     })
   })
+}
+
+function hideNotice() {
+  const notification = document.querySelector('.notification')
+  if (notification) {
+    setInterval(function() {
+      notification.classList.add('fade');
+    }, 5000);
+  }
 }
