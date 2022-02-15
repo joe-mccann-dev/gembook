@@ -369,6 +369,62 @@ p {
   background-color: var(--yellow-orange);
 }
 
+.paginate {
+  margin-bottom: 32px;
+}
+
+/*  FOOTER */
+
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 6rem;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  padding: 8px;
+  border-top: solid 2px var(--light-blue);
+  background: linear-gradient(to left, var(--dark-blue), var(--gray-blue-transparent))
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+.footer-links li {
+  display: flex;
+  gap: 6px;
+}
+
+.footer-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--cyan);
+}
+
+.footer-link:hover {
+  color: var(--light-blue);
+  transition: .2s;
+}
+
+
+.github-footer {
+  font-size: 150%;
+}
+
 @media screen and (max-width: 800px) {
 
   html, body {

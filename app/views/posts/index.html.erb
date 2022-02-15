@@ -4,5 +4,7 @@
   <ul class="posts-collection">
     <%= render partial: 'posts/post', collection: @posts %>
   </ul>
-  <%= paginate @posts %>
+  <div class="paginate">
+    <%= paginate @posts %>
+  </div>
 </div>
