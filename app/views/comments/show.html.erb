@@ -6,6 +6,11 @@
         <p class="post-author"><%= link_to @comment.user.full_name, user_path(@comment.user) %></p>
       </div>
       <p class="abbreviated"><%= abbreviated(@comment) %><span class="ellipses"> . . .</span></p>
+      <% if @comment.comments.any? %>
+        <div class="replies">
+          <%= render partial: 'comments/comment', collection: @comment.comments  %> 
+        </div>
+      <% end %>
       <div class="likers">
         <% if @comment.likers.any? %>
           <%= render partial: 'liker', collection: @comment.likers %>

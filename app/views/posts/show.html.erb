@@ -22,6 +22,11 @@
           <%= render partial: 'liker', collection: @post.likers %>
         <% end %>
       </div>
+      <% if @post.comments.any? %>
+        <div class="replies">
+          <%= render partial: 'comments/comment', collection: @post.comments  %>
+        </div>
+      <% end %>
       <div class="link-back-container">
         <%= link_to posts_path, class: 'back-to-post' do %>
           <ion-icon class="arrow-back" name="arrow-back-outline"></ion-icon>
