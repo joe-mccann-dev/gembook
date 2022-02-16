@@ -230,6 +230,10 @@ input:hover, textarea:hover {
 
 /* DEVISE FORMS */
 
+.brand-summary {
+  margin-bottom: 0;
+}
+
 .submit {
   color: var(--dark-blue);
   background-color: var(--cyan);
