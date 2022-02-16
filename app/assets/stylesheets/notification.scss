@@ -39,6 +39,16 @@
   box-shadow: 0 0 6px 4px var(--gray-blue-transparent);
 }
 
+.optionals {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border: solid 1px var(--gray-blue-transparent);
+  border-radius: 12px;
+}
+
 // MEDIA QUERIES
 
 @media screen and (max-width: 800px) {

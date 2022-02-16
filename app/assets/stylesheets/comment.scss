@@ -6,7 +6,12 @@
   margin-left: 20px;
 }
 
+.comment-thread {
+  width: 100%
+}
+
 .comment {
+  max-width: 600px;
   display: flex;
   flex-direction: column;
 }
@@ -107,4 +112,12 @@
   font-size: 150%;
   color: var(--cyan);
   margin-bottom: 12px;
+}
+
+//  MEDIA QUERIES
+
+@media screen and (max-width: 800px) {
+  .comment {
+    min-width: 300px;
+  }
 }

@@ -1,15 +1,25 @@
 <div class="container">
   <div class="page-container">
-    <h1>Notifications for <%= current_user.first_name %></h1>
+    <h1 class="users-heading">Notifications for <%= current_user.first_name %></h1>
     <% if @notifications.unread.any? %>
       <%= button_to "Dismiss all", dismiss_all_notifications_path, data: { confirm: 'Dismiss all notifications?'}, class: 'submit' %>
     <% else %>
       <%= content_tag(:em, 'All Caught Up') %>
+      <div>
+        <h2 class="users-heading">Why not try one of these?</h2>
+        <div class="optionals">
+          <%= link_to "View Posts", posts_path %>
+          <%= link_to "View a Random Friend's Profile", user_path(current_user.friends.sample) if current_user.friends.any? %>
+          <%= link_to "Find More Friends on Gembook", users_path %>
+          <%= link_to "Discover a New Ruby Gem", 'https://www.ruby-toolbox.com/'%>
+          <%= link_to "Follow Me on GitHub", 'https://github.com/joe-mccann-dev'%>
+        </div>
+      </div>
     <% end %>
     <ul class="notifications-collection">
       <% @notifications.unread.each do |notification| %>
         <%= show_notification(notification) %>
       <% end %>
       <ul>
-  </div>
-</div>
+      </div>
+    </div>
