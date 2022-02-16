@@ -232,7 +232,8 @@ input:hover, textarea:hover {
 
 .submit {
   color: var(--dark-blue);
-  background-color: var(--cyan)
+  background-color: var(--cyan);
+  cursor: pointer;
 }
 
 .submit.button {
@@ -382,6 +383,37 @@ p {
   margin-bottom: 32px;
 }
 
+/* LIKES */
+
+.thread-heading {
+  background: linear-gradient(var(--cyan), var(--light-blue));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.likers-heading {
+  text-decoration: underline;
+  text-align: center;
+}
+
+.likers {
+  margin-top: 24px;
+  padding: 12px;
+  background: linear-gradient(to right, var(--gray-blue-transparent), var(--dark-blue-transparent));
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.liked-by {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* END LIKES */
+
 /*  FOOTER */
 
 #page-container {
@@ -433,6 +465,10 @@ p {
 .github-footer {
   font-size: 150%;
 }
+
+/*  END FOOTER */
+
+/* MEDIA QUERIES */
 
 @media screen and (max-width: 800px) {
 

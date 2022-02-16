@@ -1,27 +1,15 @@
 <div class="container">
-  <div class="page-container">
-    <div class="post">
-      <div class="post-user post-controls">
-        <%= render partial: 'users/user_icon', locals: { user: @comment.user } %>
-        <p class="post-author"><%= link_to @comment.user.full_name, user_path(@comment.user) %></p>
-      </div>
-      <p class="abbreviated"><%= abbreviated(@comment) %><span class="ellipses"> . . .</span></p>
-      <% if @comment.comments.any? %>
-        <div class="replies">
-          <%= render partial: 'comments/comment', collection: @comment.comments  %> 
-        </div>
-      <% end %>
+  <div class="posts-collection">
+    <h2 class="thread-heading">Comment Thread</h2>
+    <% if @comment.likers.any? %>
       <div class="likers">
-        <% if @comment.likers.any? %>
+        <p class="likers-heading">users who liked this comment</p>
+        <div class="liked-by">
           <%= render partial: 'liker', collection: @comment.likers %>
-        <% end %>
+        </div>
       </div>
-      <div class="link-back-container">
-        <%= link_to posts_path, class: 'back-to-post' do %>
-          <ion-icon class="arrow-back" name="arrow-back-outline"></ion-icon>
-          <span class="back-to-post-text">back to posts</span>
-        <% end %>
-      </div>
-    </div>
+      <%= render partial: 'comments/comment', locals: { comment: @comment } %>
+    <% end %>
   </div>
 </div>
+

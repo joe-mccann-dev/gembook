@@ -1,0 +1,16 @@
+              
+<div class="button-container">
+  <% if new_friendship_eligible?(user) %>
+    <%= button_to @friendship,
+                    params: { receiver_id: user.id },
+                    class: "add-friend button",
+                    id: "friend-#{user.id}",
+                    data: { confirm: "Send #{user.first_name} a friend request?"} do %>
+      <div class="link-group add-friend-icon-container">
+        <ion-icon class="add-friend-icon" name="person-add-outline"></ion-icon>
+        <span class="add-friend-text"> Add Friend</span>
+      </div>
+    <% end %>
+  <% end %>
+  <%= content_tag(:em, "friendship pending") if current_user.pending_friends.include?(user) %>
+</div>

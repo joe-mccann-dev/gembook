@@ -90,6 +90,7 @@ class User < ApplicationRecord
 
     name = query.strip.downcase.split
     where('lower(first_name) = ? OR lower(last_name) = ?', name.first, name.last)
+    .includes(:profile)
   end
 
   def full_name

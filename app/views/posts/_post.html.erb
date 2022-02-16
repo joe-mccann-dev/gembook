@@ -57,6 +57,6 @@
     </button>
   <% end %>
   <div id="post-<%= post.id %>-comments" class="post-comments">
-    <%= render partial: "/comments/comment", collection: post.comments.includes([:user]) %>
+    <%= render partial: "/comments/comment", collection: post.comments.includes([:likers, :comments, user: [:profile]]) %>
   </div>
 </li>

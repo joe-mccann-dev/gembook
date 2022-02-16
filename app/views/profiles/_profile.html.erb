@@ -1,5 +1,5 @@
 
-  <h1><%= @user.full_name %></h1>
+  <h1 class="users-heading"><%= @user.full_name %></h1>
   <% if profile.profile_picture.present? %>
     <%= link_to image_tag(profile
                 .profile_picture

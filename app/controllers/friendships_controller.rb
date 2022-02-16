@@ -18,7 +18,7 @@ class FriendshipsController < ApplicationController
     else
       flash[:warning] = 'Failed to send friend request. Please try again'
     end
-    redirect_to request.referrer
+    redirect_to request.referrer || root_url
   end
 
   def update
@@ -31,7 +31,7 @@ class FriendshipsController < ApplicationController
     else
       flash[:warning] = 'Failed to accept or decline friendship'
     end
-    redirect_to request.referrer
+    redirect_to request.referrer || root_url
   end
 
   def destroy
@@ -41,7 +41,7 @@ class FriendshipsController < ApplicationController
     else
       flash[:warning] = "Failed to unfriend #{params[:friend_name]}."
     end
-    redirect_to request.referrer
+    redirect_to request.referrer || root_url
   end
 
   private

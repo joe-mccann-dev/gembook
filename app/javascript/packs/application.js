@@ -17,6 +17,7 @@ window.addEventListener("turbolinks:load", () => {
   const navLinks = document.querySelector('#nav-links');
   const commentButtons = document.querySelectorAll('.comment-button');
   const toggleCommentsButtons = document.querySelectorAll('.toggle-comments');
+  const toggleRepliesButtons = document.querySelectorAll('.toggle-replies');
   if (burger) {
     toggleBurger(burger, navLinks);
   }
@@ -25,6 +26,10 @@ window.addEventListener("turbolinks:load", () => {
   }
   if (toggleCommentsButtons) {
     toggleComments(toggleCommentsButtons);
+  }
+
+  if (toggleRepliesButtons) {
+    toggleReplies(toggleRepliesButtons);
   }
 
   hideNotice();
@@ -63,11 +68,28 @@ function toggleComments(buttons) {
   })
 }
 
+function toggleReplies(buttons) {
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const id = button.id.split('-')[2]
+      const postReplies = document.querySelector(`#comment-${id}-replies`);
+      postReplies.classList.toggle('hidden');
+      if (postReplies.classList.contains('hidden')) {
+        button.textContent = 'Show Replies'
+        button.insertAdjacentHTML('beforeend', '<ion-icon class="chevron" name="chevron-down-outline"></ion-icon>')
+      } else {
+        button.textContent = 'Hide Replies'
+        button.insertAdjacentHTML('beforeend', '<ion-icon class="chevron" name="chevron-up-outline"></ion-icon>')
+      }
+    })
+  })
+}
+
 function hideNotice() {
   const notification = document.querySelector('.notification')
   if (notification) {
     setInterval(function() {
       notification.classList.add('fade');
-    }, 5000);
+    }, 4000);
   }
 }

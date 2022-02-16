@@ -41,9 +41,14 @@
                             locals: { commentable: comment,
                                       id: "post-#{comment.commentable_id}-comment-#{comment.id}-reply" } %>
         </div>
-        
-        <div class="replies">
-          <%= render partial: 'comments/comment', collection: comment.comments.includes([:user, :likers])  %>
+        <% if comment.comments.any? %>
+          <button id="toggle-comment-<%= comment.id %>-replies" class="toggle-replies toggle-comment-button">
+            Hide Replies
+            <ion-icon class="chevron" name="chevron-up-outline"></ion-icon>
+          </button>
+        <% end %>
+        <div id="comment-<%= comment.id %>-replies" class="replies">
+          <%= render partial: 'comments/comment', collection: comment.comments.includes([:likers, user: [:profile]])  %>
         </div>
       </div>
     </div>

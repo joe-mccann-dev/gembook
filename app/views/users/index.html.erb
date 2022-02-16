@@ -1,6 +1,6 @@
 <div class="container">
   <div class="page-container">
-    <h1>Friends and Other Users</h1>
+    <h1 class="users-heading" >Friends and Other Users</h1>
     <%= form_with(url: search_users_path, method: :get, class: 'user-search-form') do |f| %>
       <div class="search-and-submit">
         <%= f.text_field :query, placeholder: 'Search for users by name.', size: "25", required: true %>
@@ -8,28 +8,40 @@
       </div>
     <% end %>
     <% if params[:query].present? %>
-      <h2>Search Results</h2>
-      <ul class="user-friends">
-        <%= render partial: 'result', collection: @results %>
+      <h2 class="users-heading">Search Results</h2>
+      <ul class="users-friends">
+        <% @results.each do |result| %>
+          <li class="result">
+            <div class="name-and-icon">
+              <%= render partial: 'user_icon', locals: { user: result } %>
+              <%= link_to result.full_name, user_path(result) %>
+            </div>
+            <% if current_user.friends.include?(result) %>
+              <%= render partial: 'unfriend_button', locals: { friend: result } %>
+            <% else %>
+              <%= render partial: 'add_friend_button', locals: { user: result } %>
+            <% end %>
+          </li>
+        <% end %>
       </ul>
       <%= content_tag(:em, "No users found") if @results.none? %>
     <% end %>
-    <div class="users-heading-button-container">
-      <h2>Friends</h2>
-      <% if @friends.any? %>
+    <% if @friends.any? %>
+      <div class="users-heading-button-container">
+        <h2 class="users-heading">Friends</h2>
         <%= button_to "Show Friends", show_friends_users_path, method: :get, remote: true, class: 'submit', id: 'show-friends' %>
-      <% else %>
-        <em>No Friends yet. Send some requests below!</em>
-      <% end %>
-    </div>
-    <ul class="users-friends", id="friends">
+      </div>
+    <% else %>
+      <em>No Friends yet. Send some requests below!</em>
+    <% end %>
+    <ul class="users-friends" id="friends">
     </ul>
     <% if @users.any? %>
       <div class="users-heading-button-container">
-        <h2>Other Users</h2>
+        <h2 class="users-heading">Other Users</h2>
         <%= button_to "Show Other Users", show_other_users_users_path, method: :get, remote: true, class: 'submit', id: 'show-other-users' %>
       </div>
-      <ul class="users-friends", id="other-users">
+      <ul class="users-friends" id="other-users">
       </ul>
     <% end %>
   </div>
