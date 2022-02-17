@@ -312,12 +312,17 @@ input:hover, textarea:hover {
   opacity: 0;
 }
 
-.notification.message {
+.notification.message, .devise-form-error {
   padding: 0.5rem;
   margin-bottom: 1rem;
   border-radius: 4px;
   text-align: center;
   font-weight: 700;
+}
+
+.devise-form-error {
+  color: var(--light-blue);
+  background-color: var(--red);
 }
 
 .notification.success {
