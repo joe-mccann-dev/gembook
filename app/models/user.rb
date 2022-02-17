@@ -71,7 +71,7 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
 
-  validates_uniqueness_of :first_name, scope: :last_name
+  validates_uniqueness_of :first_name, scope: :last_name, message: "A user with that first and last name already exists."
   validates_uniqueness_of :email
   
   def self.from_omniauth(auth)
