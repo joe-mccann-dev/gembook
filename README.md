@@ -121,7 +121,7 @@ One of the biggest challenges was figuring out how to send a user notifications 
   end
 ```
 
-This `:send_notification` pattern is repeated for likes and post comments. Notification objects require the above attributes in order to facilitate showing their details on the `notifications#index` page and allowing users to view the target of the notifiation (`object_url`):
+This `:send_notification` pattern is repeated for likes and friendships. Notification objects require the above attributes in order to facilitate showing their details on the `notifications#index` page and allowing users to view the target of the notifiation (`object_url`):
 
 ```ruby
 # ApplicationController
