@@ -20,33 +20,37 @@ RSpec.describe User, type: :model do
 
   context 'notifications' do
     it 'has_many sent notifications' do
+      user.sent_notifications.build
       expect(user.sent_notifications).to_not be_empty
     end
 
     it 'has_many received notifications' do
+      user.received_notifications.build
       expect(user.received_notifications).to_not be_empty
     end
   end
 
   context 'friendships' do
     it 'has_many pending sent friend requests' do
+      user.sent_pending_requests.build
       expect(user.sent_pending_requests).to_not be_empty
     end
 
     it 'has_many pending received friend requests' do
+      user.received_pending_requests.build
       expect(user.received_pending_requests).to_not be_empty
     end
 
     it 'has_many sent accepted friend requests' do
       expect(user.sent_accepted_requests).to be_empty
-      to_be_accepted = user.sent_pending_requests.first
+      to_be_accepted = user.sent_pending_requests.create(receiver: other_user)
       to_be_accepted.accepted!
       expect(user.sent_accepted_requests).to include(to_be_accepted)
     end
 
     it 'has_many received accepted friend requests' do
       expect(user.received_accepted_requests).to be_empty
-      to_be_accepted = user.received_pending_requests.first
+      to_be_accepted = user.received_pending_requests.create(sender: other_user)
       to_be_accepted.accepted!
       expect(user.received_accepted_requests).to include(to_be_accepted)
     end
@@ -68,10 +72,12 @@ RSpec.describe User, type: :model do
 
   context 'friends' do
     it 'has_many pending requested friends' do
+      user.sent_pending_requests.create(receiver: other_user)
       expect(user.pending_requested_friends).to_not be_empty
     end
 
     it 'has_many pending received friends' do
+      user.received_pending_requests.create(sender: other_user)
       expect(user.pending_received_friends).to_not be_empty
     end
 
