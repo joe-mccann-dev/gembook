@@ -168,9 +168,10 @@ RSpec.describe "ViewProfiles", type: :system do
           click_on 'Add Friend'
         end
 
+        sleep(1)
         link = "Send #{other_user.first_name} a friend request"
         visit user_path(other_user)
-        expect(page).to have_content("You sent #{other_user.first_name} a friend request.", wait: 5)
+        expect(page).to have_content("You sent #{other_user.first_name} a friend request.")
         expect(page).to_not have_link(link)
       end
     end

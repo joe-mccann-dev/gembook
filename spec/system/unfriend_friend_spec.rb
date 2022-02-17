@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "UnfriendFriend", type: :system do
   before do
-    driven_by(:rack_test)
+    driven_by(:selenium_headless)
   end
 
   let!(:user) { User.create(first_name: 'foo', last_name: 'bar', email: 'foo@bar.com', password: 'foobar') }
@@ -10,7 +10,6 @@ RSpec.describe "UnfriendFriend", type: :system do
 
   context "A user wants to 'unfriend' a user they are friends with" do
     before do
-      Capybara.current_driver = Capybara.javascript_driver
       login_as(user, scope: :user)
       visit users_path
 

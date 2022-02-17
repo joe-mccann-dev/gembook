@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "DismissNotifications", type: :system do
   before do
-    driven_by(:rack_test)
+    driven_by(:selenium_headless)
   end
 
   let!(:friend_requester) { User.create(first_name: 'notified', last_name: 'user', email: 'notified@user.com', password: 'foobar') }
@@ -11,7 +11,6 @@ RSpec.describe "DismissNotifications", type: :system do
   context 'a user sends a friend request and request is accepted' do
 
     before do
-      Capybara.current_driver = Capybara.javascript_driver
       login_as(friend_requester, scope: :user)
       visit users_path
     end
@@ -46,7 +45,6 @@ RSpec.describe "DismissNotifications", type: :system do
 
   context 'a user sends a request' do
     before do
-      Capybara.current_driver = Capybara.javascript_driver
       login_as(friend_requester, scope: :user)
       visit users_path
       
