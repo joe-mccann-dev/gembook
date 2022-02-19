@@ -48,6 +48,15 @@ body {
   flex-direction: column;
 }
 
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 6rem;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -425,14 +434,7 @@ p {
 
 /*  FOOTER */
 
-#page-container {
-  position: relative;
-  min-height: 100vh;
-}
 
-#content-wrap {
-  padding-bottom: 6rem;
-}
 
 .footer {
   position: absolute;
