@@ -2,7 +2,9 @@
   <%= render partial: 'profiles/profile', object: @profile || Profile.new, locals: { user: @user } %>
   <% if user_is_current_user?(@user) %>
     <h3 class="users-heading profile-heading">Write a New Post</h3>
-    <%= render partial: 'posts/post_form' %>
+    <div class="form-container">
+      <%= render partial: 'posts/post_form' %>
+    </div>
     <h3 class="profile-heading">Your Posts</h3>
     <ul class="posts-collection">
       <%= render partial: 'posts/post', collection: @posts %>
