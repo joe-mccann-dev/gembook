@@ -25,7 +25,7 @@
   .thumb-outline:hover,
   .thumb-filled:hover {
     color: var(--cyan);
-    transition: .2s;
+    transition: color .3s ease-in-out;
   }
 
   .like-text {

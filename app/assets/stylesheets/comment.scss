@@ -73,7 +73,7 @@
 
 .comment-button:hover, .toggle-comment-button:hover {
   color: var(--light-blue);
-  transition: .2s;
+  transition: color .3s ease-in-out;
 }
 
 .toggle-comment-button {

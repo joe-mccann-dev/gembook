@@ -108,7 +108,7 @@ nav.pagination span {
 
 .nav-links li a:hover {
   color: var(--light-blue);
-  transition: .2s;
+  transition: color .3s ease-in-out;
 }
 
 .hamburger {
@@ -137,7 +137,7 @@ nav.pagination span {
 
 .logo:hover {
   color: var(--light-blue);
-  transition: .2s;
+  transition: color .3s ease-in-out;
 } 
 
 .gembook {
@@ -195,7 +195,7 @@ a {
 
 a:hover {
   color: var(--light-blue);
-  transition: .2s;
+  transition: color .3s ease-in-out;
 }
 
 /* END LINKS */
@@ -218,7 +218,7 @@ ion-icon {
 
 .profile-picture:hover {
   box-shadow: 0 0 0 2px var(--light-blue);
-  transition: .2s;
+  transition: box-shadow .3s ease-in-out;
 }
 
 /* BUTTONS/INPUTS */
@@ -238,12 +238,12 @@ textarea, input {
 
 input:focus, textarea:focus {
   box-shadow: 0 0 0 2px var(--cyan);
-  transition: .2s;
+  transition: box-shadow .3s ease-in-out;
 }
 
 input:hover, textarea:hover {
   box-shadow: 0 0 0 2px var(--cyan);
-  transition: .2s;
+  transition: box-shadow .3s ease-in-out;
 }
 
 /* END BUTTONS/INPUTS */
@@ -267,7 +267,7 @@ input:hover, textarea:hover {
 
 .submit.button:hover {
   box-shadow: 0 0 0 2px var(--yellow-orange);
-  transition: .2s;
+  transition: color .3s ease-in-out;
 }
 
 .devise-form {
@@ -295,7 +295,7 @@ input:hover, textarea:hover {
 
 .devise-links-container a:hover {
   box-shadow: 0 0 0 2px var(--yellow-orange);
-  transition: .2s;
+  transition: box-shadow .3s ease-in-out;
 }
 
 .devise-links {
@@ -401,7 +401,7 @@ p {
 
 .button:hover {
   box-shadow: 0 0 0 2px var(--cyan);
-  transition: .2s;
+  transition: box-shadow .3s ease-in-out;
 }
 
 .button-cancel {
@@ -486,7 +486,7 @@ p {
 
 .footer-link:hover {
   color: var(--light-blue);
-  transition: .2s;
+  transition: color .3s ease-in-out;
 }
 
 

@@ -8,7 +8,7 @@
 
 .profile-display-photo:hover {
   box-shadow: 0 0 0 2px var(--light-blue);
-  transition: .2s;
+  transition: box-shadow .3s ease-in-out;
 }
 
 .profile-heading {
