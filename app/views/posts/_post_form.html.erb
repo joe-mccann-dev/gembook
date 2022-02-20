@@ -7,10 +7,12 @@
     </div>
     <div class="field image-upload">
       <label class="image-label">
-        <ion-icon class="image-icon" name="image"></ion-icon>
-        <span>
+        <div class="icon-file-field-container">
+          <div class="icon-container">
+            <ion-icon class="image-icon" name="image"></ion-icon>
+          </div>
           <%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg,image/jpg', class: 'file-field' %>
-        </span>
+        </div>
       </label>
     </div>
     <div class="field">

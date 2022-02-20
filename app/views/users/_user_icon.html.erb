@@ -1,12 +1,14 @@
+<div class="profile-icon-container">
   <% if user.profile.present? && user.profile.profile_picture.representable? %>
-  <%= link_to image_tag(user.profile
+    <%= link_to image_tag(user.profile
                 .profile_picture
                 .representation(resize_to_fill: [50, 50], convert: "png"), alt: 'a user profile picture', class: 'profile-picture'),
               user_path(user),
               class: 'profile-picture-link',
               id: "profile-#{user.profile.id}-picture" %>
-<% else %>
-  <%= link_to image_tag('blank-profile-picture.png', size: "50x50", class: 'profile-picture'),
+  <% else %>
+    <%= link_to image_tag('blank-profile-picture.png', size: "50x50", class: 'profile-picture'),
                 user_path(user),
                 class: 'profile-picture-link' %>
-<% end %>
+  <% end %>
+</div>

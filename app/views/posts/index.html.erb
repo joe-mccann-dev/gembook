@@ -1,6 +1,8 @@
 <div class="container">
   <h1 class="users-heading">Home</h1>
-  <%= render partial: 'posts/post_form' %>
+  <div class="form-container">
+    <%= render partial: 'posts/post_form' %>
+  </div>
   <ul class="posts-collection">
     <%= render partial: 'posts/post', collection: @posts %>
   </ul>

@@ -5,12 +5,16 @@
 // POST FORM
 
 .form.new-post {
-  flex: 1;
   display: flex;
   flex-direction: column;
   border: solid 4px var(--cyan);
   border-radius: 12px;
   padding: 2rem;
+  width: 100%;
+}
+
+.form-container {
+  width: 680px;
 }
 
 .post-text-area {
@@ -20,36 +24,37 @@
 }
 
 .image-upload {
-  width: 100%;
-  flex: 1;
   display: flex;
   justify-content: center;
-  gap: 12px;
-  padding: 0.5rem;
 }
 
 .image-label {
-  width: 100%;
+  width: 400px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 1rem;
   border: solid 1px var(--cyan);
   border-radius: 8px;
   padding: 0.5rem 1rem;
 }
 
-.file-field {
-  max-width: 50vw;
+.icon-file-field-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-container {
+  width: 32px;
+  height: 32px;
 }
 
 .image-icon {
-  font-size: 200%;
+  font-size: 32px;
   color: var(--green);
 }
 
 .button-post.submit {
-  width: 100%;;
+  width: 100%;
 }
 
 // END POST FORM
@@ -166,3 +171,17 @@
 
 // END POST DISPLAY //
 
+@media screen and (max-width: 800px) {
+  .form-container {
+    width: 340px;
+  }
+
+  .image-label {
+    width: 200px;
+  }
+
+  .file-field {
+    width: 100px;
+  }
+
+}
