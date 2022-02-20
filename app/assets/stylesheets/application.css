@@ -100,7 +100,7 @@ nav.pagination span {
 }
 
 .nav-item {
-
+  
 }
 
 .nav-links li a {
@@ -155,10 +155,12 @@ nav.pagination span {
 }
 
 .nav-icon {
-  font-size: 36px;
+  height: 36px;
+  width: 36px;
 }
 
 .nav-icon-container {
+  font-size: 36px;
   height: 36px;
   width: 36px;
 }
@@ -311,8 +313,13 @@ input:hover, textarea:hover {
   gap: 8px;
 }
 
+.footer-icon-container {
+  width: 24px;
+  height: 24px;
+}
+
 .github-icon {
-  font-size: 125%;
+  font-size: 24px;
   color: var(--dark-blue);
 }
 
