@@ -63,7 +63,6 @@ class FriendshipsController < ApplicationController
     update_notification({ object_type: object_type, sender_id: sender_id })
   end
 
-  # TODO: make object_url more relevant to friendship
   def send_friend_request_notification(user_id, description)
     send_notification({ receiver_id: user_id,
                         object_type: 'Friendship',
