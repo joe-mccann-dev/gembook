@@ -17,7 +17,7 @@ Rails.application.configure do
   OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({
     provider: 'github',
     uid: '123456',
-    info: { email: 'foo@bar.com', name: 'Foo Bar', image: 'https://via.placeholder.com/400'}
+    info: { email: 'foo@bar.com', name: 'Foo Bar', image: 'https://unsplash.com/photos/7TjeBRFGAQY/download?ixid=MnwxMjA3fDB8MXxhbGx8M3x8fHx8fDJ8fDE2NjA3MTYxMjg&force=true&w=640'}
   })
 
   config.cache_classes = false

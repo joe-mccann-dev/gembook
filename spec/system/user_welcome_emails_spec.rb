@@ -8,7 +8,7 @@ RSpec.describe "UserWelcomeEmails", type: :system do
   let!(:user) { User.new(first_name: 'abcde3456fg', last_name: 'hijklmno', email: 'abcdefg@hijklmno.com', password: '123456')}
 
   before(:each) do
-    OmniAuth.config.add_mock(:github, {info: { email: 'iamoauth@user.com', name: 'Full Name', image: 'https://via.placeholder.com/400' } })
+    OmniAuth.config.add_mock(:github, {info: { email: 'iamoauth@user.com', name: 'Full Name', image: 'https://unsplash.com/photos/7TjeBRFGAQY/download?ixid=MnwxMjA3fDB8MXxhbGx8M3x8fHx8fDJ8fDE2NjA3MTYxMjg&force=true&w=640' } })
   end
 
   it 'sends them a welcome email' do
