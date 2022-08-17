@@ -11,7 +11,7 @@ A social media application programmed with Ruby on Rails.
     - Clone this repo.
     - `cd gembook`
     - `bundle install && yarn install`
-    -  Ubuntu: `sudo apt install imagemagick` | Mac: `brew install imagemagick` (for image processing locally)
+    -  For proper image processing locally, on Ubuntu: `sudo apt install imagemagick`; on Mac: `brew install imagemagick`
 
   1. Setup the database.
       1. `rails db:create`
