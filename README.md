@@ -18,8 +18,8 @@ A social media application programmed with Ruby on Rails.
       2. `rails db:migrate && rails db:seed`
 
 2. Set Up OmniAuth Authentication in Development (optional).
-  - Create an OAuth app in your GitHub account for this purpose. Copy client id and secret to a figaro-gem-created and git-ignored file (`config/application.yml`)
-  - Essentially, steps 1 and 2 found on my blog post: https://joe-mccann.dev/blog/setting-up-omniauth-authentication-in-development 
+    - Create an OAuth app in your GitHub account for this purpose. Copy client id and secret to a figaro-gem-created and git-ignored file (`config/application.yml`)
+    - Essentially, steps 1 and 2 found on my blog post: https://joe-mccann.dev/blog/setting-up-omniauth-authentication-in-development 
 
 3. Start a Rails Server.
 
