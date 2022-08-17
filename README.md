@@ -14,11 +14,11 @@ A social media application programmed with Ruby on Rails.
     -  `sudo apt install imagemagick` (for image processing locally)
 
   1. Setup the database.
-    1. Create postgres development database
-        - `sudo -i -u postgres`
-        - `createdb rails_facebook_development` and `createdb rails_facebook_test`
-        - `exit`
-    2. `rails db:migrate && rails db:seed`
+      1. Create postgres databases
+         - `sudo -i -u postgres`
+         - `createdb rails_facebook_development` and `createdb rails_facebook_test`
+         - `exit`
+      2. `rails db:migrate && rails db:seed`
 
 2. Set Up OmniAuth Authentication in Development (optional).
   - Create an OAuth app in your GitHub account for this purpose. Copy client id and secret to a figaro-gem-created and git-ignored file (`config/application.yml`)
