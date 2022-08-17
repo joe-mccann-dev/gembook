@@ -11,13 +11,10 @@ A social media application programmed with Ruby on Rails.
     - Clone this repo.
     - `cd gembook`
     - `bundle install && yarn install`
-    -  `sudo apt install imagemagick` (for image processing locally)
+    -  Ubuntu: `sudo apt install imagemagick` | Mac: `brew install imagemagick` (for image processing locally)
 
   1. Setup the database.
-      1. Create postgres databases
-         - `sudo -i -u postgres`
-         - `createdb rails_facebook_development` and `createdb rails_facebook_test`
-         - `exit`
+      1. `rails db:create`
       2. `rails db:migrate && rails db:seed`
 
 2. Set Up OmniAuth Authentication in Development (optional).
