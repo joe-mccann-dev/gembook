@@ -11,13 +11,20 @@ A social media application programmed with Ruby on Rails.
     - Clone this repo.
     - `cd gembook`
     - `bundle install && yarn install`
+    -  sudo apt install imagemagick (for image processing locally)
 
-2. Seed the database.
+2. Setup the database.
+    1. Create postgres development database
+        - `sudo -i -u postgres`
+        - `createdb rails_facebook_development`
+        - `exit`
+    2. `rails db:migrate && rails db:seed`
 
-    - `rails db:migrate`
-    - `rails db:seed`
+3. Set Up OmniAuth Authentication in Development (optional).
+  - Create an OAuth app in your GitHub account for this purpose. Copy client id and secret to a figaro gem created and git-ignored file (`config/application.yml`)
+  - Essentially, follow detailed instructions on my blog: https://joe-mccann.dev/blog/setting-up-omniauth-authentication-in-development 
 
-3. Start a Rails Server.
+4. Start a Rails Server.
 
     - `rails server`
     - Navigate to `localhost:3000` in your browser.
@@ -35,15 +42,7 @@ A social media application programmed with Ruby on Rails.
 
 ### Running the Specs
 
-#### All specs
-
-- `bundle exec rspec` from the `gembook` directory.
-
-#### Spec Categories
-
-- `bundle exec rspec spec/mailers`
-- `bundle exec rspec spec/models`
-- `bundle exec rspec spec/system`
+- `bundle exec rspec spec --format documentation`
 
 ### Features
 
