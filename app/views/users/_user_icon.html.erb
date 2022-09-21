@@ -2,13 +2,15 @@
   <% if user.profile.present? && user.profile.profile_picture.representable? %>
     <%= link_to image_tag(user.profile
                 .profile_picture
-                .representation(resize_to_fill: [50, 50], convert: "png"), alt: 'a user profile picture', class: 'profile-picture'),
+                .representation(resize_to_fill: [50, 50], convert: "png"), alt: 'a user profile picture', class: 'profile-picture', alt: "profile picture for #{user.full_name}"),
               user_path(user),
               class: 'profile-picture-link',
-              id: "profile-#{user.profile.id}-picture" %>
+              id: user_name || "profile-#{user.profile.id}-picture",
+              alt: "link to profile of #{user.full_name}" %>
   <% else %>
-    <%= link_to image_tag('blank-profile-picture.png', size: "50x50", class: 'profile-picture'),
+    <%= link_to image_tag('blank-profile-picture.png', size: "50x50", class: 'profile-picture', alt: 'generic profile picture'),
                 user_path(user),
-                class: 'profile-picture-link' %>
+                class: 'profile-picture-link',
+                alt: "link to profile of #{user.full_name}" %>
   <% end %>
 </div>
