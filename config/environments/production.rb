@@ -7,7 +7,7 @@ Rails.application.configure do
   config.force_ssl = true
 
     # default host for production
-  host = 'fathomless-citadel-41420.herokuapp.com/'
+  host = 'https://gembook.onrender.com/'
   config.action_mailer.default_url_options = { host: host }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
@@ -16,7 +16,7 @@ Rails.application.configure do
     authentication: :plain,
     user_name: "apikey",
     password: ENV['SENDGRID_API_KEY'],
-    domain: 'heroku.com',
+    domain: 'onrender.com',
     enable_starttls_auto: true
   }
 
