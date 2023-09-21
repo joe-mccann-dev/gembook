@@ -11,10 +11,15 @@ A social media application programmed with Ruby on Rails.
     - Clone this repo.
     - `cd gembook`
     - `bundle install && yarn install`
-    -  For proper image processing locally, on Ubuntu: `sudo apt install imagemagick`; on Mac: `brew install imagemagick`
+    - For proper image processing locally, on Ubuntu: `sudo apt install imagemagick`; on Mac: `brew install imagemagick`
+    - bundle exec rails:assets precompile
+
+    #### Known issues
+
+    You may run into issues with webpacker and strange bugs. Try installing an older version of node such as 14, then deleting node_modules and yarn.lock, then re-running the above steps.
 
   1. Setup the database.
-      1. `rails db:create`
+      1. `rails db:create` (see `database.yml`: I use `<%= ENV['DATABASE_PASSWORD'] %>` for postgres password, but yours may differ)
       2. `rails db:migrate && rails db:seed`
 
 2. Set Up OmniAuth Authentication in Development (optional).
