@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 # exit on error
-set -o errexit
+# set -o errexit
 
-bundle install && yarn install
-bundle exec rails assets:precompile
+bundle install && yarn install && rails webpacker:install
 rails assets:precompile
 rails assets:clean
 bundle exec rails db:migrate
