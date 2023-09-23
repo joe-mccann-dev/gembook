@@ -85,3 +85,4 @@ production:
   database: rails_facebook_production
   username: rails_facebook
   password: <%= ENV['RAILS_FACEBOOK_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
