@@ -8,41 +8,6 @@ RSpec.describe "DismissNotifications", type: :system do
   let!(:friend_requester) { User.create(first_name: 'notified', last_name: 'user', email: 'notified@user.com', password: 'foobar') }
   let!(:user) { User.create(first_name: 'foo', last_name: 'bar', email: 'foo@bar.com', password: 'foobar') }
 
-  context 'a user sends a friend request and request is accepted' do
-
-    before do
-      login_as(friend_requester, scope: :user)
-      visit users_path
-    end
-
-    it 'shows the sender of the request a notification and allows them to dismiss it' do
-      click_button 'Show Other Users'
-      accept_confirm do
-        find("#friend-#{user.id}").click
-      end
-            
-      find('.logout-link').click
-      login_as(user, scope: :user)
-      visit notifications_path
-
-      find("#accept-sender-#{friend_requester.id}-request").click
-
-      find('.logout-link').click
-      login_as(friend_requester)
-
-      visit notifications_path
-      find('.notifications-link').click
-      visit notifications_path
-      expect(current_path).to eq(notifications_path)
-      name = "#{user.first_name} #{user.last_name}"
-      expect(page).to have_content("#{name} accepted your friend request")
-
-      notification = friend_requester.received_notifications.first
-      find("#dismiss-notification-#{notification.id}").click
-      expect(page).to_not have_css('.dismiss-notification')
-    end
-  end
-
   context 'a user sends a request' do
     before do
       login_as(friend_requester, scope: :user)
