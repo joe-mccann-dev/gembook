@@ -26,23 +26,36 @@
       </ul>
       <%= content_tag(:em, "No users found") if @results.none? %>
     <% end %>
-    <% if @friends.any? %>
-      <div class="users-heading-button-container">
-        <h2 class="users-heading">Friends</h2>
-        <%= button_to "Show Friends", show_friends_users_path, method: :get, remote: true, class: 'submit', id: 'show-friends' %>
-      </div>
-    <% else %>
-      <em>No Friends yet. Send some requests below!</em>
-    <% end %>
-    <ul class="users-friends" id="friends">
-    </ul>
-    <% if @users.any? %>
-      <div class="users-heading-button-container">
-        <h2 class="users-heading">Other Users</h2>
-        <%= button_to "Show Other Users", show_other_users_users_path, method: :get, remote: true, class: 'submit', id: 'show-other-users' %>
-      </div>
-      <ul class="users-friends" id="other-users">
-      </ul>
-    <% end %>
+    <div class="friends-and-other-users" data-controller="show-users">
+      <% if @friends.any? %>
+        <div class="users-heading-button-container">
+          <h2 class="users-heading"> Friends</h2>
+        </div>
+        <%= button_to "Hide Friends", 
+            "javascript:void(0)",
+            method: :get,
+            class: "button",
+            data: { "show-users-target": "friendsButton", action: "click->show-users#showFriends"} %>
+        <ul class="users-friends" id="friends", data-show-users-target="friends">
+          <%= render partial: "friend", collection: @friends %>
+        </ul>
+      <% else %>
+        <em>No Friends yet. Send some requests below!</em>
+      <% end %>
+
+      <% if @users.any? %>
+        <div class="users-heading-button-container">
+          <h2 class="users-heading">Other Users</h2>
+        </div>
+        <%= button_to "Show Other Users", 
+            "javascript:void(0)",
+            method: :get,
+            class: "button",
+            data: { "show-users-target": "usersButton", action: "click->show-users#showUsers" }%>
+        <ul class="users-friends hidden" id="other-users", data-show-users-target="users">
+          <%= render partial: "user", collection: @users %>
+        </ul>
+      <% end %>
+    </div>
   </div>
 </div>

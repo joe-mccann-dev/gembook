@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "DisplayProfileIcons", type: :system do
   before do
-    driven_by(:selenium_headless)
+    driven_by(:selenium)
   end
 
   let!(:user) { User.create(first_name: 'abcde', last_name: 'wxzy', email: 'abcde@wxzy.com', password: 'foobar') }
@@ -15,11 +15,15 @@ RSpec.describe "DisplayProfileIcons", type: :system do
       image_1_file_path = "#{Rails.root}/spec/files/image_1.jpg"
       attach_file(image_1_file_path)
       click_on "Submit Profile"
-      find('.logout-link').click
+      click_on "Sign out"
     end
 
     it "shows them users names with profile pictures next to them" do
-      login_as(user, scope: :user)
+      fill_in "user_email", with: user.email
+      fill_in "user_password", with: user.password
+      click_on "Log in"
+      expect(page).to have_content "Recent Posts"
+
       visit users_path
       click_on "Show Other Users"
       expect(page).to have_css("img[src*='image_1.jpg']")

@@ -1,14 +1,18 @@
-<div class="comment-button-container">
+<div class="comment-button-container" data-action="click->show-comments#showCommentForm">
   <% link_text = id.match?(/^.*reply$/) ? 'Reply' : 'Comment' %>
   <button id="<%= link_text %>-<%= commentable.id %>" class="comment-button"><%=link_text %></button>
 </div>
-<%= form_with(model: [commentable, Comment.new], class: 'comment-box', id: "comment-box-for-commentable-#{link_text}-#{commentable.id}") do |f| %>
+<%= form_with(model: [commentable, Comment.new], 
+              class: 'comment-box hidden', 
+              id: "comment-box-for-commentable-#{link_text}-#{commentable.id}",
+              data: { "show-comments-target": "commentForm", action: "turbo:submit-end->show-comments#showCommentForm" }) do |f| %>
+              
   <%= render 'shared/error_messages', object: f.object %>
-  <%= f.text_area :content, id: id %>
+  <%= f.text_area :content, id: id, required: true, minlength: 3, maxlength: 2000 %>
   <br>
   <% if id.match?(/^.*reply$/)%>
     <%= f.submit "Reply", id: "submit-#{commentable.id}" %>
   <% else %>
-    <%= f.submit "Comment", id: "submit-#{commentable.id}" %>
+    <%= f.submit "Comment on Post", id: "submit-#{commentable.id}" %>
   <% end %>
 <% end %>

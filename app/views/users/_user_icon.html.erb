@@ -6,11 +6,13 @@
               user_path(user),
               class: 'profile-picture-link',
               id: "profile-#{user.profile.id}-picture",
-              alt: "link to profile of #{user.full_name}" %>
+              alt: "link to profile of #{user.full_name}",
+              data: { turbo: false } %>
   <% else %>
     <%= link_to image_tag('blank-profile-picture.png', size: "50x50", class: 'profile-picture', alt: 'generic profile picture'),
                 user_path(user),
                 class: 'profile-picture-link',
-                alt: "link to profile of #{user.full_name}" %>
+                alt: "link to profile of #{user.full_name}",
+                data: { turbo: false } %>
   <% end %>
 </div>

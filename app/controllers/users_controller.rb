@@ -27,24 +27,6 @@ class UsersController < ApplicationController
     User.includes([:profile]).where.not(id: [current_user.id, current_user.friends.map(&:id)].flatten)
   end
 
-  def show_friends
-    respond_to do |format|
-      format.js do
-        @friendships = current_user.friendships_via_friend_id
-        @friends = current_user.friends
-      end
-    end
-  end
-
-  def show_other_users
-    respond_to do |format|
-      format.js do
-        @users = other_users
-        @friendship = current_user.sent_pending_requests.build
-      end
-    end
-  end
-
   private
 
   def set_user

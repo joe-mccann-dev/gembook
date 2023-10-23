@@ -9,16 +9,34 @@ class LikesController < ApplicationController
 
   def create
     @like = @liked_object.likes.build(user: current_user)
-    @like.save
-    flash[:success] = "Liked #{object_to_s(@liked_object)} successfully."
-    redirect_to "#{request.referrer}#{@likeable_id}" || root_url
+    if @like.save
+      respond_to do |format|
+        format.turbo_stream {}
+        format.html {
+          flash[:success] = "Liked #{object_to_s(@liked_object)} successfully."
+          redirect_to "#{request.referrer}#{@likeable_id}" || root_url
+        }
+      end
+    else
+      flash[:warning] = "Liked #{object_to_s(@liked_object)} successfully."
+      redirect_to redirect_to "#{request.referrer}#{@likeable_id}" || root_url
+    end    
   end
 
   def destroy
     @like = Like.find(params[:id])
-    @like.destroy
-    flash[:success] = "Unliked #{object_to_s(@liked_object)} successfully."
-    redirect_to "#{request.referrer}#{@likeable_id}" || root_url
+    if @like.destroy
+      respond_to do |format|
+        format.turbo_stream {}
+        format.html {
+          flash[:success] = "Unliked #{object_to_s(@liked_object)} successfully."
+          redirect_to "#{request.referrer}#{@likeable_id}" || root_url
+        }
+      end
+    else
+      flash[:warning] = "failed to unlike #{object_to_s(@liked_object)}."
+      redirect_to "#{request.referrer}#{@likeable_id}" || root_url
+    end
   end
 
   private

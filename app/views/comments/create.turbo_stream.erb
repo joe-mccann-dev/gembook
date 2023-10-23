@@ -1,0 +1,28 @@
+<% if @commented_object.is_a?(Comment) %>
+<%# append a reply to a comment %>
+<%= turbo_stream.append "comment-#{@commented_object.id}-replies" do %>
+  <%= turbo_stream_from "comment-#{@commented_object.id}-replies"  %>
+
+  <%= turbo_frame_tag @comment,
+                      "data-autoscroll-behavior": "smooth", 
+                      "data-controller": "scroll-to-item", 
+                      "data-scroll-to-item-target": "item" do %>
+
+    <%= render "comments/comment", comment: @comment %>
+  <% end %>
+<% end %>
+
+<% else %>
+  <%# append a comment to a post %>
+  <%= turbo_stream.append "post-#{@comment.commentable.id}-comments" do %>
+    <%= turbo_stream_from "post-#{@comment.commentable.id}-comments"  %>
+
+    <%= turbo_frame_tag @comment,                       
+                        "data-autoscroll-behavior": "smooth", 
+                        "data-controller": "scroll-to-item", 
+                        "data-scroll-to-item-target": "item" do %>
+
+      <%= render "comments/comment", comment: @comment %>
+    <% end %>
+  <% end %>
+<% end %>

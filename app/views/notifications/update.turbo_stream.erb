@@ -1,0 +1,8 @@
+<% if @notification.description == 'new friend request' %>
+  <% friendship = @friendships[@notification.sender.id] %>
+  <% id_to_replace = "accept-friend-request-#{friendship.id}" %>
+<% else %>
+  <% id_to_replace = "dismiss-notification-#{@notification.id}" %>
+<% end %>
+
+<%= turbo_stream.replace(id_to_replace, partial: "notification_dismissed_message") %>

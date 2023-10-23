@@ -23,31 +23,47 @@ class PostsController < ApplicationController
 
   def create
     if @post.save
-      flash[:success] = 'Post created successfully.'
-      redirect_to root_url
+      respond_to do |format|
+        format.turbo_stream {}
+        format.html {
+          redirect_to posts_path
+          flash[:success] = "Post was successfully created"
+        }
+      end
     else
+      redirect_to posts_path
       flash[:warning] = 'Failed to create post. Please try again.'
-      render :new
     end
   end
 
   def update
     if @post.update(post_params)
-      flash[:success] = 'Post successfully edited.'
-      redirect_to post_path(@post)
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(@post) }
+        format.html { 
+          redirect_to posts_path
+          flash[:success] = "Post was successfully updated"
+        }
+      end
     else
       render :edit
-      flash[:warning] = 'Failed to update post'
+      flash[:warning] = "Failed to update post"
     end
   end
 
   def destroy
     if @post.destroy
-      flash[:info] = 'Post successfully removed.'
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.remove(@post) }
+        format.html {
+          redirect_to posts_path
+          flash[:success] = 'Post successfully removed.'
+        }
+      end
     else
+      redirect_to posts_path
       flash[:warning] = "Failed to remove post."
     end
-    redirect_to root_url
   end
 
   def show

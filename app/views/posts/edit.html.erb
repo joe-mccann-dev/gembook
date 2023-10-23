@@ -1,6 +1,8 @@
 <div class="container">
   <p class="edit-post">Edit Post</p>
   <div class="form-container">
-    <%= render partial: 'posts/post_form' %>
+    <%= turbo_frame_tag(@post) do %>
+	    <%= render partial: 'posts/post_form' %>
+    <% end %>
   </div>
 </div>

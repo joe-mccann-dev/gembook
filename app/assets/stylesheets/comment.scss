@@ -7,7 +7,9 @@
 }
 
 .comment-thread {
-  width: 100%
+  width: 100%;
+  border-left: solid 1.2px var(--gray-blue);
+  padding-left: 12px;
 }
 
 .comment {
@@ -27,6 +29,26 @@
 
 .comment-content {
   overflow-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 70vw;
+  overflow: auto; 
+  word-wrap: break-word;
+  padding: 0.8rem;
+}
+
+.comment-text {
+  background: linear-gradient(to right, var(--gray-blue), var(--dark-blue));
+  border-radius: 12px;
+  padding: 0.8rem;
+}
+
+.comment-text p {
+  margin-bottom: 0;
+  padding: 6px 0;
+  font-size: 0.8rem;
 }
 
 .comment-header {
@@ -47,12 +69,7 @@
   border-bottom: solid var(--gray-blue-transparent) 1px;
 }
 
-.comment-content {
-  margin-left: 8px;
-}
-
 .comment-box {
-  display: none;
   width: 90%;
   margin-left: 1rem;
 }

@@ -1,0 +1,8 @@
+<%= turbo_frame_tag "comment-#{comment.id}-likes" do %>
+  <%= render partial: 'likes/like_button', locals: { likeable: comment, path: comment_likes_path(comment) } %>
+  <% if comment.likes.any? %>
+    <div class="comment-likes">
+      <%= render partial: 'likes/like_count', locals: { likeable: comment, path: comment_path(comment) } %>
+    </div>
+  <% end %>
+<% end %>

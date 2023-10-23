@@ -10,9 +10,8 @@ A social media application programmed with Ruby on Rails.
 
     - Clone this repo.
     - `cd gembook`
-    - `bundle install && yarn install`
-    - For proper image processing locally, on Ubuntu: `sudo apt install imagemagick`; on Mac: `brew install imagemagick`
-    - bundle exec rails:assets precompile
+    - `bundle install`
+    - For proper image processing locally, on Ubuntu: `sudo apt-get install libvips`;
 
     #### Known issues
 
@@ -44,7 +43,7 @@ A social media application programmed with Ruby on Rails.
 
 ### Running the Specs
 
-- `bundle exec rspec spec --format documentation`
+- `bundle exec rspec spec/`
 
 ### Features
 

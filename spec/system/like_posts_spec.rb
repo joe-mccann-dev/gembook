@@ -4,7 +4,7 @@ include UsersHelper
 
 RSpec.describe "LikePosts", type: :system do
   before do
-    driven_by(:rack_test)
+    driven_by(:selenium)
   end
 
   let!(:user) { User.create(first_name: 'Foo', last_name: 'Bar', email: 'foo@bar.com', password: 'foobar') }
@@ -20,30 +20,47 @@ RSpec.describe "LikePosts", type: :system do
       login_as(liker, scope: :user)
       friendship.accepted!
       another_friendship.accepted!
-      visit root_url
+      visit posts_path
     end
 
     it 'allows a user to like a post' do
-      expect { find("#post-#{post.id}-like").click }.to change { liker.liked_posts.count }.from(0).to(1)
+      expect(liker.liked_posts.count).to eq(0)
+
+      find("#post-#{post.id}-like").click
+      find(".thumb-filled");
+      
       expect(post.likers.count).to eq(1)
     end
 
     it 'allows a user to like their own post' do
+      expect(user.liked_posts.count).to eq(0)
       logout(liker)
       login_as(user, scope: :user)
-      expect { find("#post-#{post.id}-like").click }.to change { user.liked_posts.count }.from(0).to(1)
+
+      find("#post-#{post.id}-like").click
+      find(".thumb-filled");
+
+      expect(user.liked_posts.count).to eq(1)
       expect(post.likers.count).to eq(1)
     end
 
     it 'allows more than one user to like a post' do
-      expect { find("#post-#{post.id}-like").click }.to change { liker.liked_posts.count }.from(0).to(1)
+      expect(liker.liked_posts.count).to eq(0)
+      find("#post-#{post.id}-like").click
+      find(".thumb-filled")
+      expect(liker.liked_posts.count).to eq(1)
+
       expect(post.likers.count).to eq(1)
 
       logout(liker)
       login_as(user, scope: :user)
-      visit root_url
+      visit posts_path
 
-      expect { find("#post-#{post.id}-like").click }.to change { user.liked_posts.count }.from(0).to(1)
+      expect(user.liked_posts.count).to eq(0)
+      find("#post-#{post.id}-like").click
+      find(".thumb-filled")
+      expect(user.liked_posts.count).to eq(1)
+
       expect(post.likers.count).to eq(2)
     end
 
@@ -55,6 +72,7 @@ RSpec.describe "LikePosts", type: :system do
 
     it 'shows like count after liking' do
       find("#post-#{post.id}-like").click
+      find(".thumb-filled")
       liker_name = post.likers.first.full_name
       expect(page).to have_content("1 like")
     end

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "ViewPostsAndComments", type: :system do
   before do
-    driven_by(:rack_test)
+    driven_by(:selenium)
   end
 
   let!(:user) { User.create(first_name: 'foo', last_name: 'bar', email: 'foo@bar.com', password: 'foobar') }

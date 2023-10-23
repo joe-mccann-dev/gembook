@@ -1,15 +1,21 @@
-<div class="container">
+<div data-controller="show-post" class="container">
+
   <%= render partial: 'profiles/profile', object: @profile || Profile.new, locals: { user: @user } %>
+
   <% if user_is_current_user?(@user) %>
-    <h3 class="users-heading profile-heading">Write a New Post</h3>
-    <div class="form-container">
-      <%= render partial: 'posts/post_form' %>
-    </div>
+    <%= render "posts/show_post_form_button" %>
+
     <h3 class="profile-heading">Your Posts</h3>
     <ul class="posts-collection">
-      <%= render partial: 'posts/post', collection: @posts %>
+      <%= turbo_frame_tag "posts-list" do %>
+        <%= render partial: 'posts/post', collection: @posts %>
+      <% end %>
     </ul>
+    <div class="paginate">
+      <%= paginate @posts if @posts.any? %>
+    </div>
   <% end %>
+
   <% if current_user.friends.include?(@user) %>
     <h3 class="users-heading profile-heading">Posts by <%= @user.full_name %></h3>
     <ul class="posts-collection">
@@ -22,4 +28,5 @@
   <% else %>
     <%= render 'send_or_accept_request'%>
   <% end %>
+
 </div>

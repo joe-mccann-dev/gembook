@@ -1,0 +1,6 @@
+  <button class="button new-post-button" data-show-post-target="postButton" data-action="click->show-post#showForm">
+    Show Post Form
+  </button>
+  <div data-show-post-target="postForm" class="form-container hidden">
+    <%= turbo_frame_tag "post_form", src: new_post_path %>
+  </div>

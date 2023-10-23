@@ -1,10 +1,11 @@
-<div class="container">
-  <h1 class="users-heading">Home</h1>
-  <div class="form-container">
-    <%= render partial: 'posts/post_form' %>
-  </div>
+<div data-controller="show-post" class="container">
+  <%= render "show_post_form_button" %>
+
+  <h1 class="users-heading">Recent Posts</h1>
   <ul class="posts-collection">
-    <%= render partial: 'posts/post', collection: @posts %>
+    <%= turbo_frame_tag "posts-list" do %>
+      <%= render partial: 'posts/post', collection: @posts %>
+    <% end %>
   </ul>
   <div class="paginate">
     <%= paginate @posts %>

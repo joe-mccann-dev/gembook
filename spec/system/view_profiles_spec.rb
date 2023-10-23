@@ -4,7 +4,7 @@ include UsersHelper
 RSpec.describe "ViewProfiles", type: :system do
 
   before do
-    driven_by(:rack_test)
+    driven_by(:selenium)
   end
 
   let!(:user) { User.create(first_name: 'foo', last_name: 'bar', email: 'foo@bar.com', password: 'foobar') }
@@ -21,6 +21,7 @@ RSpec.describe "ViewProfiles", type: :system do
         expect(current_path).to eq(user_path(user))
         expect(page).to have_content("You haven't created a profile yet.")
         click_link 'Create Profile'
+        expect(page).to have_content("Create a Profile")
         expect(current_path).to eq(new_user_profile_path(user))
       end
     end
@@ -30,29 +31,30 @@ RSpec.describe "ViewProfiles", type: :system do
         expect(current_path).to eq(user_path(user))
         expect(page).to have_content("You haven't created a profile yet.")
         click_link 'Create Profile'
+        expect(page).to have_content("Create a Profile")
         expect(current_path).to eq(new_user_profile_path(user))
         fill_in 'Bio', with: 'My name is Foo and I enjoy coffee and tea'
         fill_in 'Nickname', with: 'Fooey'
         fill_in 'Current City', with: 'Bartown'
         fill_in 'Hometown', with: 'Footown'
         image_1_file_path = "#{Rails.root}/spec/files/image_1.jpg"
-        find("#profile_profile_picture").click
-        attach_file(image_1_file_path)
+        attach_file("profile_profile_picture", image_1_file_path)
         
         click_on 'Submit Profile'
         expect(page).to have_content("You've successfully created your profile.")
         expect(page.current_path).to eq(user_path(user))
 
         click_link 'Edit Profile'
+        expect(page).to have_content("Edit Your Profile")
         expect(page.current_path).to eq(edit_user_profile_path(user))
 
         fill_in 'Bio', with: 'Updated Bio'
         fill_in 'Nickname', with: 'Updated Nickname'
         fill_in 'Current City', with: 'Updated Current City'
         image_2_file_path = "#{Rails.root}/spec/files/image_2.png"
-        attach_file(image_2_file_path)
-        find("#profile_profile_picture").click
+        attach_file("profile_profile_picture", image_2_file_path)
         click_on 'Submit Profile'
+        expect(page).to have_content(user.full_name)
         expect(page.current_path).to eq(user_path(user))
         expect(page).to have_content("You've successfully edited your profile.")
       end
@@ -108,16 +110,20 @@ RSpec.describe "ViewProfiles", type: :system do
         visit user_path(user)
       end
 
-      it "offers them a 'send friend request' link if they are not friends" do
+    it "offers them a 'send friend request' link if they are not friends" do
         link = "Send #{user.first_name} a friend request"
         expect(page).to have_content(link)
       end
 
       it 'shows a message after sending a friend request from profile page' do
-        link = "Send #{user.first_name} a friend request"
-        message = "You sent #{user.first_name} a friend request. Once they accept you'll be able to see their posts."
-        expect { click_link link }.to change { user.received_pending_requests.count }.from(0).to(1)
+        button_text = "Send #{user.first_name} a friend request"
+        message = "Friend request sent"
+        expect(user.received_pending_requests.count).to eq(0)
+        accept_confirm do
+          click_on button_text
+        end
         expect(page).to have_content(message)
+        expect(user.received_pending_requests.count).to eq(1)        
       end
     end
 
@@ -135,21 +141,26 @@ RSpec.describe "ViewProfiles", type: :system do
         accept_confirm do
           click_on "Add Friend"
         end
-        find('.logout-link').click
-        login_as(user, scope: :user)
 
+        click_on "Sign out"
+        fill_in "user_email", with: user.email
+        fill_in "user_password", with: user.password
+        click_on "Log in"
+
+        expect(page).to have_content("Recent Posts")
         visit user_path(other_user)
+        expect(page).to have_content(other_user.full_name)
         
         message = "#{other_user.first_name} sent you a friend request. Once you accept you'll be able to see their posts."
-        link = "Accept request"
+        button_text = "Accept friend request from #{other_user.first_name}"
         expect(page).to have_content(message)
-        expect(page).to have_content(link)
+        expect(page).to have_content(button_text)
 
         expect(user.received_accepted_requests.count).to eq(0)
         accept_confirm do
-          click_link link
+          click_on button_text
         end
-        expect(page).to have_content('Friendship accepted!', wait: 5)
+        expect(page).to have_content('Friendship accepted')
         expect(user.received_accepted_requests.count).to eq(1)
       end
     end
@@ -190,16 +201,22 @@ RSpec.describe "ViewProfiles", type: :system do
           click_on 'Add Friend'
         end
         
-        find('.logout-link').click
-        login_as(other_user, scope: :user)
+        click_on "Sign out"
+        fill_in "user_email", with: other_user.email
+        fill_in "user_password", with: other_user.password
+        click_on "Log in"
+        expect(page).to have_content("Recent Posts")
         visit user_path(user)
+        expect(page).to have_content(user.full_name)
+        button_text = "Accept friend request from #{user.first_name}"
+        expect(page).to have_button(button_text)
 
-        link = 'Accept request'
         accept_confirm do
-          click_link link
+          click_on button_text
         end
-        expect(page).to have_content('Friendship accepted!')
-        expect(page).to_not have_link(link)
+
+        expect(page).to have_content('Friendship accepted')
+        expect(page).to_not have_button(button_text)
       end
     end
   end

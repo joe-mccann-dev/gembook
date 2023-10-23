@@ -12,39 +12,68 @@ class FriendshipsController < ApplicationController
   after_action -> { mark_notification_read('Friendship', @sender_id) }, only: [:update]
 
   def create
-    @friendship = current_user.sent_pending_requests.build(receiver: @receiver)
-    if @friendship.save
-      flash[:success] = "Friend request sent to #{@receiver.first_name}"
-    else
-      flash[:warning] = 'Failed to send friend request. Please try again'
+    respond_to do |format|
+      if handle_declined_friendship
+        format.turbo_stream {}
+        format.html {
+          flash[:success] = "Friend request sent to #{@receiver.first_name}"
+          redirect_to request.referrer || root_url
+        }
+      else
+        flash[:warning] = 'Failed to send friend request. Please try again'
+        redirect_to request.referrer || root_url
+      end
     end
-    redirect_to request.referrer || root_url
   end
-
+  
   def update
     if @friendship.update(friendship_params)
-      flash[:success] = if @friendship.accepted?
-                          'Friendship accepted!'
-                        else
-                          'Friendship declined.'
-                        end
+      @message = @friendship.accepted? ? "Friendship accepted" : "Friendship declined"
+      respond_to do |format|
+        format.turbo_stream {}
+        format.html {
+          flash[:success] = @message
+          redirect_to request.referrer || root_url
+        }
+      end
     else
       flash[:warning] = 'Failed to accept or decline friendship'
+      redirect_to request.referrer || root_url
     end
-    redirect_to request.referrer || root_url
   end
 
   def destroy
     @friendship = Friendship.find(params[:id])
+    friend = @friendship.receiver == current_user ? @friendship.sender : @friendship.receiver
     if @friendship.destroy
-      flash[:info] = "You are no longer friends with #{params[:friend_name]}."
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.remove("friend-result-#{friend.id}") }
+        format.html {
+          flash[:info] = "You are no longer friends with #{params[:friend_name]}."
+          redirect_to request.referrer || root_url
+        }
+      end
     else
       flash[:warning] = "Failed to unfriend #{params[:friend_name]}."
+      redirect_to request.referrer || root_url
     end
-    redirect_to request.referrer || root_url
   end
 
   private
+
+  def handle_declined_friendship
+    declined_friendship = Friendship.find_by(sender_id: current_user.id, receiver_id: @receiver.id, status: "declined")
+    if declined_friendship && Friendship.friendship_declined.include?(declined_friendship)
+      declined_friendship.update(status: "pending")
+    else
+      create_friendship
+    end
+  end
+  
+  def create_friendship
+    @friendship = current_user.sent_pending_requests.build(receiver: @receiver)
+    @friendship.save
+  end
 
   def friendship_params
     params.require(:friendship).permit(:sender_id, :receiver_id, :status)

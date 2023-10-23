@@ -1,23 +1,33 @@
     
-<p>
   <% if friendable?(@user) %>
-    <%= link_to "Send #{@user.first_name} a friend request", 
-                    friendships_path(sender_id: current_user.id, receiver_id: @user.id),
-                    method: :post,
-                    data: { confirm: "Send #{@user.first_name} a friend request?"} %>
-    to see their posts.
+    <%= turbo_frame_tag "user-result-#{@user.id}" do %>
+      <%= button_to "Send #{@user.first_name} a friend request to see their posts.", 
+                      friendships_path(sender_id: current_user.id, receiver_id: @user.id),
+                      data: { turbo_confirm: "Send #{@user.first_name} a friend request?"},
+                      class: "button" %>
+      
+    <% end %>
   <% end %>
 
   <% if current_user.pending_requested_friends.include?(@user) %>
     <em>You sent <%= @user.first_name %> a friend request. Once they accept you'll be able to see their posts.</em>
   <% end %>
+  
+  <% if @friendship %>
+    <%= turbo_frame_tag "accept-friend-request-#{@friendship.id}" do %>
+      <% if current_user.pending_received_friends.include?(@user) %>
 
-  <% if current_user.pending_received_friends.include?(@user) %>
-    <em><%= @user.first_name %> sent you a friend request. Once you accept you'll be able to see their posts.</em>
-    <%= link_to "Accept request", 
-                    friendship_path(@friendship, friendship: { status: 'accepted' },
-                                                 notification: { id: @notification.id, time_sent: @notification.time_sent} ),
-                    method: :put,
-                    data: { confirm: "Accept friend request from #{@user.first_name}?"} %>
-  <% end %>
-</p>
+        <div class="container">          
+          <%= button_to "Accept friend request from #{@user.first_name} ", 
+              friendship_path(@friendship, friendship: { status: 'accepted' },
+                              notification: { id: @notification.id, time_sent: @notification.time_sent} ),
+                              method: :put,
+                              data: { turbo_confirm: "Accept friend request from #{@user.first_name}?" },
+                              class: "button" %>
+
+          <p><em><%= @user.first_name %> sent you a friend request. Once you accept you'll be able to see their posts.</em></p>
+        </div>
+      <% end %>
+    <% end %>
+  <%end %>
+

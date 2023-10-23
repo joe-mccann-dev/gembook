@@ -11,9 +11,14 @@ class CommentsController < ApplicationController
 
   def create
     if @comment.save
-      flash[:success] = "Successfully created comment"
       html_id = "#comment-#{@comment.id}"
-      redirect_to "#{request.referrer}#{html_id}" || root_url
+      respond_to do |format|
+        format.turbo_stream {}
+        format.html {
+          flash[:success] = "Successfully created comment"
+          redirect_to "#{request.referrer}#{html_id}" || root_url
+        }
+      end
     else
       flash[:warning] = "Failed to create comment"
       render :new
@@ -30,21 +35,29 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update(comment_params)
-      flash[:success] = 'Comment successfully edited.'
-      redirect_to polymorphic_path(@comment.commentable)
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(@comment) }
+        format.html { 
+          redirect_to polymorphic_path(@comment.commentable)
+          flash[:success] = "Comment was successfully updated"
+        }
+      end
     else
       render :edit
-      flash[:warning] = 'Failed to update comment.'
+      flash[:warning] = "Failed to update comment"
     end
   end
 
   def destroy
     if @comment.destroy
-      flash[:info] = 'Comment successfully removed.'
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.remove(@comment) }
+        format.html { flash[:info] = "Comment was successfully removed" }
+      end
     else
       flash[:warning] = "Failed to remove comment."
+      redirect_to polymorphic_path(@comment.commentable)
     end
-    redirect_to polymorphic_path(@comment.commentable)
   end
 
 

@@ -1,8 +1,8 @@
 <div class="container">
-  <div class="page-container">
-    <p> New Post</p>
-    <div class="form-container">
-      <%= render partial: 'posts/post_form' %>
-    </div>
+  <p> New Post</p>
+  <div class="form-container">
+    <%= turbo_frame_tag "post_form" do %>
+	    <%= render partial: 'posts/post_form' %>
+    <% end %>
   </div>
 </div>

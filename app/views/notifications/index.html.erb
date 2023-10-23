@@ -2,7 +2,7 @@
   <div class="page-container">
     <h1 class="users-heading">Notifications for <%= current_user.first_name %></h1>
     <% if @notifications.unread.any? %>
-      <%= button_to "Dismiss all", dismiss_all_notifications_path, data: { confirm: 'Dismiss all notifications?'}, class: 'submit' %>
+      <%= button_to "Dismiss all", dismiss_all_notifications_path, data: { turbo_confirm: 'Dismiss all notifications?'}, class: "button" %>
     <% else %>
       <%= content_tag(:em, 'All Caught Up') %>
       <div>
@@ -16,10 +16,10 @@
         </div>
       </div>
     <% end %>
-    <ul class="notifications-collection">
+    <ul data-controller="notification-count" class="notifications-collection">
       <% @notifications.unread.each do |notification| %>
-        <%= show_notification(notification) %>
+        <%= show_notification(notification, @friendships[notification.sender.id] ) %>
       <% end %>
-      <ul>
+    <ul>
       </div>
     </div>

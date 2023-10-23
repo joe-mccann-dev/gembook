@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Adding Friends', type: :system do
   before do
-    driven_by(:selenium_headless)
+    driven_by(:selenium)
   end
 
   let!(:user) { User.create(first_name: 'john', last_name: 'smith', email: 'john@smith.com', password: 'foobar') }
@@ -20,7 +20,7 @@ RSpec.describe 'Adding Friends', type: :system do
       accept_confirm do
         find("#friend-#{other_user.id}").click
       end
-      expect(page).to have_content("Friend request sent to #{other_user.first_name}")
+      expect(page).to have_content("Friend request sent")
       expect(user.sent_pending_requests.count).to eq(1)
     end
 
@@ -28,7 +28,7 @@ RSpec.describe 'Adding Friends', type: :system do
       accept_confirm do
         find("#friend-#{another_user.id}").click
       end
-      expect(page).to have_content("Friend request sent to #{another_user.first_name}")
+      expect(page).to have_content("Friend request sent")
       expect(user.sent_pending_requests.count).to eq(1)
     end
   end

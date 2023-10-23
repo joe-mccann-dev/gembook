@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "DismissNotifications", type: :system do
   before do
-    driven_by(:selenium_headless)
+    driven_by(:selenium)
   end
 
   let!(:friend_requester) { User.create(first_name: 'notified', last_name: 'user', email: 'notified@user.com', password: 'foobar') }
@@ -21,16 +21,22 @@ RSpec.describe "DismissNotifications", type: :system do
         find("#friend-#{user.id}").click
       end
       
-      find('.logout-link').click
-      login_as(user, scope: :user)
+      click_on "Sign out"
+      fill_in "user_email", with: user.email
+      fill_in "user_password", with: user.password
+      click_on "Log in"
+      expect(page).to have_content "Recent Posts"
       visit notifications_path
 
       expect(page).to have_button("Accept")
       expect(page).to have_button("Decline")
-      expect(page).to have_button("Dismiss")
 
       expect(user.received_notifications.unread).to_not be_empty
       click_on "Dismiss"
+
+      expect(page).to_not have_button("Accept")
+      expect(page).to_not have_button("Decline")
+      
       expect(user.received_notifications.unread).to be_empty
     end
   end

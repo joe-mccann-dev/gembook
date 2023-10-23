@@ -1,7 +1,9 @@
-<li class="result">
-  <div class="name-and-icon">
-    <%= render partial: 'user_icon', locals: { user: friend } %>
-    <%= link_to friend.full_name, user_path(friend) %>
-  </div>
-  <%= render partial: 'unfriend_button', locals: { friend: friend } %>
-</li>
+<%= turbo_frame_tag "friend-result-#{friend.id}" do %>
+  <li class="result", id="friend-result-<%= @friendship.id %>">
+    <div class="name-and-icon">
+      <%= render partial: 'user_icon', locals: { user: friend } %>
+      <%= link_to friend.full_name, user_path(friend), data: { turbo: false } %>
+    </div>
+    <%= render partial: 'unfriend_button', locals: { friend: friend } %>
+  </li>
+<% end %>

@@ -5,7 +5,7 @@
               method: :delete,
               class: "unfriend button",
               id: "unfriend-#{friend.id}",
-              data: { confirm: "You will no longer be friends with #{friend.first_name}. Continue?" } do %>
+              data: { turbo_confirm: "You will no longer be friends with #{friend.first_name}. Continue?" } do %>
     <div class="link-group add-friend-icon-container">
       <ion-icon class="add-friend-icon" name="person-circle-outline"></ion-icon>
       <span class="add-friend-text">unfriend</span>

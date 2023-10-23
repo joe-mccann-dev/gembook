@@ -1,12 +1,14 @@
-<li class="individual-notification">
-  <div class="description-and-time">
-    <p class="notification-description">
-      <%= link_to notification.sender.full_name, notification.sender %>
-      <%= link_to notification.description, notification.object_url, class: "standard-description-link" %>
-    </p>
-    <p class="time"><em><%= time_ago_in_words(notification.created_at) %> ago</em></p>
-  </div>
-  <div class="dismiss">
-    <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
-  </div>
-</li>
+<%= turbo_frame_tag "dismiss-notification-#{notification.id}" do %>
+    <li class="individual-notification">
+      <div class="description-and-time">
+        <p class="notification-description">
+          <%= link_to notification.sender.full_name, notification.sender, data: { turbo: false } %>
+          <%= link_to notification.description, notification.object_url, class: "standard-description-link", data: { turbo: false } %>
+        </p>
+        <p class="time"><em><%= time_ago_in_words(notification.created_at) %> ago</em></p>
+      </div>
+      <div class="dismiss">
+        <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
+      </div>
+    </li>
+<% end %>

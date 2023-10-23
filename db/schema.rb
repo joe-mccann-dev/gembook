@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_24_053144) do
-
+ActiveRecord::Schema[7.0].define(version: 2023_09_29_165058) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,8 +21,8 @@ ActiveRecord::Schema.define(version: 2023_09_24_053144) do
     t.bigint "resource_id"
     t.string "author_type"
     t.bigint "author_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
@@ -46,7 +45,7 @@ ActiveRecord::Schema.define(version: 2023_09_24_053144) do
     t.text "metadata"
     t.string "service_name", null: false
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false
+    t.string "checksum"
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
@@ -63,8 +62,8 @@ ActiveRecord::Schema.define(version: 2023_09_24_053144) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
@@ -74,8 +73,9 @@ ActiveRecord::Schema.define(version: 2023_09_24_053144) do
     t.string "commentable_type"
     t.bigint "commentable_id"
     t.text "content", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "parent_comment_id"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -84,19 +84,19 @@ ActiveRecord::Schema.define(version: 2023_09_24_053144) do
     t.integer "status", default: 0
     t.integer "sender_id"
     t.integer "receiver_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["receiver_id"], name: "index_friendships_on_receiver_id"
     t.index ["sender_id", "receiver_id"], name: "index_friendships_on_sender_id_and_receiver_id", unique: true
     t.index ["sender_id"], name: "index_friendships_on_sender_id"
   end
 
   create_table "likes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "likeable_type"
     t.bigint "likeable_id"
     t.bigint "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
     t.index ["user_id", "likeable_type", "likeable_id"], name: "index_likes_on_user_id_and_likeable_type_and_likeable_id", unique: true
     t.index ["user_id"], name: "index_likes_on_user_id"
@@ -108,9 +108,9 @@ ActiveRecord::Schema.define(version: 2023_09_24_053144) do
     t.boolean "read", default: false
     t.string "object_type"
     t.string "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.string "time_sent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "object_url"
     t.index ["receiver_id"], name: "index_notifications_on_receiver_id"
     t.index ["sender_id"], name: "index_notifications_on_sender_id"
@@ -119,8 +119,8 @@ ActiveRecord::Schema.define(version: 2023_09_24_053144) do
   create_table "posts", force: :cascade do |t|
     t.bigint "user_id"
     t.text "content"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -130,8 +130,8 @@ ActiveRecord::Schema.define(version: 2023_09_24_053144) do
     t.string "bio"
     t.string "current_city"
     t.string "hometown"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
@@ -143,8 +143,8 @@ ActiveRecord::Schema.define(version: 2023_09_24_053144) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "provider"
     t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true

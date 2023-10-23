@@ -16,11 +16,13 @@
         <% end %>
         <%= @comment.commentable.content %></p>
     </div>
-    <%= form_with(model: [@comment.commentable, @comment]) do |f| %>
-      <%= render 'shared/error_messages', object: f.object %>
-      <%= f.text_area :content, id: "#{object_to_s(@comment.commentable)}-#{@comment.commentable.id}-comment" %>
-      <br>
-      <%= f.submit "Edit Comment" %>
+    <%= turbo_frame_tag(@comment) do %>
+      <%= form_with(model: [@comment.commentable, @comment], method: :put) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        <%= f.text_area :content, id: "#{object_to_s(@comment.commentable)}-#{@comment.commentable.id}-comment" %>
+        <br>
+        <%= f.submit "Edit Comment" %>
+      <% end %>
     <% end %>
   </div>
 </div>

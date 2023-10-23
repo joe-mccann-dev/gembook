@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "DeletePosts", type: :system do
   before do
-    driven_by(:rack_test)
+    driven_by(:selenium)
   end
 
   let!(:user) { User.create(first_name: 'foo', last_name: 'bar', email: 'foo@bar.com', password: 'foobar') }
@@ -17,41 +17,40 @@ RSpec.describe "DeletePosts", type: :system do
 
       post_content = 'This is my first post. Might delete later'
 
+      click_on "Show Post Form"
       fill_in 'post_content', with: post_content
       
       click_on 'Post'
       visit posts_path
-      expect(page).to have_content(post_content)
-      expect(page).to have_link('delete post')
 
-      expect { click_link 'delete post' }.to change { user.posts.count }.from(1).to(0)
+      expect(page).to have_content(post_content)
+      expect(user.posts.count).to eq(1)
+
+      accept_confirm do
+        click_on "delete post"
+      end
+
+      expect(page).to have_no_content(post_content)
+      expect(user.posts.count).to eq(0)
     end
 
     it 'allows them to delete it from their profile page' do
       visit user_path(user)
 
       post_content = 'This is a post from my profile page.'
-
+      click_on "Show Post Form"
       fill_in 'post_content', with: post_content
       click_on 'Post'
       
       expect(page).to have_content(post_content)
-      expect(page).to have_link('delete post')
+      expect(user.posts.count).to eq(1)
 
-      expect { click_link 'delete post' }.to change { user.posts.count }.from(1).to(0)
-    end
+      accept_confirm do
+        click_on "delete post"
+      end
 
-
-    it 'redirects to the root_url' do
-      visit user_path(user)
-
-      post_content = 'This is a post from my profile page.'
-
-      fill_in 'post_content', with: post_content
-      click_on 'Post'
-
-      click_link 'delete post'
-      expect(page.current_path).to eq("/")
+      expect(page).to have_no_content(post_content)
+      expect(user.posts.count).to eq(0)
     end
   end
 end

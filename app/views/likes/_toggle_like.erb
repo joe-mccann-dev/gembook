@@ -1,0 +1,14 @@
+<% if @liked_object.is_a?(Comment) %>
+  <%= turbo_stream.replace "comment-#{@liked_object.id}-likes" do %>
+    <%= turbo_frame_tag @liked_object do %>
+      <%= render partial: "likes/comment_likes_collection", locals: { comment: @liked_object } %>
+    <% end %>
+  <% end %>
+
+<% else %>
+  <%= turbo_stream.replace "post-#{@liked_object.id}-likes" do %>
+    <%= turbo_frame_tag @liked_object do %>
+      <%= render partial: "likes/post_likes_collection", locals: { post: @liked_object } %>
+    <% end %>
+  <% end %>
+<% end %>

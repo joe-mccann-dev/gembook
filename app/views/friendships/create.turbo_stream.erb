@@ -1,0 +1,3 @@
+<%= turbo_stream.replace("user-result-#{@receiver.id}") do %>
+  <%= render partial: "users/add_friend_button", locals: { user: @receiver }%>
+<% end %>

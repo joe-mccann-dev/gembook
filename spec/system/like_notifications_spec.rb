@@ -4,7 +4,7 @@ include UsersHelper
 
 RSpec.describe 'LikeNotifications', type: :system do
   before do
-    driven_by(:rack_test)
+    driven_by(:selenium)
   end
 
   let!(:user) { User.create(first_name: 'foo', last_name: 'bar', email: 'foo@bar.com', password: 'foobar') }
@@ -22,29 +22,43 @@ RSpec.describe 'LikeNotifications', type: :system do
     end
 
     it "allows the user to 'like' the post" do
-      expect { find("#post-#{post.id}-like").click }.to change { post.likes.count }.from(0).to(1)
+      expect(post.likes.count).to eq(0)
+
+      find("#post-#{post.id}-like").click
+      find(".thumb-filled")
+
+      expect(post.likes.count).to eq(1)
     end
 
     it 'sends the author of the post a notification' do
-      expect { find("#post-#{post.id}-like").click }.to change { user.received_notifications.count }.from(0).to(1)
+      expect(user.received_notifications.count).to eq(0)
+
+      find("#post-#{post.id}-like").click
+      find(".thumb-filled")
+
+      expect(user.received_notifications.count).to eq(1)
     end
 
     it "allows the author of the post to see their 'user liked your post' notfication" do
       find("#post-#{post.id}-like").click
+      find(".thumb-filled")
 
       logout(other_user, scope: :user)
       login_as(user, scope: :user)
       visit notifications_path
+
       expect(page).to have_content("#{other_user.full_name}")
       expect(page).to have_link('liked your post')
     end
 
     it 'allows the user to click on a link to the original post' do
       find("#post-#{post.id}-like").click
+      find(".thumb-filled")
 
       logout(other_user, scope: :user)
       login_as(user, scope: :user)
       visit notifications_path
+
       expect(page).to have_content("#{other_user.full_name}")
       expect(page).to have_link('liked your post')
       click_link('liked your post')
@@ -59,16 +73,27 @@ RSpec.describe 'LikeNotifications', type: :system do
       visit posts_path
     end
     
-    it "allows the user to 'like' the post" do
-      expect { find("#comment-#{comment.id}-like").click }.to change { comment.likes.count }.from(0).to(1)
+    it "allows the user to 'like' the comment" do
+      expect(comment.likes.count).to eq(0)
+
+      find("#comment-#{comment.id}-like").click
+      find(".thumb-filled")
+
+      expect(comment.likes.count).to eq(1)
     end
 
     it 'sends the author of the comment a notification' do
-      expect { find("#comment-#{comment.id}-like").click }.to change { other_user.received_notifications.count }.from(0).to(1)
+      expect(other_user.received_notifications.count).to eq(0)
+
+      find("#comment-#{comment.id}-like").click
+      find(".thumb-filled")
+
+      expect(other_user.received_notifications.count).to eq(1)
     end
 
     it "allows the author of the post to see their 'user liked your comment' notfication" do
       find("#comment-#{comment.id}-like").click
+      find(".thumb-filled")
 
       logout(user, scope: :user)
       login_as(other_user, scope: :user)
@@ -80,6 +105,7 @@ RSpec.describe 'LikeNotifications', type: :system do
 
     it 'allows the user to click on a link to the original comment' do
       find("#comment-#{comment.id}-like").click
+      find(".thumb-filled")
 
       logout(user, scope: :user)
       login_as(other_user, scope: :user)

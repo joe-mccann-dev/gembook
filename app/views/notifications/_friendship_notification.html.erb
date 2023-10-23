@@ -1,33 +1,22 @@
 <% if notification.description == 'new friend request' %>
-  <li class="individual-notification">
-    <div class="description-and-time">
-      <p class="notification-description">
-        <%= notification.description %> from 
-        <%= link_to notification.sender.full_name, notification.sender %>
-      </p>
-      <p>
-        <em><%= time_ago_in_words(notification.created_at) %> ago</em>
-      </p>
-    </div>
-    <div class="request-controls">
-      <%= render partial: 'friendship_accept', locals: { notification: notification } %>
-      <%= render partial: 'friendship_decline', locals: { notification: notification } %>
-      <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
-    </div>
-  </li>
+    <%= turbo_frame_tag "accept-friend-request-#{friendship.id}" do %> 
+      <li class="individual-notification">
+        <div class="description-and-time">
+          <p class="notification-description">
+            <%= notification.description %> from 
+            <%= link_to notification.sender.full_name, notification.sender, data: { turbo: false } %>
+          </p>
+          <p>
+            <em><%= time_ago_in_words(notification.created_at) %> ago</em>
+          </p>
+        </div>
+        <div class="request-controls">
+          <%= render partial: 'friendship_accept', locals: { notification: notification } %>
+          <%= render partial: 'friendship_decline', locals: { notification: notification } %>
+          <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
+        </div>
+      </li> 
+    <% end %>
 <% else %>
-  <li class="individual-notification">
-    <div class="description-and-time">
-      <p class="notification-description">
-        <%= link_to notification.sender.full_name, notification.sender %>
-        <%= notification.description %>
-      </p>
-      <p>
-        <em><%= time_ago_in_words(notification.created_at) %> ago</em>
-      </p>
-    </div>
-    <div class="dismiss">
-      <%= render partial: 'dismiss_notification_button', locals: { notification: notification } %>
-    </div>
-  </li>
+    <%= render partial: "standard_notification", locals: { notification: notification } %>
 <% end %>

@@ -1,0 +1,11 @@
+<%= turbo_stream.prepend "posts-list", class: "posts-collection" do %>
+  <%= turbo_stream_from "posts-list" %>
+
+  <%= turbo_frame_tag @post, 
+                      "data-autoscroll-behavior": "smooth", 
+                      "data-controller": "scroll-to-item", 
+                      "data-scroll-to-item-target": "item" do %>
+                      
+      <%= render "posts/post", post: @post %>
+  <% end %>
+<% end %> 

@@ -23,6 +23,12 @@
   flex-direction: column;
 }
 
+.friends-and-other-users {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .result {
   padding: 1rem;
   width: 100%;
@@ -69,7 +75,7 @@
 }
 
 .add-friend:hover {
-  box-shadow: 0 0 0 2px var(--yellow-orange);
+  box-shadow: 0 0 0 2px var(--yellow);
   transition: box-shadow .3s ease-in-out;
 }
 
@@ -78,7 +84,7 @@
 }
 
 .add-friend:focus, .unfriend:focus {
-  box-shadow: 0 0 0 2px var(--yellow-orange)
+  box-shadow: 0 0 0 2px var(--yellow)
 }
 
 .add-friend-icon {

@@ -3,4 +3,5 @@
                 method: :put,
                 params: { notification: { id: notification.id }, friendship: { status: 'declined' } },
                 class: "button decline-request",
+                data: { action: "click->notification-count#decrementNotificationCount" },
                 id: "decline-sender-#{notification.sender.id}-request" %>

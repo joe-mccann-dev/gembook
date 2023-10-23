@@ -1,9 +1,8 @@
 <div class="form new-post">
-  <p><em>Post some text, an image, or both.</em></p>
-  <%= form_with(model: @post) do |f| %>
+  <%= form_with(model: @post, data: { controller: "post-form"}) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
     <div class="field">
-      <%= f.text_area :content, rows: 7, placeholder: "Enter some interesting text . . .", class: 'post-text-area' %>
+      <%= f.text_area :content, required: true, minlength: 10, maxlength: 10000, rows: 7, placeholder: "Enter some interesting text . . .", class: 'post-text-area', data: { "post-form-target": "textArea"} %>
     </div>
     <div class="field image-upload">
       <label class="image-label">
@@ -11,12 +10,12 @@
           <div class="icon-container">
             <ion-icon class="image-icon" name="image"></ion-icon>
           </div>
-          <%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg,image/jpg', class: 'file-field' %>
+          <%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg,image/jpg', class: 'file-field', data: { "post-form-target": "fileInput" } %>
         </div>
       </label>
     </div>
-    <div class="field">
-      <%= f.submit "Post", class: 'button-post button submit' %>
+    <div data-action="click->show-post#showForm" class="field">
+      <%= f.submit "Post", class: 'button-post button submit', data: { action: "click->post-form#validate"} %>
     </div>
   <% end %>
 </div>

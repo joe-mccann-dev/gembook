@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "UpdateUsers", type: :system do
   before do
-    driven_by(:rack_test)
+    driven_by(:selenium)
   end
 
   let!(:registered_with_email) { User.create(first_name: 'foo', last_name: 'bar', email: 'foo@bar.com', password: 'foobar') }
@@ -11,8 +11,8 @@ RSpec.describe "UpdateUsers", type: :system do
   context 'A user who signed up with their email wants to update their information' do
     before do
       login_as(registered_with_email, scope: :user)
-      visit root_url
-      click_link 'foo bar'
+      visit posts_path
+      click_link "Settings"
     end
 
     it 'allows them to update their password' do
@@ -28,8 +28,8 @@ RSpec.describe "UpdateUsers", type: :system do
   context 'A user who signed up with GitHub wants to update their information' do
     before do
       login_as(registered_with_github, scope: :user)
-      visit root_url
-      click_link 'github user'
+      visit posts_path
+      click_link "Settings"
     end
 
     it 'does not allow them to update their password' do
