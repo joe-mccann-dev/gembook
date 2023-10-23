@@ -84,6 +84,6 @@ test:
 production:
   <<: *default
   database: rails_facebook_production
-  username: rails_facebook
+  username: rails_facebook_production_vxks_user
   password: <%= ENV['RAILS_FACEBOOK_DATABASE_PASSWORD'] %>
   url: <%= ENV['DATABASE_URL'] %>
