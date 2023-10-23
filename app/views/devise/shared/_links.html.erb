@@ -4,10 +4,10 @@
   <% end %>
   <%- if devise_mapping.omniauthable? %>
     <%- resource_class.omniauth_providers.each do |provider| %>
-      <%= button_to omniauth_authorize_path(resource_name, provider), data: { turbo: false }, class: "button"  do %>
+      <%= link_to omniauth_authorize_path(resource_name, provider), data: { turbo: false }, method: :post do %>
         <div class="provider-link">
           <ion-icon class="github-icon" name="logo-<%= provider %>"></ion-icon>
-          Sign in with GitHub
+          Sign in with <%= OmniAuth::Utils.camelize(provider) %>
         </div>
       <% end %>
     <% end %>

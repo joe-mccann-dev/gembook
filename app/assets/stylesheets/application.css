@@ -424,6 +424,7 @@ p {
 }
 
 .button-cancel {
+ padding: 6px 12px;
  background-color: var(--red);
  color: var(--light-blue);
 }
