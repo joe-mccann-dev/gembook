@@ -1,3 +1,5 @@
+require "down"
+
 class Profile < ApplicationRecord
   default_scope { includes(profile_picture_attachment: :blob) }
   belongs_to :user
