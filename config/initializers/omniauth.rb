@@ -1,1 +1,1 @@
-OmniAuth.config.allowed_request_methods = %i[get]
+OmniAuth.config.allowed_request_methods = [:post]

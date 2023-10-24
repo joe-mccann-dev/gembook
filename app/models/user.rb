@@ -82,10 +82,10 @@ class User < ApplicationRecord
     oauth_user = where(provider: auth.provider, uid: auth.uid).first_or_initialize do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
-      user.first_name = auth.info.name.split.first
+      user.first_name = auth.info.name.split.first || "#{auth.provider}"
       # A Github user without a name will send github username as 'name'.
       # Set as emtpy string if user.last_name returns nil
-      user.last_name = auth.info.name.split.second || ''
+      user.last_name = auth.info.name.split.second || "user-#{auth.uid}"
       # user.skip_confirmation!
     end
     UserMailer.welcome_email(oauth_user).deliver if oauth_user.new_record? && oauth_user.save
