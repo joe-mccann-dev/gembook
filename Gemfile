@@ -4,7 +4,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.2.2"
 
 gem 'image_processing', '~> 1.2'
-gem "aws-sdk-s3", require: false
 gem 'active_storage_validations'
 gem 'activeadmin'
 gem 'devise'
@@ -95,4 +94,8 @@ end
 
 group :test, :development do
   gem 'rspec-rails'
+end
+
+group :production do
+  gem "aws-sdk-s3"
 end
