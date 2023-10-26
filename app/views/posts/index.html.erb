@@ -1,12 +1,24 @@
 <div data-controller="show-post" class="container">
-  <%= render "show_post_form_button" %>
-
-  <h1 class="users-heading">Recent Posts</h1>
-  <ul class="posts-collection">
-    <%= turbo_frame_tag "posts-list" do %>
-      <%= render partial: 'posts/post', collection: @posts %>
-    <% end %>
-  </ul>
+  <%= render "show_post_form_button" %>  
+  <% if @posts.any? %>
+    <h1 class="users-heading">Recent Posts</h1>
+    <ul class="posts-collection">
+      <%= turbo_frame_tag "posts-list" do %>
+        <%= render partial: 'posts/post', collection: @posts %>
+      <% end %>
+    </ul>
+  <% else %>      
+    <p><strong><em>Your posts and your friends' posts will show up here</em></strong></p>
+    <h2 class="users-heading">About Gembook</h2>
+    <p>Gembook is like a hybrid between Facebook and Instagram. You have friendships like on Facebook, but content is focused on long form text and image posts.</p>
+    <p>Discussion is also streamlined with nested comments and replies, with lines indicating who responded to what and where.</p>
+    <p>To post something click the <strong><em>Show Post Form</em></strong> button above. Posts can include text or an image with associated text</p>
+    <p>
+      Friendships are managed via the <%= link_to "Friends", users_path %> tab. 
+      You can also view or edit <%= link_to "your profile", user_path(current_user) %>,
+      or visit the <%= link_to "notifications", notifications_path %> area.
+    </p>
+  <% end %>
   <div class="paginate">
     <%= paginate @posts %>
   </div>
