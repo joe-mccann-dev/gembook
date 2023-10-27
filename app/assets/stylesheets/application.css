@@ -108,7 +108,10 @@ nav.pagination span {
 .nav-links li a {
  font-size: 1.2rem;
  color: var(--dark-blue);
- display: inline-block;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ gap: 2px;
  padding: 0 1rem;
 }
 
@@ -116,6 +119,7 @@ nav.pagination span {
  color: var(--light-blue);
  transition: color .3s ease-in-out;
 }
+
 
 .hamburger {
  display: none;
